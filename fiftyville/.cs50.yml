@@ -1,0 +1,7 @@
+check50:
+  files:
+    - !exclude "*"
+    - !require "answers.txt"
+    - !require "log.sql"
+  dependencies:
+    - sqlparse
