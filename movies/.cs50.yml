@@ -17,3 +17,4 @@ check50:
     - !require 13.sql
   dependencies:
     - sqlparse
+    - cs50

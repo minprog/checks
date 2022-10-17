@@ -5,3 +5,4 @@ check50:
     - !require "log.sql"
   dependencies:
     - sqlparse
+    - cs50
