@@ -3,6 +3,3 @@ check50:
     - !exclude "*"
     - !require "answers.txt"
     - !require "log.sql"
-  dependencies:
-    - sqlparse
-    - cs50
