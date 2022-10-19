@@ -1,5 +1,6 @@
 import check50
 import check50.c
+import os
 
 
 @check50.check()
@@ -11,7 +12,9 @@ def exists():
 @check50.check(exists)
 def compiles():
     """speller compiles"""
-    check50.include("speller.c", "Makefile")
+    check50.include("speller.c")
+    if not os.path.exists("Makefile"):
+        check50.includes("Makefile")
     check50.run("make").exit(0)
 
 
