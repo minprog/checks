@@ -14,7 +14,7 @@ def compiles():
     """speller compiles"""
     check50.include("speller.c")
     if not os.path.exists("Makefile"):
-        check50.includes("Makefile")
+        check50.include("Makefile")
     check50.run("make").exit(0)
 
 
