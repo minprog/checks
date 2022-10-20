@@ -1,9 +1,11 @@
 import check50
 import sqlparse
+import imp
 
 @check50.check()
 def exists():
     """SQL files exists"""
+    imp.reload("jinja2")
     for i in range(1, 14):
         check50.exists(f"{i}.sql")
     check50.include("movies.db")
