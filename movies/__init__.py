@@ -1,12 +1,9 @@
 import check50
 import sqlparse
-import imp
-import flask
 
 @check50.check()
 def exists():
     """SQL files exists"""
-    imp.reload(flask)
     for i in range(1, 14):
         check50.exists(f"{i}.sql")
     check50.include("movies.db")
