@@ -16,6 +16,5 @@ check50:
     - !require 12.sql
     - !require 13.sql
   dependencies:
-    - Flask>=2.2.0
     - sqlparse>=0.4
     - cs50
