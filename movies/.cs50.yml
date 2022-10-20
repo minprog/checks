@@ -18,3 +18,4 @@ check50:
   dependencies:
     - sqlparse
     - cs50
+    - Flask>=2.1.0
