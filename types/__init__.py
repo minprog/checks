@@ -2,8 +2,8 @@ import check50
 
 @check50.check()
 def exists():
-    """mario.py, readability.py and dna.py exist."""
-    check50.exists("mario.py", "readability.py", "dna.py")
+    """mario.py, readability.py and schuifpuzzel.py exist."""
+    check50.exists("mario.py", "readability.py", "schuifpuzzel.py")
 
 @check50.check(exists)
 def mario_passes_mypy():
@@ -21,7 +21,7 @@ def readability_passes_mypy():
 
 @check50.check(exists)
 def dna_passes_mypy():
-    """dna passes type checks."""
-    (check50.run("mypy --strict dna.py")
+    """schuifpuzzel passes type checks."""
+    (check50.run("mypy --strict schuifpuzzel.py")
         .stdout("Success: no issues found in 1 source file")
         .exit(0))

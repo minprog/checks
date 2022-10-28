@@ -3,4 +3,4 @@ check50:
     - !exclude "*"
     - !require "mario.py"
     - !require "readability.py"
-    - !require "dna.py"
+    - !require "schuifpuzzel.py"
