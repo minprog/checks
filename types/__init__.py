@@ -9,19 +9,19 @@ def exists():
 def mario_passes_mypy():
     """mario passes type checks."""
     (check50.run("mypy --strict --ignore-missing-imports mario.py")
-        .stdout("Success: no issues found in 1 source file")
+        .stdout("Success: no issues found in 1 source file", timeout=10)
         .exit(0))
 
 @check50.check(exists)
 def readability_passes_mypy():
     """readability passes type checks."""
     (check50.run("mypy --strict --ignore-missing-imports readability.py")
-        .stdout("Success: no issues found in 1 source file")
+        .stdout("Success: no issues found in 1 source file", timeout=10)
         .exit(0))
 
 @check50.check(exists)
 def dna_passes_mypy():
     """schuifpuzzel passes type checks."""
     (check50.run("mypy --strict --ignore-missing-imports schuifpuzzel.py")
-        .stdout("Success: no issues found in 1 source file")
+        .stdout("Success: no issues found in 1 source file", timeout=10)
         .exit(0))
