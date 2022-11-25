@@ -12,7 +12,7 @@ from collections import Counter
 @check50.check()
 def test_kalender():
     """runnen van tests voor kalender"""
-    with logged_check_factory("python -m pytest --color=no -v") as run_check:
+    with logged_check_factory("python3 -m pytest --color=no -v") as run_check:
         run_check().stdin('')
 
 class Stream:
