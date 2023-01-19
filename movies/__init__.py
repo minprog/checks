@@ -114,15 +114,10 @@ def test12():
 @check50.check(exists)
 def test13():
     """13.sql produces correct result"""
-    result = run_query("13.sql")
-    results = [str(list(row.values())[0]) for row in result]
-
-    if results.count("Bill Paxton") != 2:
-        raise check50.Failure(f"please take care to differentiate between different people with the same name")
-
-    check_single_col(result,
+    # this check is not dependent on DISTINCT
+    check_single_col(run_query("13.sql"),
         {"Bill Paxton", "Gary Sinise", "James McAvoy", "Jennifer Lawrence",
-         "Tom Cruise", "Michael Fassbender", "Tom Hanks", "Bill Paxton"},
+         "Tom Cruise", "Michael Fassbender", "Tom Hanks"},
         ordered=False)
 
 def run_query(filename):
