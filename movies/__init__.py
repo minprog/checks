@@ -78,22 +78,20 @@ def test8():
 @check50.check(exists)
 def test9():
     """9.sql produces correct result"""
+    # this check is not dependent on using DISTINCT or not (on purpose, to
+    # not cause trouble when students use either INNER JOIN or subqueries)
     check_single_col(run_query("9.sql"),
         ["Craig T. Nelson", "Richard Griffifths", "Samuel L. Jackson", "Holly Hunter",
-         "Jason Lee", "Rupert Grint", "Daniel Radcliffe", "Emma Watson", "Daniel Radcliffe"],
+         "Jason Lee", "Rupert Grint", "Daniel Radcliffe", "Emma Watson"],
         ordered=True)
 
 @check50.check(exists)
 def test10():
     """10.sql produces correct result"""
-    result = run_query("10.sql")
-    results = [str(list(row.values())[0]) for row in result]
-
-    if results.count("Christopher Nolan") != 2:
-        raise check50.Failure(f"please take care to differentiate between different people with the same name")
-
-    check_single_col(result,
-        {"Christopher Nolan", "Frank Darabont", "Yimou Zhang", "Christopher Nolan"},
+    # this check is not dependent on using DISTINCT or not (on purpose, to
+    # not cause trouble when students use either INNER JOIN or subqueries)
+    check_single_col(run_query("10.sql"),
+        {"Christopher Nolan", "Frank Darabont", "Yimou Zhang"},
         ordered=False)
 
 @check50.check(exists)
@@ -114,7 +112,8 @@ def test12():
 @check50.check(exists)
 def test13():
     """13.sql produces correct result"""
-    # this check is not dependent on DISTINCT
+    # this check is not dependent on using DISTINCT or not (on purpose, to
+    # not cause trouble when students use either INNER JOIN or subqueries)
     check_single_col(run_query("13.sql"),
         {"Bill Paxton", "Gary Sinise", "James McAvoy", "Jennifer Lawrence",
          "Tom Cruise", "Michael Fassbender", "Tom Hanks"},
