@@ -1,5 +1,7 @@
 import check50
 import check50.c
+import re
+
 
 @check50.check()
 def exists():
@@ -10,10 +12,16 @@ def exists():
 @check50.check(exists)
 def compiles():
     """tiles.c compiles."""
+    with open("tiles.c", "r") as f:
+        content = f.read()
+    
     # Remove sleeps from student code
-    check50.run("sed -i='' '/#include <unistd.h>/a \\\n#define usleep(x)' tiles.c").exit()
-
-    # check50.c.compile("tiles.c", lcs50=True)
+    match = re.compile("#include\s*<unistd\.h>").search(content)
+    if match:
+        with open("tiles.c", "w") as f:
+            content = content[:match.end()] + "\n#define usleep(x)" + content[match.end():]
+            f.write(content)
+        
     check50.run("make").exit(0)
 
 
@@ -268,6 +276,7 @@ def solve4():
     ]
     check_board(check, board)
     check.stdout("ftw!")
+
 
 def check_board(check, board):
     """Helper function to check that each row of the board is correct"""
