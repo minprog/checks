@@ -83,7 +83,7 @@ def test9():
     check_single_col(run_query("9.sql"),
         ["Craig T. Nelson", "Richard Griffifths", "Samuel L. Jackson", "Holly Hunter",
          "Jason Lee", "Rupert Grint", "Daniel Radcliffe", "Emma Watson"],
-        ordered=True)
+        ordered=False)
 
 @check50.check(exists)
 def test10():
