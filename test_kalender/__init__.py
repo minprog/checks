@@ -12,7 +12,7 @@ from collections import Counter
 
 @check50.check()
 def test_kalender():
-    """runnen van tests voor kalender"""
+    """runnen van zelfgeschreven tests met pytest"""
     subprocess.run(["pip3", "install", "pytest"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     with logged_check_factory("python3 -m pytest --color=no -v") as run_check:
         run_check().stdin('')

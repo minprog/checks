@@ -82,8 +82,8 @@ def test9():
     # not cause trouble when students use either INNER JOIN or subqueries)
     check_single_col(run_query("9.sql"),
         ["Craig T. Nelson", "Richard Griffifths", "Samuel L. Jackson", "Holly Hunter",
-         "Jason Lee", "Rupert Grint", "Daniel Radcliffe", "Emma Watson"],
-        ordered=False)
+         "Jason Lee", "Rupert Grint", "Daniel Radcliffe", "Emma Watson", "Daniel Radcliffe"],
+        ordered=True)
 
 @check50.check(exists)
 def test10():

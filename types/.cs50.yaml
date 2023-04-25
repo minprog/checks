@@ -1,6 +1,5 @@
 check50:
   files:
     - !exclude "*"
-    - !require "mario.py"
-    - !require "readability.py"
     - !require "schuifpuzzel.py"
+    - !require "hangman.py"
