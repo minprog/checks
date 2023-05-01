@@ -34,7 +34,7 @@ def test_kalender():
     """running the supplied pytest suite."""
     subprocess.run(["pip3", "install", "pytest"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     with logged_check_factory("python3 -m pytest --no-header --color=no") as run_check:
-        run_check().stdin('')
+        run_check().stdin('').stdin('').stdin('')
 
 class Stream:
     """Stream-like object that stores everything it receives"""
