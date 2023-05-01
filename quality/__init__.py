@@ -14,6 +14,7 @@ from collections import Counter
 def exists():
     """schuifpuzzel.py and hangman.py exist."""
     check50.exists("schuifpuzzel.py", "hangman.py")
+    check50.include("dictionary.txt")
 
 @check50.check(exists)
 def schuifpuzzel_passes_mypy():
