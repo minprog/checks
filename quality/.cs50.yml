@@ -1,1 +1,8 @@
-check50: true
+check50:
+    files:
+        - !exclude "*"
+        - !include "dictionary.txt"
+        - !require hangman.py
+        - !require test_hangman.py
+        - !require schuifpuzzel.py
+        - !require test_schuifpuzzel.py
