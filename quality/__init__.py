@@ -31,7 +31,7 @@ def hangman_passes_mypy():
 
 @check50.check(exists)
 def test_kalender():
-    """runnen van zelfgeschreven tests met pytest"""
+    """running the supplied pytest suite."""
     subprocess.run(["pip3", "install", "pytest"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     with logged_check_factory("python3 -m pytest --color=no -v") as run_check:
         run_check().stdin('')
