@@ -33,7 +33,8 @@ def hangman_passes_mypy():
 def test_kalender():
     """running the supplied pytest suite."""
     subprocess.run(["pip3", "install", "pytest"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    with logged_check_factory("python3 -m pytest --no-header --color=no") as run_check:
+    with logged_check_factory("python3 -m pytest --no-header --continue-on-collection-errors --color=no") as run_check:
+        # stdin calls to capture more output (huhhhh)
         run_check().stdin('').stdin('').stdin('')
 
 class Stream:
