@@ -6,7 +6,7 @@ import glob
 
 @check50.check()
 def exists():
-    """calendar.c exists."""
+    """calendar.c exists"""
     if not os.path.exists(f"calendar.c"):
         # raise "bla"
         files = glob.glob("*.c")
@@ -16,27 +16,27 @@ def exists():
 
 @check50.check(exists)
 def compiles():
-    """calendar.c compiles."""
+    """calendar.c compiles"""
     check50.c.compile("calendar.c", lcs50=True)
 
 
 @check50.check(compiles)
 def cal_1_1800():
-    """displays the calendar for Jan 1800"""
+    """displays the correct calendar for Jan 1800"""
     check = check50.run("./calendar 1800 1")
     check_calendar_output(check, "Jan 1800", 3, 31)
 
 
 @check50.check(cal_1_1800)
 def cal_11_2021():
-    """displays the calendar for Nov 2021"""
+    """displays the correct calendar for Nov 2021"""
     check = check50.run("./calendar 2021 11")
     check_calendar_output(check, "Nov 2021", 1, 30)
 
 
 @check50.check(cal_11_2021)
 def cal_leap_years():
-    """considers leap years in displaying calendars"""
+    """displays the correct calendar for Feb/Mar in leap years"""
 
     # not a leap year
     check = check50.run("./calendar 1900 2")
