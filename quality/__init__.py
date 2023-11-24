@@ -36,7 +36,7 @@ def test_kalender():
     subprocess.run(["pip3", "install", "pytest"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     with logged_check_factory("python3 -m pytest --no-header --continue-on-collection-errors --color=no") as run_check:
         # stdin calls to capture more output (huhhhh)
-        run_check().stdin('').stdin('').stdin('')
+        run_check().stdout(timeout=8)
 
 class Stream:
     """Stream-like object that stores everything it receives"""
