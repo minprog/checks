@@ -10,12 +10,12 @@ import subprocess
 
 from collections import Counter
 
-@check50.check()
+@check50.check(timeout=30)
 def test_kalender():
     """runnen van zelfgeschreven tests met pytest"""
     subprocess.run(["pip3", "install", "pytest"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     with logged_check_factory("python3 -m pytest --color=no -v") as run_check:
-        run_check().stdin('')
+        run_check().stdout(timeout=15)
 
 class Stream:
     """Stream-like object that stores everything it receives"""
