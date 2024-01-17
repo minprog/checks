@@ -1,5 +1,6 @@
 from checkpy import *
 from _default_checks import *
+from _static_analysis import has_call
 checkPytest.nTests = 4
 
 exclude("*")
@@ -8,6 +9,9 @@ require(file.name, f"test_{file.name}")
 @passed(*allDefaults, hide=False)
 def testFunction():
     """calculate werkt correct"""
+    if has_call("eval", "exec"):
+        raise AssertionError("gebruik geen eval() of exec() bij deze opdracht")
+
     (declarative.function("calculate")
         .params("formula")
         .returnType(float)
