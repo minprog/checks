@@ -1,12 +1,24 @@
 from checkpy import *
 from _default_checks import *
 from _static_analysis import has_call
+from _helpers import testPytestFail
 checkPytest.nTests = 4
 
 exclude("*")
 require(file.name, f"test_{file.name}")
 
 @passed(*allDefaults, hide=False)
+def testTests():
+    """pytest tests falen bij verschillende incorrecte implementaties"""
+    def calculate(formula: str) -> float:
+        return 7.0
+    testPytestFail(calculate)
+
+    def calculate(formula: str) -> float:
+        return float(formula[0]) + float(formula[-1])
+    testPytestFail(calculate)
+
+@passed(testTests, hide=False)
 def testFunction():
     """calculate werkt correct"""
     if has_call("eval", "exec"):

@@ -1,9 +1,9 @@
 from checkpy import test, file
 from _static_analysis import has_syntax_error, has_string
+from _helpers import runPythonTool
 
 import os
 import re
-import subprocess
 
 __all__ = [
     "checkStyle",
@@ -29,7 +29,7 @@ def checkStyle():
     maxDocLength = os.environ.get("MAX_DOC_LENGTH", 79)
 
     # run pycodestyle for a couple of basic checks
-    result = _runPythonTool("pycodestyle", [
+    result = runPythonTool("pycodestyle", [
         '--select=E101,E112,E113,E115,E116,E117,E501,E502,W505,W291',
         f"--max-line-length={maxLineLength}",
         f"--max-doc-length={maxDocLength}",
@@ -62,11 +62,7 @@ def checkStyle():
 @test()
 def checkMypy():
     """mypy --strict --ignore-missing-imports slaagt"""
-    result = subprocess.run(
-        ['mypy', '--strict', '--ignore-missing-imports', file],
-        capture_output=True,
-        universal_newlines=True
-    )
+    result = runPythonTool("mypy", ['--strict', '--ignore-missing-imports', file])
 
     if result.returncode != 0:
         lines = result.stdout.splitlines()[:-1]
@@ -80,7 +76,7 @@ def checkPytest():
     """pytest slaagt"""
     nExpectedTests = checkPytest.nTests if hasattr(checkPytest, "nTests") else 5
 
-    result = _runPythonTool("pytest")
+    result = runPythonTool("pytest")
 
     # find the number of tests and assert if it's enough
     nTests = int(re.compile(r"collected (\d+) items").findall(result.stdout)[0])
@@ -101,36 +97,3 @@ def checkPytest():
         )
 
 allDefaults = (checkStyle, checkMypy, checkPytest)
-
-def _runPythonTool(tool: str, optionalArgs: list[str]=[]) -> subprocess.CompletedProcess:
-    # run tool
-    try:
-        result = subprocess.run(
-            [tool] + optionalArgs,
-            capture_output=True,
-            universal_newlines=True
-        )
-        return result
-    except FileNotFoundError:
-        pass
-
-    # check if python3's pip knows of tool
-    isToolInstalled = subprocess.run(
-        ["python3", "-m", "pip", "show", tool],
-        capture_output=True,
-        universal_newlines=True
-    ).returncode == 0
-
-    # if not, raise AssertionError
-    if not isToolInstalled:
-        raise AssertionError(
-            f"{tool} is not installed."
-            f" You can install {tool} via: python3 -m pip install {tool}"
-        )
-
-    # run tool via python3 -m tool
-    return subprocess.run(
-        ["python3", "-m", tool] + optionalArgs,
-        capture_output=True,
-        universal_newlines=True
-    )
