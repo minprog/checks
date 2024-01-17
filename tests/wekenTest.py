@@ -3,7 +3,7 @@ from _default_checks import *
 checkPytest.nTests = 4
 
 exclude("*")
-require("weken.py", "test_weken.py")
+require(file.name, f"test_{file.name}")
 
 @passed(*allDefaults, hide=False)
 def testWeeksElapsed():
