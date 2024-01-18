@@ -20,7 +20,7 @@ def checkStyle():
 
     if has_string("	"):
         raise AssertionError("let op dat je geen tabs gebruikt")
-    if has_string("Optional"):
+    if has_string("Optional["):
         raise AssertionError("let op dat je niet Optional[...] gebruikt als type hint maar ... | None")
     if has_string("List[", "Tuple[", "Dict[", "Set["):
         raise AssertionError("let op dat je niet List[...] e.d. gebruikt als type hint maar list[...]")
