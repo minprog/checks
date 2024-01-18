@@ -79,7 +79,7 @@ def checkPytest():
     result = runPythonTool("pytest")
 
     # find the number of tests and assert if it's enough
-    nTests = int(re.compile(r"collected (\d+) items").findall(result.stdout)[0])
+    nTests = int(re.compile(r"collected (\d+) item").findall(result.stdout)[0])
     if nTests < nExpectedTests:
         raise AssertionError(
             f"Expected at least {nExpectedTests} test{'s' if nExpectedTests != 1 else ''}"
