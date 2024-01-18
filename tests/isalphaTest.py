@@ -63,7 +63,7 @@ def testTests():
 
 @passed(testTests, hide=False)
 def testFunction():
-    """isalpha werkt correct"""
+    """isalpha, islower en isupper werken correct"""
     calls = static.getFunctionCalls()
     for call in calls:
         if call.endswith((".isalpha", ".islower", ".isupper")):
