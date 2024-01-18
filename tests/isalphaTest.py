@@ -1,5 +1,3 @@
-from _ast import Call
-from typing import Any
 from checkpy import *
 from _default_checks import *
 from _helpers import testPytestFail
