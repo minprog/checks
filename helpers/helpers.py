@@ -1,4 +1,5 @@
 import contextlib
+import re
 
 __all__ = ["replace_main"]
 
@@ -15,7 +16,7 @@ def replace_main(filename: str, main: str) -> tuple[None, None, None]:
         start, end = indices
         new_content = content[:start] + main + content[end + 1:]
     else:
-        new_content += main
+        new_content = content + main
 
     try:
         with open(filename, "w") as f:
@@ -27,8 +28,9 @@ def replace_main(filename: str, main: str) -> tuple[None, None, None]:
         raise e
 
 def find_main(content: str) -> tuple[int, int] | None:
-    index = content.find("int main(")
-    if index != -1:
+    match = re.compile("int\s+main\s*\(", re.MULTILINE).search(content)
+    if match:
+        index = match.start()
         index_closing_bracket = find_closing_bracket(content[index:])
         return (index, index + index_closing_bracket)
     return None
