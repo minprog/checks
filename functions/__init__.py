@@ -19,11 +19,11 @@ def compiles():
 
 @check50.check(compiles)
 def has_functions():
-    """functions.c has the functions: times_two, print_int, half, print_float, and average"""
+    """functions.c has the functions: times_two, print_int, half, print_float, average, and max"""
     with open("functions.c") as f:
         content = f.read()
 
-    for name in ["times_two", "print_int", "half", "print_float", "average"]:
+    for name in ["times_two", "print_int", "half", "print_float", "average", "max"]:
         if f" {name}(" not in content:
             raise check50.Failure(f"Missing function: {name}")
 
@@ -79,8 +79,8 @@ def test_print_float():
         check50.c.compile("functions.c")
         check50.run("./functions").stdout("Value = 2.50").exit(0)
 
-@check50.check(has_functions)
-def test_print_float():
+@check50.check(test_print_float)
+def test_average():
     """average(7, 4) returns 5.5"""
     main = (
         'int main(void) {\n'
@@ -91,3 +91,16 @@ def test_print_float():
     with helpers.replace_main("functions.c", main):
         check50.c.compile("functions.c")
         check50.run("./functions").stdout("Value = 5.50").exit(0)
+
+@check50.check(test_print_float)
+def test_max():
+    """max(5.5, 9.0) returns 9.0"""
+    main = (
+        'int main(void) {\n'
+        '    print_float(max(5.5, 9.0));\n'
+        '}'
+    )
+
+    with helpers.replace_main("functions.c", main):
+        check50.c.compile("functions.c")
+        check50.run("./functions").stdout("Value = 9.00").exit(0)
