@@ -14,7 +14,9 @@ def replace_main(filename: str, main: str) -> tuple[None, None, None]:
     indices = find_main(content)
     if indices:
         start, end = indices
-        new_content = content[:start] + main + content[end + 1:]
+        # always append main to eof instead of in-place. This way
+        # a commented out main does not stay commented out after replacing
+        new_content = content[:start] + "\n" + content[end + 1:] + main
     else:
         new_content = content + main
 
