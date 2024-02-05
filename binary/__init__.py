@@ -37,7 +37,7 @@ def test_to_decimal_0():
     )
 
     with helpers.replace_main("binary.c", main):
-        check50.c.compile("binary.c")
+        check50.c.compile("binary.c", lcs50=True)
         check50.run("./binary").stdout("0").exit(0)
 
 @check50.check(has_functions)
@@ -50,7 +50,7 @@ def test_to_decimal_1():
     )
 
     with helpers.replace_main("binary.c", main):
-        check50.c.compile("binary.c")
+        check50.c.compile("binary.c", lcs50=True)
         check50.run("./binary").stdout("1").exit(0)
 
 @check50.check(has_functions)
@@ -63,7 +63,7 @@ def test_to_decimal_5():
     )
 
     with helpers.replace_main("binary.c", main):
-        check50.c.compile("binary.c")
+        check50.c.compile("binary.c", lcs50=True)
         check50.run("./binary").stdout("5").exit(0)
 
 @check50.check(has_functions)
@@ -76,5 +76,5 @@ def test_to_decimal_15():
     )
 
     with helpers.replace_main("binary.c", main):
-        check50.c.compile("binary.c")
+        check50.c.compile("binary.c", lcs50=True)
         check50.run("./binary").stdout("15").exit(0)
