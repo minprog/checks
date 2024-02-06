@@ -13,6 +13,20 @@ def exists():
     check50.exists("functions.c")
 
 @check50.check(exists)
+def test_only_spaces_no_tabs():
+    """functions.c only uses spaces for indentation (no tabs)"""
+    with open("functions.c") as f:
+        lines = f.readlines()
+
+    for i, line in enumerate(lines):
+        if line.startswith("\t"):
+            line = line.rstrip("\n")
+            raise check50.Failure(
+                f"Tabs are used for indentation on line {i + 1}: {line}\n"
+                f"    Check your editor's settings on how to use spaces for indentation instead of tabs."
+            )
+
+@check50.check(test_only_spaces_no_tabs)
 def compiles():
     """functions.c compiles"""
     check50.c.compile("functions.c", lcs50=True)
