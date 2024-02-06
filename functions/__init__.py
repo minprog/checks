@@ -23,7 +23,7 @@ def test_only_spaces_no_tabs():
             line = line.rstrip("\n")
             raise check50.Failure(
                 f"Tabs are used for indentation on line {i + 1}: {line}\n"
-                f"    Check your editor's settings on how to use spaces for indentation instead of tabs."
+                f"    Check your editor's settings or the course's installation instructions on how to use spaces for indentation instead of tabs."
             )
 
 @check50.check(test_only_spaces_no_tabs)
