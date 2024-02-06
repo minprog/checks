@@ -1,11 +1,5 @@
 import check50
 import check50.c
-import check50.internal
-
-helpers = check50.internal.import_file(
-    "helpers",
-    check50.internal.check_dir / "../helpers/helpers.py"
-)
 
 @check50.check()
 def exists():
