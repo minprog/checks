@@ -68,7 +68,7 @@ def test_eek():
 
 @check50.check(has_functions)
 def test_bob():
-    """bob("Know your meme") prints Spongebob says: kNoW yOuR mEmE"""
+    """bob("Know your meme") prints kNoW yOuR mEmE"""
     main = (
         'int main(void) {\n'
         '    bob("Know your meme");\n'
@@ -77,4 +77,4 @@ def test_bob():
 
     with helpers.replace_main("strings.c", main):
         check50.c.compile("strings.c", lcs50=True)
-        check50.run("./strings").stdout("Spongebob says: kNoW yOuR mEmE", regex=False).exit(0)
+        check50.run("./strings").stdout("kNoW yOuR mEmE", regex=False).exit(0)
