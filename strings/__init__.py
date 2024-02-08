@@ -19,7 +19,7 @@ def compiles():
 
 @check50.check(compiles)
 def has_functions():
-    """strings.c has the functions vertical, skip, eek, and bob"""
+    """strings.c has the functions: vertical, skip, eek, and bob"""
     with open("strings.c") as f:
         content = f.read()
 
