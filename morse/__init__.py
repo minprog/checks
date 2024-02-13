@@ -14,19 +14,14 @@ def compiles():
 @check50.check(compiles)
 def test_sos():
     """./morse ...---... prints SOS"""
-    check50.run("./morse ...---...").stdout("SOS").exit(0)
+    check50.run("./morse").stdin("...---...").stdout("SOS").exit(0)
 
 @check50.check(compiles)
 def test_door():
     """./morse -..------.-. prints DOOR"""
-    check50.run("./morse -..------.-.").stdout("DOOR").exit(0)
+    check50.run("./morse").stdin("-..------.-.").stdout("DOOR").exit(0)
 
 @check50.check(compiles)
 def test_ross():
     """./morse .-.------.-. prints ROSS"""
-    check50.run("./morse .-.---......").stdout("ROSS").exit(0)
-
-@check50.check(compiles)
-def test_no_arg():
-    """./morse prints Usage: ./morse <code>"""
-    check50.run("./morse").stdout("Usage: ./morse <code>", regex=False)
+    check50.run("./morse").stdin(".-.---......").stdout("ROSS").exit(0)
