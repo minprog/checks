@@ -18,11 +18,6 @@ def compiles():
     """nl.c compiles"""
     check50.c.compile("nl.c", lcs50=True)
 
-def assert_same(expected: str, real: str):
-    if expected != real:
-        msg = f"Expected:\n{expected}\n    But got:\n{real}"
-        raise check50.Failure(msg)
-
 @check50.check(compiles)
 def test_nl_nl():
     """./nl nl.c prints the exact same as: nl nl.c"""
@@ -32,8 +27,10 @@ def test_nl_nl():
     # Mac's nl uses \t in other places than Linux's nl
     out_real = out_real.replace("\t", " ")
     out_expected = out_expected.replace("\t", " ")
-
-    assert_same(out_expected, out_real)
+    
+    if out_expected != out_real:
+        msg = f"Expected:\n{out_expected}\n    But got:\n{out_real}"
+        raise check50.Failure(msg)
 
 @check50.check(compiles)
 def test_nl_foo():
@@ -46,4 +43,6 @@ def test_nl_foo():
     out_real = out_real.replace("\t", " ")
     out_expected = out_expected.replace("\t", " ")
 
-    assert_same(out_expected, out_real)
+    if out_expected != out_real:
+        msg = f"Expected:\n{out_expected}\n    But got:\n{out_real}"
+        raise check50.Failure(msg)
