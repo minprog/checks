@@ -6,7 +6,7 @@ helpers = check50.internal.import_file(
     "helpers",
     check50.internal.check_dir / "../../helpers/helpers.py"
 )
-helpers.set_stdout_limit(100)
+helpers.set_stdout_limit(100000)
 
 @check50.check()
 def exists():
@@ -20,16 +20,8 @@ def compiles():
 
 def assert_same(expected: str, real: str):
     if expected != real:
-
-        check50.log("Expected:")
-        for line in expected.split("\n"):
-            check50.log(line)
-
-        check50.log("But got:")
-        for line in real.split("\n"):
-            check50.log(line)
-        
-        raise check50.Mismatch(expected, real)
+        msg = f"Expected:\n{expected}\n    But got:\n{real}"
+        raise check50.Failure(msg)
 
 @check50.check(compiles)
 def test_nl_nl():
