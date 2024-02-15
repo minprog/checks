@@ -20,19 +20,27 @@ def compiles():
 
 @check50.check(compiles)
 def test_nl_nl():
-    """./nl nl.c prints exactly the same as: nl nl.c"""
+    """./nl nl.c prints the exact same as: nl nl.c"""
     out_real = check50.run("./nl nl.c").stdout()
     out_expected = check50.run("nl nl.c").stdout()
+
+    # Mac's nl uses \t in other places than Linux's nl
+    out_real = out_real.replace("\t", " ")
+    out_expected = out_expected.replace("\t", " ")
 
     if out_expected != out_real:
         raise check50.Mismatch(out_expected, out_real)
 
 @check50.check(compiles)
 def test_nl_foo():
-    """echo "hello\\nworld\\n" > foo.c && ./nl foo.c prints:     1\\thello\\n     2\\tworld\\n      \\t\\n"""
+    """echo "hello\\nworld\\n" > foo.c && ./nl foo.c prints the exact same as: nl foo.c"""
     check50.run('echo "hello\nworld\n" > foo.c').exit(0)
     out_real = check50.run("./nl foo.c").stdout()
     out_expected = check50.run("nl foo.c").stdout()
+
+    # Mac's nl uses \t in other places than Linux's nl
+    out_real = out_real.replace("\t", " ")
+    out_expected = out_expected.replace("\t", " ")
 
     if  out_expected != out_real:
         raise check50.Mismatch(out_expected, out_real)
