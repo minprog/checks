@@ -24,8 +24,7 @@ def test_cat_cat():
     out_real = check50.run("./cat cat.c").stdout()
     out_expected = check50.run("cat cat.c").stdout()
 
-    if out_expected != out_real:
-        raise check50.Mismatch(out_expected, out_real)
+    assert_same(out_expected, out_real)
 
 @check50.check(compiles)
 def test_cat_foo():
@@ -34,5 +33,9 @@ def test_cat_foo():
     out_real = check50.run("./cat foo.c").stdout()
     out_expected = check50.run("cat foo.c").stdout()
 
-    if out_expected != out_real:
-        raise check50.Mismatch(out_expected, out_real)
+    assert_same(out_expected, out_real)
+
+def assert_same(expected: str, real: str):
+    if expected != real:
+        msg = f"Expected:\n{expected}\n    But got:\n{real}"
+        raise check50.Failure(msg)
