@@ -18,6 +18,19 @@ def compiles():
     """nl.c compiles"""
     check50.c.compile("nl.c", lcs50=True)
 
+def assert_same(expected: str, real: str):
+    if expected != real:
+
+        check50.log("Expected:")
+        for line in expected.split("\n"):
+            check50.log(line)
+
+        check50.log("But got:")
+        for line in real.split("\n"):
+            check50.log(line)
+        
+        raise check50.Mismatch(expected, real)
+
 @check50.check(compiles)
 def test_nl_nl():
     """./nl nl.c prints the exact same as: nl nl.c"""
@@ -28,8 +41,7 @@ def test_nl_nl():
     out_real = out_real.replace("\t", " ")
     out_expected = out_expected.replace("\t", " ")
 
-    if out_expected != out_real:
-        raise check50.Mismatch(out_expected, out_real)
+    assert_same(out_expected, out_real)
 
 @check50.check(compiles)
 def test_nl_foo():
@@ -42,5 +54,4 @@ def test_nl_foo():
     out_real = out_real.replace("\t", " ")
     out_expected = out_expected.replace("\t", " ")
 
-    if  out_expected != out_real:
-        raise check50.Mismatch(out_expected, out_real)
+    assert_same(out_expected, out_real)
