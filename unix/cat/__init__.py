@@ -6,7 +6,7 @@ helpers = check50.internal.import_file(
     "helpers",
     check50.internal.check_dir / "../../helpers/helpers.py"
 )
-helpers.set_stdout_limit(100)
+helpers.set_stdout_limit(1000)
 
 @check50.check()
 def exists():
@@ -32,7 +32,6 @@ def test_cat_foo():
     check50.run('echo "hello\nworld\n" > foo.c').exit(0)
     out_real = check50.run("./cat foo.c").stdout()
     out_expected = check50.run("cat foo.c").stdout()
-
     assert_same(out_expected, out_real)
 
 def assert_same(expected: str, real: str):
