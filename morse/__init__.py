@@ -23,5 +23,5 @@ def test_door():
 
 @check50.check(compiles)
 def test_ross():
-    """.-.------.-. prints ROSS"""
+    """.-.---...... prints ROSS"""
     check50.run("./morse").stdin(".-.---......").stdout("ROSS").exit(0)
