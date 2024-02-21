@@ -19,18 +19,18 @@ def compiles():
     check50.c.compile("uniq.c", lcs50=True)
 
 @check50.check(compiles)
-def test_uniq_uniq():
-    """./uniq uniq.c prints unique contents of uniq.c"""
-    out_real = check50.run("./uniq uniq.c").stdout()
-    out_expected = check50.run("uniq uniq.c").stdout()
-    assert_same(out_expected, out_real)
-
-@check50.check(compiles)
 def test_uniq_foo():
     """echo "ananas\\nananas\\nbanaan\\nwortel\\nbanaan\\nbanaan\\n" > foo.txt && ./uniq foo.txt prints: ananas\\nbanaan\\nwortel\\nbanaan\\n"""
     check50.run('echo "ananas\nananas\nbanaan\nwortel\nbanaan\nbanaan\n" > foo.txt').exit(0)
     out_real = check50.run("./uniq foo.txt").stdout()
     out_expected = check50.run("uniq foo.txt").stdout()
+    assert_same(out_expected, out_real)
+
+@check50.check(compiles)
+def test_uniq_uniq():
+    """./uniq uniq.c prints unique contents of uniq.c"""
+    out_real = check50.run("./uniq uniq.c").stdout()
+    out_expected = check50.run("uniq uniq.c").stdout()
     assert_same(out_expected, out_real)
 
 def assert_same(expected: str, real: str):

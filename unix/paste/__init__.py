@@ -29,7 +29,7 @@ def test_paste_foo_bar():
 
 @check50.check(compiles)
 def test_paste_cut():
-    """echo "a\\nb\\nc" > foo.txt && ./paste paste.c paste.c | cut -f1 -d , prints the contents of foo.txt"""
+    """echo "a\\nb\\nc" > foo.txt && ./paste foo.txt foo.txt | cut -f1 -d , prints the contents of foo.txt"""
     check50.run('echo "a\nb\nc" > foo.txt').exit(0)
     out_real = check50.run("./paste foo.txt foo.txt | cut -f1 -d ,").stdout()
     out_expected = check50.run("paste -d , foo.txt foo.txt | cut -f1 -d ,").stdout()
