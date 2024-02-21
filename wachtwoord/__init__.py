@@ -42,3 +42,15 @@ def test_3_keer_niet_sterk():
         .stdin("kruipluik")
         .stdout("[Ss]terk genoeg\!", str_output="Sterk genoeg!")
         .exit(0))
+
+@check50.check(compiles)
+def test_20_keer_niet_sterk():
+    """invoer van twintig zwakke wachtwoorden en vervolgens één sterk wachtwoord print de juiste uitvoer"""
+    check = check50.run("./wachtwoord")
+
+    for ww in ["aardbei121", "tekort1", "teveellettersachterelkaar", "a"] * 5:
+        check = check.stdin(ww).stdout("[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
+        
+    (check.stdin("goedgenoeg1")
+        .stdout("[Ss]terk genoeg\!", str_output="Sterk genoeg!")
+        .exit(0))
