@@ -20,8 +20,8 @@ def compiles():
 
 @check50.check(compiles)
 def test_uniq_foo():
-    """echo "ananas\\nananas\\nbanaan\\nwortel\\nbanaan\\nbanaan\\n" > foo.txt && ./uniq foo.txt prints: ananas\\nbanaan\\nwortel\\nbanaan\\n"""
-    check50.run('echo "ananas\nananas\nbanaan\nwortel\nbanaan\nbanaan\n" > foo.txt').exit(0)
+    """echo $'ananas\\nananas\\nbanaan\\nwortel\\nbanaan\\nbanaan\\n' > foo.txt && ./uniq foo.txt prints: ananas\\nbanaan\\nwortel\\nbanaan\\n"""
+    check50.run("echo $'ananas\nananas\nbanaan\nwortel\nbanaan\nbanaan\n' > foo.txt").exit(0)
     out_real = check50.run("./uniq foo.txt").stdout()
     out_expected = check50.run("uniq foo.txt").stdout()
     assert_same(out_expected, out_real)

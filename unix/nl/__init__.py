@@ -32,8 +32,8 @@ def test_nl_nl():
 
 @check50.check(compiles)
 def test_nl_foo():
-    """echo "hello\\nworld\\n" > foo.c && ./nl foo.c prints the exact same as: nl foo.c"""
-    check50.run('echo "hello\nworld\n" > foo.c').exit(0)
+    """echo $'hello\\nworld\\n' > foo.c && ./nl foo.c prints the exact same as: nl foo.c"""
+    check50.run("echo $'hello\nworld\n' > foo.c").exit(0)
     out_real = check50.run("./nl foo.c").stdout()
     out_expected = check50.run("nl foo.c").stdout()
 

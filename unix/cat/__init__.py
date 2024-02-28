@@ -28,8 +28,8 @@ def test_cat_cat():
 
 @check50.check(compiles)
 def test_cat_foo():
-    """echo "hello\\nworld\\n" > foo.c && ./cat foo.c prints: hello\\nworld\\n"""
-    check50.run('echo "hello\nworld\n" > foo.c').exit(0)
+    """echo $'hello\\nworld\\n' > foo.c && ./cat foo.c prints: hello\\nworld\\n"""
+    check50.run("echo $'hello\nworld\n' > foo.c").exit(0)
     out_real = check50.run("./cat foo.c").stdout()
     out_expected = check50.run("cat foo.c").stdout()
     assert_same(out_expected, out_real)

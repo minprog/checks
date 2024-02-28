@@ -34,8 +34,8 @@ def test_tail_tail3():
 
 @check50.check(compiles)
 def test_tail_foo():
-    """echo "hello\\nworld\\nbye\\n" > foo.c && ./tail -2 foo.c prints: world\\nbye\\n"""
-    check50.run('echo "hello\nworld\nbye\n" > foo.c').exit(0)
+    """echo $'hello\\nworld\\nbye\\n' > foo.c && ./tail -2 foo.c prints: world\\nbye\\n"""
+    check50.run("echo $'hello\nworld\nbye\n' > foo.c").exit(0)
     out_real = check50.run("./tail -2 foo.c").stdout()
     out_expected = check50.run("tail -2 foo.c").stdout()
     assert_same(out_expected, out_real)

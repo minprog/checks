@@ -34,8 +34,8 @@ def test_head_head3():
 
 @check50.check(compiles)
 def test_head_foo():
-    """echo "hello\\nworld\\nbye\\n" > foo.c && ./head -2 foo.c prints: hello\\nworld\\n"""
-    check50.run('echo "hello\nworld\nbye\n" > foo.c').exit(0)
+    """echo $'hello\\nworld\\nbye\\n' > foo.c && ./head -2 foo.c prints: hello\\nworld\\n"""
+    check50.run("echo $'hello\nworld\nbye\n' > foo.c").exit(0)
     out_real = check50.run("./head -2 foo.c").stdout()
     out_expected = check50.run("head -2 foo.c").stdout()
     assert_same(out_expected, out_real)

@@ -20,15 +20,15 @@ def compiles():
 
 @check50.check(compiles)
 def test_strings_foo():
-    """echo "hello\\nworld\\nbye\\n" > foo.txt && ./strings foo.txt prints: hello\\nworld\\nbye\\n"""
-    check50.run('echo "hello\nworld\nbye\n" > foo.txt').exit(0)
+    """echo $'hello\\nworld\\nbye\\n' > foo.txt && ./strings foo.txt prints: hello\\nworld\\nbye\\n"""
+    check50.run("echo $'hello\nworld\nbye\n' > foo.txt").exit(0)
     out_real = check50.run("./strings foo.txt").stdout()
     out_expected = check50.run("strings foo.txt").stdout()
     assert_same(out_expected, out_real)
 
 @check50.check(compiles)
 def test_strings_strings():
-    """echo 'ABCD\\x00ABCD\\x00BD\\x00' > foo.txt && ./strings foo.txt prints: ABCD\\nABCD\\n"""
+    """echo $'ABCD\\x00ABCD\\x00BD\\x00' > foo.txt && ./strings foo.txt prints: ABCD\\nABCD\\n"""
     with open("foo.txt", "wb") as f:
         f.write(bytes([65, 66, 67, 68, 0, 65, 66, 67, 68, 0, 66, 68, 0]))
     out_real = check50.run("./strings foo.txt").stdout()

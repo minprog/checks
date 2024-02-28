@@ -28,8 +28,8 @@ def test_wc_wc():
 
 @check50.check(compiles)
 def test_wc_foo():
-    """echo "hello\\nworld\\n" > foo.c && ./wc foo.c prints the exact same as: wc foo.c"""
-    check50.run('echo "hello\nworld\n" > foo.c').exit(0)
+    """echo $'hello\\nworld\\n' > foo.c && ./wc foo.c prints the exact same as: wc foo.c"""
+    check50.run("echo $'hello\nworld\n' > foo.c").exit(0)
 
     # wc uses different whitespaces on Mac/Linux
     out_real = " ".join(check50.run("./wc foo.c").stdout().split())
