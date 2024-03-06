@@ -23,8 +23,8 @@ def test_wc_foo():
     """echo $'hello\\nworld' > hello.txt && ./wc hello.txt prints 2 2 12 hello.txt"""
     check50.run("echo $'hello\nworld' > hello.txt").exit(0)
 
-    out_real = check50.run("./wc foo.c").stdout()
-    out_expected = "2 2 12 hello.txt"
+    out_real = check50.run("./wc hello.txt").stdout()
+    out_expected = "       2       2      12 hello.txt\n"
     assert_same(out_expected, out_real)
 
 # @check50.check(compiles)
