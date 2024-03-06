@@ -20,35 +20,23 @@ def compiles():
 
 @check50.check(compiles)
 def test_nl_foo():
-    """echo $'hello\\nworld\\n' > foo.c && ./nl foo.c prints the exact same as: nl foo.c"""
-    check50.run("echo $'hello\nworld\n' > foo.c").exit(0)
-    out_real = check50.run("./nl foo.c").stdout()
-    out_expected = check50.run("nl foo.c").stdout()
+    """echo $'hello\\nworld' > hello.txt && ./nl hello.txt prints the file with line numbers"""
+    check50.run("echo $'hello\nworld' > hello.txt").exit(0)
 
-    # Mac's nl uses \t in other places than Linux's nl
-    out_real = out_real.replace("\t", " ")
-    out_expected = out_expected.replace("\t", " ")
-
-    out_real = remove_whitespace_from_empty_lines(out_real)
-    out_expected = remove_whitespace_from_empty_lines(out_expected)
+    out_real = check50.run("./nl hello.txt").stdout()
+    out_expected = "      1 hello\n      2 world\n"
 
     assert_same(out_expected, out_real)
 
 @check50.check(compiles)
 def test_nl_nl():
-    """./nl nl.c prints the exact same as: nl nl.c"""
-    out_real = check50.run("./nl nl.c").stdout()
-    out_expected = check50.run("nl nl.c").stdout()
+    """echo $'hello\\n\\nworld' > hello.txt && ./nl hello.txt skips the blank line"""
+    check50.run("echo $'hello\n\nworld' > hello.txt").exit(0)
 
-    # Mac's nl uses \t in other places than Linux's nl
-    out_real = out_real.replace("\t", " ")
-    out_expected = out_expected.replace("\t", " ")
-
-    out_real = remove_whitespace_from_empty_lines(out_real)
-    out_expected = remove_whitespace_from_empty_lines(out_expected)
+    out_real = check50.run("./nl hello.txt").stdout()
+    out_expected = "      1 hello\n\n      2 world\n"
 
     assert_same(out_expected, out_real)
-
 
 def remove_whitespace_from_empty_lines(text: str):
     return "\n".join(line if line.strip() != "" else line.strip() for line in text.split("\n"))
