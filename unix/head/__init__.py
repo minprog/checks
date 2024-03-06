@@ -18,13 +18,6 @@ def compiles():
     """head.c compiles"""
     check50.c.compile("head.c", lcs50=True)
 
-# @check50.check(compiles)
-# def test_head_head():
-#     """./head -10000 head.c prints contents of head.c"""
-#     out_real = check50.run("./head -10000 head.c").stdout()
-#     out_expected = check50.run("head -10000 head.c").stdout()
-#     assert_same(out_expected, out_real)
-
 @check50.check(compiles)
 def test_head_head2():
     """./head -2 wordle.txt prints first three lines of worldle.txt"""
@@ -40,6 +33,13 @@ def test_head_foo():
     check50.run("echo $'hello\nworld\nbye' > hello.txt").exit(0)
     out_real = check50.run("./head -2 hello.txt").stdout()
     out_expected = "hello\nworld\n"
+    assert_same(out_expected, out_real)
+
+@check50.check(compiles)
+def test_head_head():
+    """./head -10000 head.c prints contents of head.c"""
+    out_real = check50.run("./head -10000 head.c").stdout()
+    out_expected = check50.run("head -10000 head.c").stdout()
     assert_same(out_expected, out_real)
 
 def assert_same(expected: str, real: str):

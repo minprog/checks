@@ -18,13 +18,6 @@ def compiles():
     """tail.c compiles"""
     check50.c.compile("tail.c", lcs50=True)
 
-# @check50.check(compiles)
-# def test_tail_tail():
-#     """./tail -10000 tail.c prints contents of tail.c"""
-#     out_real = check50.run("./tail -10000 tail.c").stdout()
-#     out_expected = check50.run("tail -10000 tail.c").stdout()
-#     assert_same(out_expected, out_real)
-
 @check50.check(compiles)
 def test_tail_tail3():
     """./tail -3 tail.c prints last three lines of tail.c"""
@@ -38,6 +31,13 @@ def test_tail_foo():
     check50.run("echo $'hello\nworld\nbye' > foo.c").exit(0)
     out_real = check50.run("./tail -2 foo.c").stdout()
     out_expected = check50.run("tail -2 foo.c").stdout()
+    assert_same(out_expected, out_real)
+
+@check50.check(compiles)
+def test_tail_tail():
+    """./tail -10000 tail.c prints contents of tail.c"""
+    out_real = check50.run("./tail -10000 tail.c").stdout()
+    out_expected = check50.run("tail -10000 tail.c").stdout()
     assert_same(out_expected, out_real)
 
 def assert_same(expected: str, real: str):
