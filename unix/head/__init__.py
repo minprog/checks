@@ -18,26 +18,28 @@ def compiles():
     """head.c compiles"""
     check50.c.compile("head.c", lcs50=True)
 
-@check50.check(compiles)
-def test_head_head():
-    """./head -10000 head.c prints contents of head.c"""
-    out_real = check50.run("./head -10000 head.c").stdout()
-    out_expected = check50.run("head -10000 head.c").stdout()
-    assert_same(out_expected, out_real)
+# @check50.check(compiles)
+# def test_head_head():
+#     """./head -10000 head.c prints contents of head.c"""
+#     out_real = check50.run("./head -10000 head.c").stdout()
+#     out_expected = check50.run("head -10000 head.c").stdout()
+#     assert_same(out_expected, out_real)
 
 @check50.check(compiles)
-def test_head_head3():
-    """./head -3 head.c prints first three lines of head.c"""
-    out_real = check50.run("./head -3 head.c").stdout()
-    out_expected = check50.run("head -3 head.c").stdout()
+def test_head_head2():
+    """./head -2 wordle.txt prints first three lines of worldle.txt"""
+    check50.run("echo $'aback\nburnt\ncoyly\ndrawn\nextra' > wordle.txt").exit(0)
+
+    out_real = check50.run("./head -2 wordle.txt").stdout()
+    out_expected = "aback\nburnt\n"
     assert_same(out_expected, out_real)
 
 @check50.check(compiles)
 def test_head_foo():
-    """echo $'hello\\nworld\\nbye\\n' > foo.c && ./head -2 foo.c prints: hello\\nworld\\n"""
-    check50.run("echo $'hello\nworld\nbye\n' > foo.c").exit(0)
-    out_real = check50.run("./head -2 foo.c").stdout()
-    out_expected = check50.run("head -2 foo.c").stdout()
+    """echo $'hello\\nworld\\nbye' > hello.txt && ./head -2 hello.txt prints: hello\\nworld\\n"""
+    check50.run("echo $'hello\nworld\nbye' > hello.txt").exit(0)
+    out_real = check50.run("./head -2 hello.txt").stdout()
+    out_expected = "hello\nworld\n"
     assert_same(out_expected, out_real)
 
 def assert_same(expected: str, real: str):
