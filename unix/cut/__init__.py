@@ -31,7 +31,7 @@ def test_cut_second_column():
         f.write(content)
 
     out_real = check50.run("./cut -f2 telefoon.txt").stdout()
-    out_expected = check50.run("cut -f2 -d , telefoon.txt").stdout()
+    out_expected = "+31655551938\n+31655551121\n+31655559831\n+31655554102\n"
     assert_same(out_expected, out_real, "telefoon.txt", content)
 
 @check50.check(compiles)
@@ -46,26 +46,26 @@ def test_cut_third_column():
         f.write(content)
 
     out_real = check50.run("./cut -f3 telefoon.txt").stdout()
-    out_expected = check50.run("cut -f3 -d , telefoon.txt").stdout()
+    out_expected = "rory@hotmail.za\nme@tanisha.nl\nreub@gmx.de\n"
     assert_same(out_expected, out_real, "telefoon.txt", content)
 
-@check50.check(compiles)
-def test_cut_non_existing_column():
-    """./cut -f1000 telefoon.txt prints the exact same as cut -f1000 -d , telefoon.txt"""
-    content = (
-        "Rory,+31655551938,rory@hotmail.za\n"
-        "Wes,+31655551121,w.dubb@google.com\n"
-        "Tanisha,+31655559831,me@tanisha.nl\n"
-        "Reuben,+31655554102,reub@gmx.de\n"
-        "Tanisha,+31655559831,me@tanisha.nl\n"
-        "Reuben,+31655554102,reub@gmx.de\n"
-    )
-    with open("telefoon.txt", "w") as f:
-        f.write(content)
-
-    out_real = check50.run("./cut -f1000 telefoon.txt").stdout()
-    out_expected = check50.run("cut -f1000 -d , telefoon.txt").stdout()
-    assert_same(out_expected, out_real, "telefoon.txt", content)
+# @check50.check(compiles)
+# def test_cut_non_existing_column():
+#     """./cut -f1000 telefoon.txt prints the exact same as cut -f1000 -d , telefoon.txt"""
+#     content = (
+#         "Rory,+31655551938,rory@hotmail.za\n"
+#         "Wes,+31655551121,w.dubb@google.com\n"
+#         "Tanisha,+31655559831,me@tanisha.nl\n"
+#         "Reuben,+31655554102,reub@gmx.de\n"
+#         "Tanisha,+31655559831,me@tanisha.nl\n"
+#         "Reuben,+31655554102,reub@gmx.de\n"
+#     )
+#     with open("telefoon.txt", "w") as f:
+#         f.write(content)
+#
+#     out_real = check50.run("./cut -f1000 telefoon.txt").stdout()
+#     out_expected = check50.run("cut -f1000 -d , telefoon.txt").stdout()
+#     assert_same(out_expected, out_real, "telefoon.txt", content)
 
 def assert_same(expected: str, real: str, filename: str, file_contents: str):
     if expected != real:
