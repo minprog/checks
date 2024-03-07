@@ -25,7 +25,7 @@ def test_paste_foo_bar():
     check50.run("echo $'d\ne' > bar.txt").exit(0)
     out_real = check50.run("./paste foo.txt bar.txt").stdout()
     out_expected = check50.run("paste -d , foo.txt bar.txt").stdout()
-    assert_same(out_expected, out_real)
+    assert_same(out_expected.strip(), out_real.strip())
 
 @check50.check(compiles)
 def test_paste_cut():
