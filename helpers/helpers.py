@@ -1,5 +1,6 @@
 import contextlib
 import re
+import string
 
 __all__ = ["replace_main"]
 
@@ -78,3 +79,13 @@ def find_closing_bracket(content: str) -> int:
             return i
 
     return -1
+
+def encode_unprintable(s: str) -> str:
+    encoded_string = ""
+    for char in s:
+        # note: str.isprintable() has a different definition of printable :(
+        if char in string.printable:
+            encoded_string += char
+        else:
+            encoded_string += "\\x{:02x}".format(ord(char))
+    return encoded_string
