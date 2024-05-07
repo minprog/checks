@@ -1,11 +1,10 @@
 from checkpy import *
-from _default_checks import *
-checkPytest.nTests = 0
+from _default_checks import checkStyle, checkMypy
 
 exclude("*")
-require(file.name, f"test_{file.name}")
+require(file.name)
 
-@passed(*allDefaults, hide=False)
+@passed(checkStyle, checkMypy, hide=False)
 def testPersonList():
     """PersonList werkt correct"""
     run(
