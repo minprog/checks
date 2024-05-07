@@ -19,21 +19,26 @@ def compiles():
     check50.c.compile("uniq.c", lcs50=True)
 
 @check50.check(compiles)
-def test_uniq_foo():
+def test_uniq_fruit():
     """echo $'ananas\\nananas\\nbanaan\\nwortel\\nbanaan\\nbanaan' > fruit.txt && ./uniq fruit.txt prints: ananas\\nbanaan\\nwortel\\nbanaan\\n"""
     check50.run("echo $'ananas\nananas\nbanaan\nwortel\nbanaan\nbanaan' > fruit.txt").exit(0)
     out_real = check50.run("./uniq fruit.txt").stdout()
     out_expected = "ananas\nbanaan\nwortel\nbanaan\n"
     assert_same(out_expected, out_real)
 
-# @check50.check(compiles)
-# def test_uniq_uniq():
-#     """./uniq uniq.c prints unique contents of uniq.c"""
-#     out_real = check50.run("./uniq uniq.c").stdout()
-#     out_expected = check50.run("uniq uniq.c").stdout()
-#     assert_same(out_expected, out_real)
+@check50.check(compiles)
+def test_uniq_boodschappen():
+    """echo $'brood\\nkaas' > boodschappen.txt && ./uniq boodschappen.txt prints: brood\\nkaas\\n"""
+    check50.run("echo $'brood\nkaas' > boodschappen.txt").exit(0)
+    out_real = check50.run("./uniq boodschappen.txt").stdout()
+    out_expected = "brood\nkaas\n"
+    assert_same(out_expected, out_real)
 
 def assert_same(expected: str, real: str):
     if expected != real:
-        msg = f"Expected:\n{expected}\n    But got:\n{real}"
+        print_expected = helpers.encode_unprintable(expected)
+        print_real = helpers.encode_unprintable(real)
+        if len(print_real) > len(print_expected) + 15:
+            print_real = print_real[:len(print_expected)+15] + " ..."
+        msg = f"Expected:\n{print_expected}\n    But got:\n{print_real}"
         raise check50.Failure(msg)
