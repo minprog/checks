@@ -11,18 +11,20 @@ require(file.name, f"test_{file.name}")
 def testTests():
     """pytest tests falen bij verschillende incorrecte implementaties"""
     def get(dictionary, key, default_value=None):
+        # a correct implementation of get
         return dictionary.get(key, default_value)
 
     def values(dictionary):
+        # a correct implementation of values
         return list(dictionary.values())
 
     def update(dict_a, dict_b):
-        # a version of update that does nothing
+        # an incorrect implementation of update that does nothing
         pass
     testPytestFail(get, update, values)
 
     def update(dict_a, dict_b):
-        # a version of update that updates the wrong dict
+        # an incorrect implementation of update that updates the wrong dict
         dict_b.update(dict_a)
     testPytestFail(get, update, values)
 

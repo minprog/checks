@@ -10,21 +10,61 @@ require(file.name, f"test_{file.name}")
 @passed(*allDefaults, hide=False)
 def testTests():
     """pytest tests falen bij verschillende incorrecte implementaties"""
+    def union(set_a: set, set_b: set) -> set:
+        # a correct implementation of union
+        return set_a.union(set_b)
+
+    def intersection(set_a: set, set_b: set) -> set:
+        # a correct implementation of intersection
+        return set_a.intersection(set_b)
+
+    def difference(set_a: set, set_b: set) -> set:
+        # a correct implementation of difference
+        return set_a.difference(set_b)
+
     def symmetric_difference(set_a: set, set_b: set) -> set:
+        # an incorrect implementation of symmetric_difference that returns an empty set
         return set()
-    testPytestFail(symmetric_difference)
+    testPytestFail(union, intersection, difference, symmetric_difference)
 
     def symmetric_difference(set_a: set, set_b: set) -> set:
+        # an incorrect implementation of symmetric_difference that always returns set_a
         return set_a
-    testPytestFail(symmetric_difference)
+    testPytestFail(union, intersection, difference, symmetric_difference)
 
     def symmetric_difference(set_a: set, set_b: set) -> set:
+        # an incorrect implementation of symmetric_difference that always returns set_b
         return set_b
-    testPytestFail(symmetric_difference)
+    testPytestFail(union, intersection, difference, symmetric_difference)
 
     def symmetric_difference(set_a: set, set_b: set) -> set:
+        # an incorrect implementation of symmetric_difference that returns the non-symmetric difference
         return set_a - set_b
-    testPytestFail(symmetric_difference)
+    testPytestFail(union, intersection, difference, symmetric_difference)
+
+    def symmetric_difference(set_a: set, set_b: set) -> set:
+        # a correct implementation of symmetric_difference
+        return set_a.symmetric_difference(set_b)
+    
+    def difference(set_a: set, set_b: set) -> set:
+        # an incorrect implementation of difference that returns an empty set
+        return set()
+    testPytestFail(union, intersection, difference, symmetric_difference)
+
+    def difference(set_a: set, set_b: set) -> set:
+        # an incorrect implementation of difference that always returns set_a
+        return set_a
+    testPytestFail(union, intersection, difference, symmetric_difference)
+
+    def difference(set_a: set, set_b: set) -> set:
+        # an incorrect implementation of difference that always returns set_b
+        return set_b
+    testPytestFail(union, intersection, difference, symmetric_difference)
+
+    def difference(set_a: set, set_b: set) -> set:
+        # an incorrect implementation of difference that returns the symmetric difference
+        return set_a ^ set_b
+    testPytestFail(union, intersection, difference, symmetric_difference)
 
 
 @passed(testTests, hide=False)
