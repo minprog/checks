@@ -26,6 +26,7 @@ def testTests():
         return set_a - set_b
     testPytestFail(symmetric_difference)
 
+
 @passed(testTests, hide=False)
 def testUnion():
     """union werkt correct"""
@@ -47,8 +48,10 @@ def testUnion():
 
     class UnionVisitor(ast.NodeVisitor):
         def visit_AnnAssign(self, node: ast.AnnAssign):
-            # skip Annotated Assignments
-            pass
+            # Skip the annotation, but do check the value
+            if node.value != None:
+                self.visit(node.value)
+            
 
         def visit_BinOp(self, node: ast.BinOp):
             # Assert ast.BitOr is not used outside of ast.AnnAssign
@@ -75,6 +78,7 @@ def testUnion():
         .call({"hello"}, {4, 5})
         .returns({"hello", 4, 5})
     )()
+
 
 @passed(testTests, hide=False)
 def testSymmetricDifference():
