@@ -19,14 +19,43 @@ def testTests():
         return list(dictionary.values())
 
     def update(dict_a, dict_b):
+        # a correct implementation of update
+        dict_a.update(dict_b)
+
+    correct_get = get
+    correct_values = values
+    correct_update = update
+
+    def update(dict_a, dict_b):
         # an incorrect implementation of update that does nothing
         pass
-    testPytestFail(get, update, values)
+    testPytestFail(correct_get, update, correct_values)
 
     def update(dict_a, dict_b):
         # an incorrect implementation of update that updates the wrong dict
         dict_b.update(dict_a)
-    testPytestFail(get, update, values)
+    testPytestFail(correct_get, update, correct_values)
+
+    def get(dictionary, key, default_value=None):
+        # an incorrect implementation of get that does nothing
+        pass
+    testPytestFail(get, correct_update, correct_values)
+
+    def get(dictionary, key, default_value=None):
+        # an incorrect implementation of get that always gets default_value
+        return default_value
+    testPytestFail(get, correct_update, correct_values)
+
+    def values(dictionary):
+        # an incorrect implementation of values that does nothing
+        pass
+    testPytestFail(correct_get, correct_update, values)
+
+    def values(dictionary):
+        # an incorrect implementation of values that returns the keys
+        return list(dictionary)
+    testPytestFail(correct_get, correct_update, values)
+
 
 @passed(testTests, hide=False)
 def testGet():
