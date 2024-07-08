@@ -37,19 +37,48 @@ def testRecommend():
     (declarative.function("recommend")
         .params("script_name", "scripts")
         .returnType(str)
+        
+        # Test with similar scripts
         .call("elvis.txt", {
-            'elvis.txt': 'Elvis script content',
-            'joker.txt': 'Joker is about a villain'
-        }).returns("joker.txt")
+            'elvis.txt': 'Elvis is a biographical drama film',
+            'joker.txt': 'Joker is about a villain in Gotham',
+            'magnolia.txt': 'Magnolia is an ensemble drama film',
+            'lalaland.txt': 'La La Land is a musical romance'
+        }).returns("magnolia.txt")
+
+        # Test with clear similarity
         .call("frozen.txt", {
-            'frozen.txt': 'Frozen content about ice and snow',
-            'up.txt': 'Up is an adventure story'
+            'frozen.txt': 'Anna and Elsa embark on a journey across snowy landscapes',
+            'up.txt': 'Carl and Russell go on an adventure to South America',
+            'her.txt': 'A man falls in love with his AI operating system',
+            'interstellar.txt': 'Astronauts travel through a wormhole in space'
         }).returns("up.txt")
+
+        # Test with diverse content
         .call("interstellar.txt", {
-            'interstellar.txt': 'Interstellar is about space travel',
-            'tenet.txt': 'Tenet is about time inversion'
+            'interstellar.txt': 'Astronauts travel through a wormhole in space and time',
+            'tenet.txt': 'A secret agent embarks on a time bending mission',
+            'joker.txt': 'Joker is about a villain from Gotham',
+            'her.txt': 'A man falls in love with his AI operating system'
         }).returns("tenet.txt")
+
+        # Test with empty script content
+        .call("empty.txt", {
+            'empty.txt': '',
+            'joker.txt': 'Joker is about a villain in Gotham',
+            'her.txt': 'A man falls in love with his AI operating system',
+            'up.txt': 'Carl and Russell go on an adventure to South America'
+        }).returns("joker.txt")
+
+        # Test with minimal content
+        .call("minimal.txt", {
+            'minimal.txt': 'Adventure',
+            'joker.txt': 'Joker',
+            'her.txt': 'AI love',
+            'up.txt': 'Adventure'
+        }).returns("up.txt")
     )()
+
 
 @passed(testRecommend, hide=False)
 def testTests():
