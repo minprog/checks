@@ -2,6 +2,7 @@ from checkpy import *
 from _default_checks import *
 from _helpers import testPytestFail
 import os
+import tempfile
 
 checkPytest.nTests = 8
 
@@ -30,6 +31,32 @@ def testComputeJaccardIndex():
         .call("Hello", "Hello").returns(approx(1.0))
         .call("Hello", "World").returns(approx(0.0))
     )()
+
+@passed(*allDefaults, hide=False)
+def testGetScripts():
+    """get_scripts works correctly"""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Create sample script files in the temporary directory
+        scripts = {
+            'script1.txt': 'This is the content of script 1.',
+            'script2.txt': 'This is the content of script 2.',
+            'script3.txt': 'This is the content of script 3.'
+        }
+        for filename, content in scripts.items():
+            with open(os.path.join(temp_dir, filename), 'w') as f:
+                f.write(content)
+
+        # Expected result
+        expected = {filename: content for filename, content in scripts.items()}
+        
+        # Test get_scripts function
+        result = getFunction("get_scripts")(temp_dir)
+        
+        # Assert equality of expected and result
+        if result != expected:
+            raise AssertionError(
+                f"get_scripts() returned {result}, expected {expected}"
+            )
 
 @passed(*allDefaults, hide=False)
 def testRecommend():
