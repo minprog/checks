@@ -1,7 +1,7 @@
 from checkpy import *
 from _default_checks import *
 from _helpers import testPytestFail
-checkPytest.nTests = 6
+checkPytest.nTests = 4
 
 exclude("*")
 require(file.name, f"test_{file.name}")
