@@ -1,6 +1,7 @@
 from checkpy import *
 from typing import Any
 import ast
+import re
 
 from checkpy import static
 
@@ -33,7 +34,11 @@ def has_syntax_error():
 
 def has_string(*forbidden_strings):
     source = static.getSource()
-    return any(f in source for f in forbidden_strings)
+    for s in forbidden_strings:
+        match = re.search(r"\b" + re.escape(s), source)
+        if match:
+            return True
+    return False
 
 def has_call(*banned_calls) -> bool:
     found = False
