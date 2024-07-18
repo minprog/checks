@@ -10,7 +10,8 @@ import re
 checkPytest.nTests = 0
 
 exclude("*")
-require(file.name, f"test_{file.name}")
+includeFromTests(f"test_{file.name}")
+require(file.name)
 
 class Value:
     VALUES = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8,
