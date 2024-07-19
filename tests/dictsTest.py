@@ -134,10 +134,12 @@ def testCount():
     """count werkt correct"""
     for imp in static.getAstNodes(ast.Import):
         for alias in imp.names:
-            assert alias.name != "collections", "don't use the collections module for this assignment"
+            if alias.name == "collections":
+                raise AssertionError("don't use the collections module in this assignment")
 
     for imp in static.getAstNodes(ast.ImportFrom):
-        assert imp.module != "collections", "don't use the collections module for this assignment"
+        if imp.module == "collections":
+            raise AssertionError("don't use the collections module in this assignment")
 
     (declarative.function("count")
         .params("values")
