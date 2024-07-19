@@ -2,7 +2,10 @@ from checkpy import *
 from _default_checks import *
 from _helpers import testPytestFail
 
-checkPytest.nTests = 11
+import ast
+from typing import Any
+
+checkPytest.nTests = 15
 
 exclude("*")
 require(file.name, f"test_{file.name}")
@@ -18,43 +21,69 @@ def testTests():
         # a correct implementation of values
         return list(dictionary.values())
 
+    def count(values):
+        # a correct implementation of count
+        from collections import Counter
+        return dict(Counter.fromkeys(values))
+
     def update(dict_a, dict_b):
         # a correct implementation of update
         dict_a.update(dict_b)
 
     correct_get = get
     correct_values = values
+    correct_count = count
     correct_update = update
 
     def update(dict_a, dict_b):
         # an incorrect implementation of update that does nothing
         pass
-    testPytestFail(correct_get, update, correct_values)
+    testPytestFail(correct_get, correct_count, update, correct_values)
 
     def update(dict_a, dict_b):
         # an incorrect implementation of update that updates the wrong dict
         dict_b.update(dict_a)
-    testPytestFail(correct_get, update, correct_values)
+    testPytestFail(correct_get, correct_count, update, correct_values)
 
     def get(dictionary, key, default_value=None):
         # an incorrect implementation of get that does nothing
         pass
-    testPytestFail(get, correct_update, correct_values)
+    testPytestFail(get, correct_count, correct_update, correct_values)
 
     def get(dictionary, key, default_value=None):
         # an incorrect implementation of get that always gets default_value
         return default_value
-    testPytestFail(get, correct_update, correct_values)
+    testPytestFail(get, correct_count, correct_update, correct_values)
+
+    def count(values):
+        # an incorrect implementation of count that does nothing
+        pass
+    testPytestFail(correct_get, count, correct_update, correct_values)
+
+    def count(values):
+        # an incorrect implementation of count that counts only one element
+        if values:
+            return {values[0]: 1}
+        return {}
+    testPytestFail(correct_get, count, correct_update, correct_values)
+    
+    def count(values):
+        # an incorrect implementation of count that can only count up to 1
+        counts = {}
+        for value in values:
+            counts[value] = 1
+        return counts
+    testPytestFail(correct_get, count, correct_update, correct_values)
 
     def values(dictionary):
         # an incorrect implementation of values that does nothing
         pass
-    testPytestFail(correct_get, correct_update, values)
+    testPytestFail(correct_get, correct_count, correct_update, values)
 
     def values(dictionary):
         # an incorrect implementation of values that returns the keys
         return list(dictionary)
-    testPytestFail(correct_get, correct_update, values)
+    testPytestFail(correct_get, correct_count, correct_update, values)
 
 
 @passed(testTests, hide=False)
@@ -99,6 +128,30 @@ def testValues():
         .call({0: 2, 1 : 2})
         .returns([2, 2])
     )()
+
+@passed(testTests, hide=False)
+def testCount():
+    """count werkt correct"""
+    for imp in static.getAstNodes(ast.Import):
+        for alias in imp.names:
+            assert alias.name != "collections", "don't use the collections module for this assignment"
+
+    for imp in static.getAstNodes(ast.ImportFrom):
+        assert imp.module != "collections", "don't use the collections module for this assignment"
+
+    (declarative.function("count")
+        .params("values")
+        .returnType(dict[Any, int])
+        .call([])
+        .returns({})
+        .call([1, 2, 3, 4, 5])
+        .returns({1: 1, 2: 1, 3: 1, 4: 1, 5: 1})
+        .call([1, 2, 2, 3, 3, 3, 4, 4, 4, 4])
+        .returns({1: 1, 2: 2, 3: 3, 4: 4})
+        .call([1, 'a', 1, 'a', 2.5, 'b', 2.5])
+        .returns({1: 2, 'a': 2, 2.5: 2, 'b': 1})
+    )
+
 
 @passed(testTests, hide=False)
 def testUpdate():
