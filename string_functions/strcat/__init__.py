@@ -17,7 +17,7 @@ def exists():
 
 @check50.check(exists)
 def cat_hello_world():
-    '''strcat_("Hello", ' World') returns "Hello World"'''
+    '''strcat_("Hello", " World") returns "Hello World"'''
     main = r"""
 int main(void)
 {
@@ -38,7 +38,7 @@ int main(void)
 
 @check50.check(exists)
 def cat_hello_world_in_place():
-    '''strcat_("Hello", ' World') modifies "Hello" to "Hello World"'''
+    '''strcat_("Hello", " World") modifies "Hello" to "Hello World"'''
     main = r"""
 int main(void)
 {
