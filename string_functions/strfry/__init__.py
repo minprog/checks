@@ -25,7 +25,7 @@ def compiles():
 
 @check50.check(compiles)
 def scrambles2():
-    '''strfry can scramble "ab" to "ab" and "ba"'''
+    '''strfry_ can scramble "ab" to "ab" and "ba"'''
     main = r"""
 int main(void)
 {
@@ -36,7 +36,7 @@ int main(void)
 
     for (int i = 0; i < 100; i++)
     {
-        printf("%s\n", strfry(s));
+        printf("%s\n", strfry_(s));
     }
 }
 """
@@ -48,7 +48,7 @@ int main(void)
 
 @check50.check(compiles)
 def scrambles3():
-    '''strfry can scramble "123" to all its permutations'''
+    '''strfry_ can scramble "123" to all its permutations'''
     main = r"""
     int main(void)
     {
@@ -59,7 +59,7 @@ def scrambles3():
 
         for (int i = 0; i < 1000; i++)
         {
-            printf("%s\n", strfry(s));
+            printf("%s\n", strfry_(s));
         }
     }
     """

@@ -23,11 +23,11 @@ def compiles():
 
 @check50.check(compiles)
 def find_middle_char():
-    '''strchr("abcd", 'c') returns "cd"'''
+    '''strchr_("abcd", 'c') returns "cd"'''
     main = r"""
 int main(void)
 {
-    printf("%s", strchr("abcd", 'c'));
+    printf("%s", strchr_("abcd", 'c'));
 }
 """
 
@@ -41,11 +41,11 @@ int main(void)
 
 @check50.check(compiles)
 def find_first_char():
-    '''strchr("abcd", 'a') returns "abcd"'''
+    '''strchr_("abcd", 'a') returns "abcd"'''
     main = r"""
 int main(void)
 {
-    printf("%s", strchr("abcd", 'a'));
+    printf("%s", strchr_("abcd", 'a'));
 }
 """
 
@@ -59,11 +59,11 @@ int main(void)
 
 @check50.check(compiles)
 def find_last_char():
-    '''strchr("abcd", 'd') returns "d"'''
+    '''strchr_("abcd", 'd') returns "d"'''
     main = r"""
 int main(void)
 {
-    printf("%s", strchr("abcd", 'd'));
+    printf("%s", strchr_("abcd", 'd'));
 }
 """
 
@@ -77,17 +77,17 @@ int main(void)
 
 @check50.check(compiles)
 def find_missing_char():
-    '''strchr("abcd", 'e') returns NULL'''
+    '''strchr_("abcd", 'e') returns NULL'''
     main = r"""
 int main(void)
 {
-    if (strchr("abcd", 'e') == NULL)
+    if (strchr_("abcd", 'e') == NULL)
     {
         printf("NULL");
     }
     else
     {
-        printf("%s", strchr("abcd", 'e'));
+        printf("%s", strchr_("abcd", 'e'));
     }
 }
 """
@@ -102,17 +102,17 @@ int main(void)
 
 @check50.check(compiles)
 def find_term_char():
-    '''strchr("abcd", '\\0') returns ""'''
+    '''strchr_("abcd", '\\0') returns ""'''
     main = r"""
 int main(void)
 {
-    if (strcmp(strchr("abcd", '\0'), "") == 0)
+    if (strcmp(strchr_("abcd", '\0'), "") == 0)
     {
         printf("great success");
     }
     else
     {
-        printf("%s", strchr("abcd", '\0'));
+        printf("%s", strchr_("abcd", '\0'));
     }
 }
 """
