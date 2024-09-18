@@ -76,6 +76,25 @@ int main(void)
 
 
 @check50.check(compiles)
+def find_first_char_in_duplicate():
+    '''strchr_("abba", 'b') returns "bba"'''
+    main = r"""
+int main(void)
+{
+    printf("%s", strchr_("abba", 'b'));
+}
+"""
+
+    with helpers.replace_main("strchr.c", main):
+        check50.c.compile("strchr.c")
+        out = check50.run("./strchr").stdout()
+        expected = "bba"
+        if out != expected:
+            raise check50.Failure(f"expected {expected} but found {out}")
+
+
+
+@check50.check(compiles)
 def find_missing_char():
     '''strchr_("abcd", 'e') returns NULL'''
     main = r"""
