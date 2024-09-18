@@ -16,12 +16,6 @@ def exists():
 
 
 @check50.check(exists)
-def compiles():
-    """strrchr.c compiles"""
-    check50.c.compile("strrchr.c", lcs50=True)
-
-
-@check50.check(compiles)
 def find_middle_char():
     '''strrchr_("abcd", 'c') returns "cd"'''
     main = r"""
@@ -39,7 +33,7 @@ int main(void)
             raise check50.Failure(f"expected {expected} but found {out}")
         
 
-@check50.check(compiles)
+@check50.check(exists)
 def find_first_char():
     '''strrchr_("abcd", 'a') returns "abcd"'''
     main = r"""
@@ -57,7 +51,7 @@ int main(void)
             raise check50.Failure(f"expected {expected} but found {out}")
 
 
-@check50.check(compiles)
+@check50.check(exists)
 def find_last_char():
     '''strrchr_("abcd", 'd') returns "d"'''
     main = r"""
@@ -75,7 +69,7 @@ int main(void)
             raise check50.Failure(f"expected {expected} but found {out}")
 
 
-@check50.check(compiles)
+@check50.check(exists)
 def find_missing_char():
     '''strrchr_("abcd", 'e') returns NULL'''
     main = r"""
@@ -100,7 +94,7 @@ int main(void)
             raise check50.Failure(f"expected {expected} but found {out}")
 
 
-@check50.check(compiles)
+@check50.check(exists)
 def find_last_char_in_duplicate():
     '''strrchr_("abba", 'b') returns "ba"'''
     main = r"""
@@ -118,7 +112,7 @@ int main(void)
             raise check50.Failure(f"expected {expected} but found {out}")
 
 
-@check50.check(compiles)
+@check50.check(exists)
 def find_term_char():
     '''strrchr_("abcd", '\\0') returns ""'''
     main = r"""

@@ -18,12 +18,6 @@ def exists():
 
 
 @check50.check(exists)
-def compiles():
-    """strfry.c compiles"""
-    check50.c.compile("strfry.c", lcs50=True)
-
-
-@check50.check(compiles)
 def scrambles2():
     '''strfry_ can scramble "ab" to "ab" and "ba"'''
     main = r"""
@@ -46,7 +40,7 @@ int main(void)
         check50.run("./strfry").stdout("ab").stdout("ba").exit(0)
 
 
-@check50.check(compiles)
+@check50.check(exists)
 def scrambles3():
     '''strfry_ can scramble "123" to all its permutations'''
     main = r"""
