@@ -106,7 +106,11 @@ def find_term_char():
     main = r"""
 int main(void)
 {
-    if (strcmp(strchr_("abcd", '\0'), "") == 0)
+    if (strchr_("abcd", '\0') == NULL)
+    {
+        printf("NULL");
+    }
+    else if (strcmp(strchr_("abcd", '\0'), "") == 0)
     {
         printf("great success");
     }
