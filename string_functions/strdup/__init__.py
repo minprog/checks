@@ -21,11 +21,11 @@ def find_last_include_line(content):
     return last_include_line
 
 
-def inject_malloc_macro():
-    with open("strdup.c", "r") as f:
+def inject_malloc_macro(filename):
+    with open(filename, "r") as f:
         content = f.read()
 
-    with open("strdup.c", "w") as f:
+    with open(filename, "w") as f:
         last_include_line = find_last_include_line(content)
         lines = content.split("\n")
         lines = lines[:last_include_line + 1] + [r'#define malloc(x) malloc(x); printf("%lu", x)'] + lines[last_include_line + 1:]
@@ -50,7 +50,7 @@ int main(void)
 """
 
     with helpers.replace_main("strdup.c", main):
-        inject_malloc_macro()
+        inject_malloc_macro("strdup.c")
         check50.c.compile("strdup.c")
         out = check50.run("./strdup").stdout()
 
@@ -75,7 +75,7 @@ int main(void)
 """
 
     with helpers.replace_main("strdup.c", main):
-        inject_malloc_macro()
+        inject_malloc_macro("strdup.c")
         check50.c.compile("strdup.c")
         out = check50.run("./strdup").stdout()
 
