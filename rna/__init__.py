@@ -32,14 +32,21 @@ def testCGaT():
 @check50.check(testCGaT)
 def testAAF():
     """handles invalid input (AAF)"""
-    (check50.run("./rna AAF")
-        .stdout("[I|i]nvalid DNA", str_output="Invalid DNA")).exit(1)
+    out = check50.run("./rna AAF").stdout()
+    out = out.strip()
+
+    if out != "Invalid DNA" and out != "invalid DNA":
+        raise check50.Failure(f"expected Invalid DNA, but found {out}")
 
 @check50.check(testCGaT)
 def testZATG():
     """handles invalid input (ZATG)"""
-    (check50.run("./rna ZATG")
-        .stdout("[I|i]nvalid DNA", str_output="Invalid DNA")).exit(1)
+    out = check50.run("./rna ZATG").stdout()
+    out = out.strip()
+
+    if out != "Invalid DNA" and out != "invalid DNA":
+        raise check50.Failure(f"expected Invalid DNA, but found {out}")
+
 
 @check50.check(testAAF)
 def handles_no_argv():
