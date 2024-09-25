@@ -16,6 +16,18 @@ def exists():
 
 
 @check50.check(exists)
+def no_malloc():
+    """malloc() is not used for strcat"""
+    with open("strcat.c") as f:
+        content = f.read()
+
+        for i, line in enumerate(content.split("\n")):
+            if "malloc" in line:
+                line_nr = i + 1
+                raise check50.Failure(f"found malloc on line {line_nr}: {line}")
+
+
+@check50.check(exists)
 def cat_hello_world():
     '''strcat_("Hello", " World") returns "Hello World"'''
     main = r"""
