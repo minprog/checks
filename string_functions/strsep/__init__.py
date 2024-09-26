@@ -69,7 +69,7 @@ int main(void)
 
 @check50.check(exists)
 def foo_bar_baz_qux():
-    '''strsep_ with "Foo/Bar-Baz+Qux" and "-/" as seperator returns "Foo", then "Bar", then "Baz+Qux"'''
+    '''calling strsep_ 3x with "Foo/Bar-Baz+Qux" and "-/" as seperator returns "Foo", then "Bar", then "Baz+Qux"'''
     main = r"""
 int main(void)
 {
@@ -144,8 +144,11 @@ int main(void)
         if int(original, base=16) != int(new, base=16):
             raise check50.Failure(f"expected strsep to return the original string {original}, but found {new}")
 
-        if int(stringp, base=16) != 0:
-            raise check50.Failure(f"expected strsep to modifiy *stringp to NULL (0x0), but found {stringp}")
+        try:
+            if int(stringp, base=16) != 0:
+                raise check50.Failure(f"expected strsep to modifiy *stringp to NULL (0x0) on its third call, but found {stringp}")
+        except ValueError:
+            pass # happens if stringp is null or (nil)
 
         if token != "Baz+Qux":
             raise check50.Failure(f'expected the returned token to be "Baz+Qux", but found {token}')
@@ -158,8 +161,8 @@ def null():
 int main(void)
 {
     char* str = NULL;
-    printf("original1: %p\n", str);
-    char* out = strsep_(&str, "hello world");
+    char** stringp = &str;
+    char* out = strsep_(stringp, "hello world");
     printf("new1: %p\n", out);
     printf("stringp1: %p\n", str);
     printf("token_pointer1: %p\n", out);
@@ -171,14 +174,17 @@ int main(void)
     with helpers.replace_main("strsep.c", main):
         check50.c.compile("strsep.c")
         out = check50.run("./strsep").stdout()
-        original = re.search(r"original1: (.*)\n", out).group(1)
-        new = re.search(r"new1: (.*)\n", out).group(1)
         stringp = re.search(r"stringp1: (.*)\n", out).group(1)
         token_pointer = re.search(r"token_pointer1: (.*)\n", out).group(1)
 
-        if int(stringp, base=16) != 0:
-            raise check50.Failure(f"expected strsep to leave *stringp as 0x0, but found {stringp}")
+        try:
+            if int(stringp, base=16) != 0:
+                raise check50.Failure(f"expected strsep to leave *stringp as 0x0, but found {stringp}")
+        except ValueError:
+            pass # happens if stringp is null or (nil)
 
-        if int(token_pointer, base=16) != 0:
-            raise check50.Failure(f'expected the returned token to be NULL (0x0), but found {token_pointer}')
-        
+        try:
+            if int(token_pointer, base=16) != 0:
+                raise check50.Failure(f'expected the returned token to be NULL (0x0), but found {token_pointer}')
+        except ValueError:
+            pass # happens if stringp is null or (nil)
