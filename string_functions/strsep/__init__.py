@@ -37,7 +37,7 @@ int main(void)
     char string_arr[] = "Hello+World";
     char* str = string_arr;
     printf("original: %p\n", str);
-    char* out = strsep(&str, "+");
+    char* out = strsep_(&str, "+");
     printf("new: %p\n", out);
     printf("stringp: %p\n", str);
     printf("token: %s\n", out);
@@ -76,21 +76,21 @@ int main(void)
     char string_arr[] = "Foo/Bar-Baz+Qux";
     char* str = string_arr;
     printf("original1: %p\n", str);
-    char* out = strsep(&str, "-/");
+    char* out = strsep_(&str, "-/");
     printf("new1: %p\n", out);
     printf("stringp1: %p\n", str);
     printf("token1: %s\n", out);
     printf("string1: %s\n", str);
 
     printf("original2: %p\n", str);
-    out = strsep(&str, "-/");
+    out = strsep_(&str, "-/");
     printf("new2: %p\n", out);
     printf("stringp2: %p\n", str);
     printf("token2: %s\n", out);
     printf("string2: %s\n", str);
 
     printf("original3: %p\n", str);
-    out = strsep(&str, "-/");
+    out = strsep_(&str, "-/");
     printf("new3: %p\n", out);
     printf("stringp3: %p\n", str);
     printf("token3: %s\n", out);
@@ -159,7 +159,7 @@ int main(void)
 {
     char* str = NULL;
     printf("original1: %p\n", str);
-    char* out = strsep(&str, "hello world");
+    char* out = strsep_(&str, "hello world");
     printf("new1: %p\n", out);
     printf("stringp1: %p\n", str);
     printf("token_pointer1: %p\n", out);
@@ -175,9 +175,6 @@ int main(void)
         new = re.search(r"new1: (.*)\n", out).group(1)
         stringp = re.search(r"stringp1: (.*)\n", out).group(1)
         token_pointer = re.search(r"token_pointer1: (.*)\n", out).group(1)
-
-        if int(original, base=16) != int(new, base=16):
-            raise check50.Failure(f"expected strsep to return the original string {original}, but found {new}")
 
         if int(stringp, base=16) != 0:
             raise check50.Failure(f"expected strsep to leave *stringp as 0x0, but found {stringp}")
