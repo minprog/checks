@@ -34,8 +34,8 @@ def cat_hello_world():
 int main(void)
 {
     char buffer[50] = "Hello";
-    string cat_str = " World";
-    string result = strcat_(buffer, cat_str);
+    char* cat_str = " World";
+    char* result = strcat_(buffer, cat_str);
     printf("%s", result);
 }
 """
@@ -55,7 +55,7 @@ def cat_hello_world_in_place():
 int main(void)
 {
     char buffer[50] = "Hello";
-    string cat_str = " World";
+    char* cat_str = " World";
     strcat_(buffer, cat_str);
     printf("%s", buffer);
 }
