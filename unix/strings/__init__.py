@@ -28,9 +28,9 @@ def test_strings_foo():
 
 @check50.check(compiles)
 def test_strings_strings():
-    """echo $'ABCD\\x00ABCD\\x00BD\\x00' > foo.txt && ./strings foo.txt prints: ABCD\\nABCD\\n"""
+    """echo $'ABCD\\x01ABCD\\x01BD\\x01' > foo.txt && ./strings foo.txt prints: ABCD\\nABCD\\n"""
     with open("foo.txt", "wb") as f:
-        f.write(bytes([65, 66, 67, 68, 0, 65, 66, 67, 68, 0, 66, 68, 0]))
+        f.write(bytes([65, 66, 67, 68, 1, 65, 66, 67, 68, 1, 66, 68, 1]))
     out_real = check50.run("./strings foo.txt").stdout()
     out_expected = "ABCD\nABCD\n"
     assert_same(out_expected, out_real)
