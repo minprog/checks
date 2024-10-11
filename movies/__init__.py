@@ -80,10 +80,16 @@ def test9():
     """9.sql produces correct result"""
     # this check is not dependent on using DISTINCT or not (on purpose, to
     # not cause trouble when students use either INNER JOIN or subqueries)
-    check_single_col(run_query("9.sql"),
-        ["Craig T. Nelson", "Richard Griffifths", "Samuel L. Jackson", "Holly Hunter",
-         "Jason Lee", "Rupert Grint", "Daniel Radcliffe", "Emma Watson", "Daniel Radcliffe"],
-        ordered=True)
+    try:
+        check_single_col(run_query("9.sql"),
+            ["Craig T. Nelson", "Richard Griffifths", "Samuel L. Jackson", "Holly Hunter",
+            "Jason Lee", "Rupert Grint", "Daniel Radcliffe", "Emma Watson", "Daniel Radcliffe"],
+            ordered=True)
+    except check50.Failure:
+        check_single_col(run_query("9.sql"),
+            ["Craig T. Nelson", "Richard Griffifths", "Samuel L. Jackson", "Holly Hunter",
+            "Jason Lee", "Rupert Grint", "Daniel Radcliffe", "Emma Watson"],
+            ordered=True)
 
 @check50.check(exists)
 def test10():
