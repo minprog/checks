@@ -30,7 +30,7 @@ def no_malloc():
 
 @check50.check(exists)
 def hello_world():
-    '''strsep_ with "Hello+World" and "+" as seperator returns "World"'''
+    '''strsep_ with "Hello+World" and "+" as seperator returns "Hello"'''
     main = r"""
 int main(void)
 {
