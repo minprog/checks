@@ -50,6 +50,13 @@ int main(void)
 """
 
     with helpers.replace_main("strfry.c", main):
+        with open("strfry.c") as f:
+            content = f.read()
+            
+        if "#define _XOPEN_SOURCE" not in content and "drand48" in content:
+            with open("strfry.c", "w") as f:
+                f.write("#define _XOPEN_SOURCE\n" + content)
+        
         check50.c.compile("strfry.c")
         check50.run("./strfry").stdout("ab").stdout("ba").exit(0)
 
@@ -77,6 +84,13 @@ def scrambles3():
     perms = ["".join(perm) for perm in itertools.permutations("123")]
 
     with helpers.replace_main("strfry.c", main):
+        with open("strfry.c") as f:
+            content = f.read()
+            
+        if "#define _XOPEN_SOURCE" not in content and "drand48" in content:
+            with open("strfry.c", "w") as f:
+                f.write("#define _XOPEN_SOURCE\n" + content)
+
         check50.c.compile("strfry.c")
         out = check50.run("./strfry").stdout()
 
