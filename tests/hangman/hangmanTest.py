@@ -2,7 +2,6 @@ import sys
 import pathlib
 sys.path.append(str(pathlib.Path(__file__).parent.parent))
 
-import checkpy
 from checkpy import *
 from _default_checks import checkMypy, checkStyle
 from _helpers import runPythonTool
