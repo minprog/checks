@@ -89,7 +89,7 @@ def testHashDict():
 def run(*statements: str):
     """Helper function that 'exec()'s each statement with shared globals()."""
     env = {}
-    exec(f"from {file.name.rstrip(".py")} import *", env)
+    exec(f"from {file.name.rstrip('.py')} import *", env)
     try:
         for stat in statements:
             exec(stat, env)
