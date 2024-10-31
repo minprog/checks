@@ -39,6 +39,8 @@ int main(void)
     s[0] = 'a';
     s[1] = 'b';
     s[2] = '\0';
+    
+    srand48(0);
 
     for (int i = 0; i < 100; i++)
     {
@@ -48,6 +50,13 @@ int main(void)
 """
 
     with helpers.replace_main("strfry.c", main):
+        with open("strfry.c") as f:
+            content = f.read()
+            
+        if "#define _XOPEN_SOURCE" not in content and "drand48" in content:
+            with open("strfry.c", "w") as f:
+                f.write("#define _XOPEN_SOURCE\n" + content)
+        
         check50.c.compile("strfry.c")
         check50.run("./strfry").stdout("ab").stdout("ba").exit(0)
 
@@ -63,6 +72,8 @@ def scrambles3():
         s[1] = 'b';
         s[2] = '\0';
 
+        srand48(0);
+
         for (int i = 0; i < 1000; i++)
         {
             printf("%s\n", strfry_(s));
@@ -73,6 +84,13 @@ def scrambles3():
     perms = ["".join(perm) for perm in itertools.permutations("123")]
 
     with helpers.replace_main("strfry.c", main):
+        with open("strfry.c") as f:
+            content = f.read()
+            
+        if "#define _XOPEN_SOURCE" not in content and "drand48" in content:
+            with open("strfry.c", "w") as f:
+                f.write("#define _XOPEN_SOURCE\n" + content)
+
         check50.c.compile("strfry.c")
         out = check50.run("./strfry").stdout()
 
