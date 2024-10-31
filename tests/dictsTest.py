@@ -10,7 +10,7 @@ checkPytest.nTests = 15
 exclude("*")
 require(file.name, f"test_{file.name}")
 
-@passed(*allDefaults, hide=False)
+@passed(*allDefaults, hide=False, timeout=20)
 def testTests():
     """pytest tests falen bij verschillende incorrecte implementaties"""
     def get(dictionary, key, default_value=None):
