@@ -89,13 +89,14 @@ def testRecommend():
             'her.txt': 'A man falls in love with his AI operating system'
         }).returns("tenet.txt")
 
-        # # Test with empty script content
-        # .call("empty.txt", {
-        #     'empty.txt': '',
-        #     'joker.txt': 'Joker is about a villain in Gotham',
-        #     'her.txt': 'A man falls in love with his AI operating system',
-        #     'up.txt': 'Carl and Russell go on an adventure to South America'
-        # }).returns("joker.txt")
+        # Test with empty script content
+        .call("interstellar.txt", {
+            'empty.txt': '',
+            'interstellar.txt': 'Astronauts travel through a wormhole in space and time',
+            'tenet.txt': 'A secret agent embarks on a time bending mission',
+            'joker.txt': 'Joker is about a villain from Gotham',
+            'her.txt': 'A man falls in love with his AI operating system'
+        }).returns("tenet.txt")
 
         # Test with minimal content
         .call("minimal.txt", {
