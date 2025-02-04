@@ -34,8 +34,13 @@ def test_orakel_tweeenveertig():
 
 @check50.check(compiles)
 def test_orakel_tweeenveertig2():
-    """input of tweeënveertig prints Ja"""
-    check50.run("./orakel").stdin("tweeënveertig").stdout("Ja").exit(0)
+    """input of forty two prints Ja"""
+    check50.run("./orakel").stdin("forty two").stdout("Ja").exit(0)
+
+@check50.check(compiles)
+def test_orakel_tweeenveertig3():
+    """input of forty-two prints Ja"""
+    check50.run("./orakel").stdin("forty-two").stdout("Ja").exit(0)
 
 @check50.check(compiles)
 def test_orakel_dertig():
