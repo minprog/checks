@@ -26,10 +26,10 @@ def test_graph_0_1_0():
     assert_graph(graph, "0_1_0.txt")
 
 @check50.check(compiles)
-def test_graph_0005_0_0():
-    """graph voor f(x) = 0.005 * x^2 + 0 * x + 0 is correct"""
-    graph = check50.run("./graph").stdin("0.005").stdin("0").stdin("0").stdout()
-    assert_graph(graph, "0005_0_0.txt")
+def test_graph_0004_0_0():
+    """graph voor f(x) = 0.004 * x^2 + 0 * x + 0 is correct"""
+    graph = check50.run("./graph").stdin("0.004").stdin("0").stdin("0").stdout()
+    assert_graph(graph, "0004_0_0.txt")
 
 @check50.check(compiles)
 def test_graph_001_0_20():
