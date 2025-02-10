@@ -45,7 +45,7 @@ def test_output():
         if b not in primes:
             raise check50.Failure(f"{b} is not a prime number in '{line}'")
 
-        if c not in prime:
+        if c not in primes:
             raise check50.Failure(f"{c} is not a prime number in '{line}'")
 
         if a % 2 != 0:
