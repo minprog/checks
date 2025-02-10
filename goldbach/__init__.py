@@ -18,7 +18,7 @@ def compiles():
 
 @check50.check(compiles)
 def test_output():
-    """handles printing the right numbers in the right format (we think)"""
+    """handles printing the right numbers in the right format"""
     with logged_check_factory("./goldbach") as create_check:
         out = create_check().stdout(timeout=20)
     lines = [line.strip() for line in out.split("\n") if line.strip()]
