@@ -16,17 +16,22 @@ def compiles():
 @check50.check(compiles)
 def test_base_case():
     """correctly decrypts "gHFrgh Fdhvdu" """
-    check50.run("./decryptor gHFrgh Fdhvdu").stdout("dECode Caesar\s?\n", "dECode Caesar\n").exit(0)
+    (check50.run("./decryptor")
+        .stdin("gHFrgh Fdhvdu")
+        .stdout("dECode Caesar\s?\n", "dECode Caesar\n")
+        .exit(0))
 
 @check50.check(test_base_case)
 def test_output():
     """handles automatic decryption of messsages (we think)"""
     with logged_check_factory("./decryptor") as decryptor_command:
-        (decryptor_command("Lbsdscr dbyyzc oxdobon Mehrkfox 1400 yx 6 Wki")
+        (decryptor_command()
+            .stdin("Lbsdscr dbyyzc oxdobon Mehrkfox 1400 yx 6 Wki")
             .stdout("British troops entered Cuxhaven 1400 on 6 May", regex=False)
             .exit(0))
         
-        (decryptor_command("Rhyjyix jheefi udjuhut Sknxqlud qj 1400 ed 6 Cqo - vhec dem ed qbb hqtye jhqvvys mybb suqiu - myixydw oek qbb jxu ruij. Bj Akdaub 20")
+        (decryptor_command()
+            .stdin("Rhyjyix jheefi udjuhut Sknxqlud qj 1400 ed 6 Cqo - vhec dem ed qbb hqtye jhqvvys mybb suqiu - myixydw oek qbb jxu ruij. Bj Akdaub 20")
             .stdout("British troops entered Cuxhaven at 1400 on 6 May - from now on all radio traffic will cease - wishing you all the best. Lt Kunkel 20", regex=False)
             .exit(0))
 
