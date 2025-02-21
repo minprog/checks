@@ -24,6 +24,11 @@ def compiles():
     check50.c.compile("wordle.c", lcs50=True)
 
 @check50.check(compiles)
+def rejects_wrong_guesses():
+    """rejects wrong guesses (foo)"""
+    check50.run("./wordle").stdin("foo").stdout("accepting 5 letter words, try again")
+
+@check50.check(compiles)
 def test_six_guess_game():
     """gives correct feedback on guesses (state, unite, apple, pears, hello, rough)"""
     test_guesses(
