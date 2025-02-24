@@ -20,7 +20,7 @@ def sort_5():
 
 
 @check50.check(compiles)
-def sort_1:
+def sort_1():
     """sorts 1 number"""
     test_sorted(1)
 
