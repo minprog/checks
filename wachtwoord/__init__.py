@@ -45,7 +45,7 @@ def test_3_keer_niet_sterk():
 
 @check50.check(compiles)
 def test_20_keer_niet_sterk():
-    """invoer van twintig zwakke wachtwoorden en vervolgens één sterk wachtwoord print de juiste uitvoer"""
+    """invoer van twintig zwakke wachtwoorden en vervolgens één sterk wachtwoord print de juiste uitvoer (aardbei121, tekort1, teveellettersachterelkaar, a)"""
     check = check50.run("./wachtwoord")
 
     for ww in ["aardbei121", "tekort1", "teveellettersachterelkaar", "a"] * 5:
