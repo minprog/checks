@@ -27,5 +27,5 @@ def not_find_42_in_30():
     check50.run("./find 42 -s 30").stdout("Didn't find needle in haystack")
 
 def finds_0_in_1():
-    """finds 0 in 1 sorted number"""
-    check50.run("./find 0 -s 1").stdout("Found needle in haystack")
+    """finds 0 in 5 sorted numbers"""
+    check50.run("./find 0 -s 5").stdout("Found needle in haystack")
