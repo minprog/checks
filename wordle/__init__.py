@@ -72,12 +72,13 @@ def test_guesses(*guesses: str):
         .stdout()
     )
     
-    last_line = [l for l in out.split("\n") if l.strip()][-1].strip()
-
+    last_line = [strip_ansi(l) for l in out.split("\n") if l.strip()][-1].strip()
+    
     if "lose" in last_line:
-        assert_same("You lose", last_line)
-    else:
-        assert_same("You win", last_line)
+        if "You lose" not in last_line:
+            raise check50.Failure(f"Expected:\nYou lose\n    But got:\n{last_line}")
+    elif "You win" not in last_line:
+        raise check50.Failure(f"Expected:\nYou win\n    But got:\n{last_line}")
 
     word_feedbacks = [l.lstrip("Your guess: ") for l in out.split("\n") if l.startswith("Your guess: ")]
 
@@ -103,7 +104,7 @@ class WordleKnowledge():
 
 
     def update_letter_ops(self, guess: str):
-        word = self.get_word(guess)
+        word = strip_ansi(guess)
         temp_letter_ops = deepcopy(self.letter_ops)
         states = self.parse_feedback(guess)
 
@@ -176,16 +177,6 @@ class WordleKnowledge():
     def guesses_pprint(self) -> str:
         return ", ".join([g + "\x1b[39;49m" for g in self.guesses])
 
-    def get_word(self, feedback: str) -> str:
-        return (feedback
-            .strip()
-            .replace("\x1b[31m", "")
-            .replace("\x1b[32m", "")
-            .replace("\x1b[33m", "")
-            .replace("\x1b[39;49m", "")
-        )
-
-
     def parse_feedback(self, feedback: str) -> list[tuple[str, int]]:
         """
         Parse feedback on word
@@ -203,17 +194,29 @@ class WordleKnowledge():
                 if feedback.startswith("\x1b[31m"):
                     feedback = feedback[len("\x1b[31m"):]
                     state = 0
+                elif feedback.startswith("\x1b[0;31m"):
+                    feedback = feedback[len("\x1b[0;31m"):]
+                    state = 0
                 # Green
                 elif feedback.startswith("\x1b[32m"):
                     feedback = feedback[len("\x1b[32m"):]
                     state = 2
+                elif feedback.startswith("\x1b[0;32m"):
+                    feedback = feedback[len("\x1b[0;32m"):]
+                    state = 0
                 # Yellow
                 elif feedback.startswith("\x1b[33m"):
                     feedback = feedback[len("\x1b[33m"):]
                     state = 1
+                elif feedback.startswith("\x1b[0;33m"):
+                    feedback = feedback[len("\x1b[0;33m"):]
+                    state = 0
                 # Reset
                 elif feedback.startswith("\x1b[39;49m"):
                     feedback = feedback[len("\x1b[39;49m"):]
+                    state = -1
+                elif feedback.startswith("\x1b[0m"):
+                    feedback = feedback[len("\x1b[0m"):]
                     state = -1
             else:
                 letter = feedback[0]
@@ -222,7 +225,11 @@ class WordleKnowledge():
                 states.append((letter, state))
         return states
 
-def assert_same(expected: str, real: str):
-    if expected != real:
-        msg = f"Expected:\n{expected}\n    But got:\n{real}"
-        raise check50.Failure(msg)
+def strip_ansi(s: str) -> str:
+    return (s
+        .strip()
+        .replace("\x1b[31m", "")
+        .replace("\x1b[32m", "")
+        .replace("\x1b[33m", "")
+        .replace("\x1b[39;49m", "")
+    )
