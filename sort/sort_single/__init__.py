@@ -22,7 +22,7 @@ def sort_5():
 @check50.check(compiles)
 def sort_1():
     """sorts 2 numbers"""
-    test_sorted(s)
+    test_sorted(2)
 
 
 @check50.check(compiles)
