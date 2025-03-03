@@ -43,12 +43,12 @@ def test_sorted(n_items: int):
                 number = int(line)
             except ValueError:
                 raise check50.Failure(
-                    "expected a number line on each line of output, but found {line}"
+                    f"expected a number line on each line of output, but found {line}"
                 )
             
             if prev_number > number:
                 raise check50.Failure(
-                    "expected each following number to be bigger, but found {prev_number} and {number}"
+                    f"expected each following number to be bigger, but found {prev_number} and {number}"
                 )
             
             prev_number = number
