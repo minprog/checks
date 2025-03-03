@@ -21,8 +21,8 @@ def sort_5():
 
 @check50.check(compiles)
 def sort_1():
-    """sorts 1 number"""
-    test_sorted(1)
+    """sorts 2 numbers"""
+    test_sorted(s)
 
 
 @check50.check(compiles)
