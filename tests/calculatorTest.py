@@ -41,4 +41,4 @@ def testFunction():
 def testProgram():
     """het programma calculator.py werkt correct met invoer en uitvoer"""
     output = outputOf(stdinArgs=["3 + 7"], overwriteAttributes=[("__name__", "__main__")])
-    assert output == "10.0\n"
+    assert output == "10.0\n", "bij deze check wordt er 3 + 7 als invoer ingevuld en als uitkomst wordt er 10.0 verwacht"
