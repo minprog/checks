@@ -100,16 +100,16 @@ def testWar():
         elif conclusion == "Player 1 wins this round!":
             actual_cards_p1 += 1
             actual_cards_p2 -= 1
-            assert player1_value > player2_value, f"expected player 1's value {player1_value} to be bigger than player 2's value {player2_value} for the following round:\n{round}"
+            assert player1_value > player2_value, f"given the outcome 'Player 1 wins this round', expected player 1's value {player1_value} to win from player 2's value {player2_value} for the following round:\n{round}"
         else:
             actual_cards_p2 += 1
             actual_cards_p1 -= 1
-            assert player2_value > player1_value, f"expected player 2's value {player2_value} to be bigger than player 1's value {player1_value} for the following round:\n{round}"
+            assert player2_value > player1_value, f"given the outcome 'Player 2 wins this round', expected player 2's value {player2_value} to win from player 1's value {player1_value} for the following round:\n{round}"
 
         actual_round_number += 1
 
     if actual_cards_p1 == actual_cards_p2:
-        assert result == "The game is a tie!\n"
+        assert result == "The game is a tie!\n", "As a potential hint: make sure your printed output matches the assignment, don't forget the blank line in between rounds :)"
     elif actual_cards_p1 > actual_cards_p2:
         assert result == f"Player 1 wins the game with {actual_cards_p1} cards!\n"
     else:
