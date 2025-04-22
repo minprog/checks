@@ -52,7 +52,7 @@ def testWar():
 
     for round in rounds:
         lines = round.split("\n")
-        assert len(lines) == 4, "expected each round to be print exactly 4 lines of output, but found the following output:\n {round}"
+        assert len(lines) == 4, f"expected each round to be print exactly 4 lines of output, but found the following output:\n {round}"
 
         numbers = re.findall(r"\d+", lines[0])
         if not numbers:
