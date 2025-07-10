@@ -27,7 +27,7 @@ def has_functions():
         if f" {name}(" not in content and f" {name} (" not in content:
             raise check50.Failure(f"Missing function: {name}")
 
-@check50.check(compiles)
+@check50.check(has_functions)
 def test_max():
     "max() returns correct maximum"
     main = r"""
@@ -59,7 +59,7 @@ int main(void)
             f.payload["help"] = f"the following main function was used:\n{main}"
             raise f
 
-@check50.check(compiles)
+@check50.check(has_functions)
 def test_render():
     "render() prints correct output"
     main = r"""
@@ -94,7 +94,7 @@ int main(void)
             f.payload["help"] = f"the following main function was used:\n{main}"
             raise f
 
-@check50.check(compiles)
+@check50.check(has_functions)
 def test_stretch():
     "stretch() multiplies row lengths correctly"
     main = r"""
@@ -125,7 +125,7 @@ int main(void)
             f.payload["help"] = f"the following main function was used:\n{main}"
             raise f
 
-@check50.check(compiles)
+@check50.check(has_functions)
 def test_interlace():
     "interlace() zeroes out every second row"
     main = r"""
@@ -159,7 +159,7 @@ int main(void)
             f.payload["help"] = f"the following main function was used:\n{main}"
             raise f
 
-@check50.check(compiles)
+@check50.check(has_functions)
 def test_combine():
     "combine() merges two arrays using max row lengths"
     main = r"""
