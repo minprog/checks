@@ -48,6 +48,8 @@ def testFunction():
         .returns("hello world hello world".find("el", 6, 15))
         .call("abcdef", "d", -100, -2)
         .returns("abcdef".find("d", -100, -2))
+        .call("abcdef", "d", -100, -4)
+        .returns("abcdef".find("d", -100, -4))
         .call("a", "a", -100, 100)
         .returns("a".find("a", -100, 100))
         .call("a", "a", 50, -50)
