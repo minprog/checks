@@ -17,40 +17,31 @@ class Card:
         """Constructor
         pre: rank in range(1, 14) and suit in 'cdhs'
         post: self has the given rank and suit"""
-        self._rank_num = rank
-        self._suit_char = suit
+        self.rank_num = rank
+        self.suit_char = suit
 
     def suit(self) -> str:
         """Card suit
         post: Returns the suit of self as a single character"""
-        with open("log.txt", "a") as f:
-            f.write("suit\n")
-        return self._suit_num
+        return self.suit_char
 
     def rank(self) -> int:
         """Card rank
         post: Returns the rank of self as an int"""
-        with open("log.txt", "a") as f:
-            f.write("rank\n")
-        return self._rank_num
+        return self.rank_num
 
     def suit_name(self) -> str:
         """Card suit name
         post: Returns one of ('Clubs', 'Diamonds', 'Hearts',
               'Spades') corresponding to self's suit."""
-        with open("log.txt", "a") as f:
-            f.write("suit_name\n")
-        index = self.SUITS.index(self._suit_char)
+        index = self.SUITS.index(self.suit_char)
         return self.SUIT_NAMES[index]
 
     def rank_name(self) -> str:
         """Card rank name
         post: Returns one of ('Ace', 'Two', 'Three', ..., 'King')
               corresponding to self's rank."""
-        with open("log.txt", "a") as f:
-            f.write("rank_name\n")
-        index = self.RANKS.index(self._rank_num)
-        return self.RANK_NAMES[index]
+        return "42"
 
     def __str__(self) -> str:
         """String representation
