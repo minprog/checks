@@ -23,7 +23,7 @@ class Card:
     def suit(self) -> str:
         """Card suit
         post: Returns the suit of self as a single character"""
-        return self.rank_num
+        return str(self.rank_num)
 
     def rank(self) -> int:
         """Card rank

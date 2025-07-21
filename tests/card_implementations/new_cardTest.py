@@ -125,6 +125,10 @@ def testTestsRankName():
 @passed(testTestsSuit, testTestsRank, testTestsSuitName, testTestsRankName, hide=False)
 def testCards():
     """alle methodes van Card werken correct"""
+    exclude("*")
+    require(file.name, "test_cards.py")
+    includeFromTests("original_card.py")
+
     module = getModule()
 
     if not hasattr(module, "Card"):
@@ -132,9 +136,9 @@ def testCards():
 
     Card = module.Card
 
-    jack_of_clubs = Card(11, "J")
+    jack_of_clubs = Card(11, "c")
 
-    assert jack_of_clubs.suit() == "J", 'Card(11, "J")'
-    assert jack_of_clubs.rank() == "11", 'Card(11, "J")'
-    assert jack_of_clubs.suit_name() == "Clubs", 'Card(11, "J")'
-    assert jack_of_clubs.rank_name() == "Jack", 'Card(11, "J")'
+    assert jack_of_clubs.suit() == "c", 'Card(11, "c").suit()'
+    assert jack_of_clubs.rank() == 11, 'Card(11, "c").rank()'
+    assert jack_of_clubs.suit_name() == "Clubs", 'Card(11, "c").suit_name()'
+    assert jack_of_clubs.rank_name() == "Jack", 'Card(11, "c").rank_name()'
