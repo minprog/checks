@@ -122,29 +122,19 @@ def testTestsRankName():
 
     assert "FAILED" in runPythonTool("pytest").stdout
 
-# @passed(testTests, hide=False)
-# def testFunction():
-#     """capitalize werkt correct"""
-#     calls = static.getFunctionCalls()
-#     for call in calls:
-#         if call.endswith((".capitalize")):
-#             raise AssertionError(
-#                 "don't use python's built-in capitalize method in this assignment"
-#             )
+@passed(testTestsSuit, testTestsRank, testTestsSuitName, testTestsRankName, hide=False)
+def testCards():
+    """alle methodes van Card werken correct"""
+    module = getModule()
 
-#     (declarative.function("capitalize")
-#         .params("string")
-#         .returnType(str)
-#         .call("abc")
-#         .returns("Abc")
-#         .call("DEF")
-#         .returns("Def")
-#         .call("deFo42")
-#         .returns("Defo42")
-#         .call("")
-#         .returns("")
-#         .call("42hello")
-#         .returns("42hello")
-#         .call("hello, World!")
-#         .returns("Hello, world!")
-#     )()
+    if not hasattr(module, "Card"):
+        raise AssertionError(f"class Card bestaat niet in {file.name}")
+
+    Card = module.Card
+
+    jack_of_clubs = Card(11, "J")
+
+    assert jack_of_clubs.suit() == "J", 'Card(11, "J")'
+    assert jack_of_clubs.rank() == "11", 'Card(11, "J")'
+    assert jack_of_clubs.suit_name() == "Clubs", 'Card(11, "J")'
+    assert jack_of_clubs.rank_name() == "Jack", 'Card(11, "J")'
