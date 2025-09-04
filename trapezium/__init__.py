@@ -21,49 +21,49 @@ def compiles():
 def test_trapezium5():
     """trapezium met hoogte 5 is correct"""
     answer = (
-        "    ##########(\s)*\n"
-        "   #        #(\s)*\n"
-        "  #        #(\s)*\n"
-        " #        #(\s)*\n"
-        "##########(\s)*"
+        r"    ##########(\s)*\n"
+        r"   #        #(\s)*\n"
+        r"  #        #(\s)*\n"
+        r" #        #(\s)*\n"
+        r"##########(\s)*"
     )
-    readable_answer = answer.replace("(\s)*", "")
+    readable_answer = answer.replace(r"(\s)*", "")
     check50.run("./trapezium").stdin("5").stdout(answer, str_output=readable_answer).exit(0)
 
 @check50.check(compiles)
 def test_trapezium20():
     """trapezium met hoogte 15 is correct"""
     answer = (
-        "              ##############################(\s)*\n"
-        "             #                            #(\s)*\n"
-        "            #                            #(\s)*\n"
-        "           #                            #(\s)*\n"
-        "          #                            #(\s)*\n"
-        "         #                            #(\s)*\n"
-        "        #                            #(\s)*\n"
-        "       #                            #(\s)*\n"
-        "      #                            #(\s)*\n"
-        "     #                            #(\s)*\n"
-        "    #                            #(\s)*\n"
-        "   #                            #(\s)*\n"
-        "  #                            #(\s)*\n"
-        " #                            #(\s)*\n"
-        "##############################(\s)*"
+        r"              ##############################(\s)*\n"
+        r"             #                            #(\s)*\n"
+        r"            #                            #(\s)*\n"
+        r"           #                            #(\s)*\n"
+        r"          #                            #(\s)*\n"
+        r"         #                            #(\s)*\n"
+        r"        #                            #(\s)*\n"
+        r"       #                            #(\s)*\n"
+        r"      #                            #(\s)*\n"
+        r"     #                            #(\s)*\n"
+        r"    #                            #(\s)*\n"
+        r"   #                            #(\s)*\n"
+        r"  #                            #(\s)*\n"
+        r" #                            #(\s)*\n"
+        r"##############################(\s)*"
     )
-    readable_answer = answer.replace("(\s)*", "")
+    readable_answer = answer.replace(r"(\s)*", "")
     check50.run("./trapezium").stdin("15").stdout(answer, str_output=readable_answer).exit(0)
 
 @check50.check(compiles)
 def test_trapezium_invalid_input():
     """trapezium vraagt opnieuw bij foute input"""
     answer = (
-        "    ##########(\s)*\n"
-        "   #        #(\s)*\n"
-        "  #        #(\s)*\n"
-        " #        #(\s)*\n"
-        "##########(\s)*"
+        r"    ##########(\s)*\n"
+        r"   #        #(\s)*\n"
+        r"  #        #(\s)*\n"
+        r" #        #(\s)*\n"
+        r"##########(\s)*"
     )
-    readable_answer = answer.replace("(\s)*", "")
+    readable_answer = answer.replace(r"(\s)*", "")
 
     check = (check50.run("./trapezium")
         .stdin("-3")
