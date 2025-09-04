@@ -20,7 +20,7 @@ def test_example1():
         .stdin("22")
         .stdin("12")
         .stdin("V")
-        .stdout("1221(?!\d)", str_output="1221"))
+        .stdout(r"1221(?!\d)", str_output="1221"))
 
 @check50.check(compiles)
 def test_example2():
@@ -31,7 +31,7 @@ def test_example2():
         .stdin("39")
         .stdin("31")
         .stdin("S")
-        .stdout("1252(?!\d)", str_output="1252"))
+        .stdout(r"1252(?!\d)", str_output="1252"))
 
 @check50.check(compiles)
 def test_example3():
@@ -42,7 +42,7 @@ def test_example3():
         .stdin("39")
         .stdin("31")
         .stdin("1")
-        .stdout("43(?!\d)", str_output="43"))
+        .stdout(r"43(?!\d)", str_output="43"))
 
 @check50.check(compiles)
 def test_example4():
