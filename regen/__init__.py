@@ -24,7 +24,7 @@ def test_regen_12():
         .stdin("12")
         .stdin("12")
         .stdin("999")
-        .stdout("[Gg]emiddeld 12(?!\d)", str_output="Gemiddeld 12 millimeter"))
+        .stdout(r"[Gg]emiddeld 12(?!\d)", str_output="Gemiddeld 12 millimeter"))
 
 @check50.check(compiles)
 def test_regen_7():
@@ -34,7 +34,7 @@ def test_regen_7():
         .stdin("6")
         .stdin("3")
         .stdin("999")
-        .stdout("[Gg]emiddeld 7(?!\d)", str_output="Gemiddeld 7 millimeter"))
+        .stdout(r"[Gg]emiddeld 7(?!\d)", str_output="Gemiddeld 7 millimeter"))
 
 @check50.check(compiles)
 def test_regen_11():
@@ -43,11 +43,11 @@ def test_regen_11():
         .stdin("12")
         .stdin("11")
         .stdin("999")
-        .stdout("[Gg]emiddeld 11(?!\d)", str_output="Gemiddeld 11 millimeter"))
+        .stdout(r"[Gg]emiddeld 11(?!\d)", str_output="Gemiddeld 11 millimeter"))
 
 @check50.check(compiles)
 def test_regen_invalid():
     """regen met 999 print Dat kan niet"""
     (check50.run("./regen")
         .stdin("999")
-        .stdout("[Dd][ai]t kan niet", str_output="Dat kan niet"))
+        .stdout(r"[Dd][ai]t kan niet", str_output="Dat kan niet"))
