@@ -52,7 +52,7 @@ def replace_main(filename: str, main: str) -> tuple[None, None, None]:
         raise e
 
 def find_main(content: str) -> tuple[int, int] | None:
-    match = re.compile("int\s+main\s*\(", re.MULTILINE).search(content)
+    match = re.compile(r"int\s+main\s*\(", re.MULTILINE).search(content)
     if match:
         index = match.start()
         index_closing_bracket = find_closing_bracket(content[index:])
