@@ -21,39 +21,39 @@ def compiles():
 def test_driehoek5():
     """driehoek met hoogte 5 is correct"""
     answer = (
-        "    ##(\s)*\n"
-        "   #  #(\s)*\n"
-        "  #    #(\s)*\n"
-        " #      #(\s)*\n"
-        "##########"
+        r"    ##(\s)*\n"
+        r"   #  #(\s)*\n"
+        r"  #    #(\s)*\n"
+        r" #      #(\s)*\n"
+        r"##########"
     )
-    readable_answer = answer.replace("(\s)*", "")
+    readable_answer = answer.replace(r"(\s)*", "")
     check50.run("./driehoek").stdin("5").stdout(answer, str_output=readable_answer).exit(0)
 
 @check50.check(test_driehoek5)
 def test_driehoek20():
     """driehoek met hoogte 20 is correct"""
     answer = (
-        "                   ##(\s)*\n"
-        "                  #  #(\s)*\n"
-        "                 #    #(\s)*\n"
-        "                #      #(\s)*\n"
-        "               #        #(\s)*\n"
-        "              #          #(\s)*\n"
-        "             #            #(\s)*\n"
-        "            #              #(\s)*\n"
-        "           #                #(\s)*\n"
-        "          #                  #(\s)*\n"
-        "         #                    #(\s)*\n"
-        "        #                      #(\s)*\n"
-        "       #                        #(\s)*\n"
-        "      #                          #(\s)*\n"
-        "     #                            #(\s)*\n"
-        "    #                              #(\s)*\n"
-        "   #                                #(\s)*\n"
-        "  #                                  #(\s)*\n"
-        " #                                    #(\s)*\n"
-        "########################################"
+        r"                   ##(\s)*\n"
+        r"                  #  #(\s)*\n"
+        r"                 #    #(\s)*\n"
+        r"                #      #(\s)*\n"
+        r"               #        #(\s)*\n"
+        r"              #          #(\s)*\n"
+        r"             #            #(\s)*\n"
+        r"            #              #(\s)*\n"
+        r"           #                #(\s)*\n"
+        r"          #                  #(\s)*\n"
+        r"         #                    #(\s)*\n"
+        r"        #                      #(\s)*\n"
+        r"       #                        #(\s)*\n"
+        r"      #                          #(\s)*\n"
+        r"     #                            #(\s)*\n"
+        r"    #                              #(\s)*\n"
+        r"   #                                #(\s)*\n"
+        r"  #                                  #(\s)*\n"
+        r" #                                    #(\s)*\n"
+        r"########################################"
     )
-    readable_answer = answer.replace("(\s)*", "")
+    readable_answer = answer.replace(r"(\s)*", "")
     check50.run("./driehoek").stdin("20").stdout(answer, str_output=readable_answer).exit(0)
