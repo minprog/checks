@@ -78,6 +78,11 @@ def checkPytest():
 
     result = runPythonTool("pytest")
 
+    if result.returncode != 0:
+        raise AssertionError(
+            f"pytest crashed with the following error:\n{result.stdout}\n{result.stderr}"
+        )
+
     # find the number of tests and assert if it's enough
     nTests = int(re.compile(r"collected (\d+) item").findall(result.stdout)[0])
     if nTests < nExpectedTests:
