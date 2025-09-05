@@ -38,7 +38,7 @@ def has_functions():
         content = f.read()
 
     for name in ["times_two", "print_int", "half", "print_float", "average", "max"]:
-        if f" {name}(" not in content:
+        if f" {name}(" not in content and f" {name} (" not in content:
             raise check50.Failure(f"Missing function: {name}")
 
 @check50.check(has_functions)
