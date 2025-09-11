@@ -16,7 +16,7 @@ def test_sterk_genoeg():
     """invoer van "mamamama" print "Sterk genoeg!\""""
     (check50.run("./wachtwoord")
         .stdin("mamamama")
-        .stdout("[Ss]terk genoeg\!", str_output="Sterk genoeg!")
+        .stdout(r"[Ss]terk genoeg\!", str_output="Sterk genoeg!")
         .exit(0))
 
 @check50.check(compiles)
@@ -24,9 +24,9 @@ def test_1_keer_niet_sterk():
     """invoer van "geheim" print "Niet sterk genoeg!", vervolgens invoer van "kruipluik" print "Sterk genoeg!\""""
     (check50.run("./wachtwoord")
         .stdin("geheim")
-        .stdout("[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
+        .stdout(r"[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
         .stdin("kruipluik")
-        .stdout("[Ss]terk genoeg\!", str_output="Sterk genoeg!")
+        .stdout(r"[Ss]terk genoeg\!", str_output="Sterk genoeg!")
         .exit(0))
 
 @check50.check(compiles)
@@ -34,13 +34,13 @@ def test_3_keer_niet_sterk():
     """invoer van drie zwakke wachtwoorden en vervolgens één sterk wachtwoord print de juiste uitvoer"""
     (check50.run("./wachtwoord")
         .stdin("geheim")
-        .stdout("[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
+        .stdout(r"[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
         .stdin("aardbei121")
-        .stdout("[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
+        .stdout(r"[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
         .stdin("roomboter")
-        .stdout("[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
+        .stdout(r"[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
         .stdin("kruipluik")
-        .stdout("[Ss]terk genoeg\!", str_output="Sterk genoeg!")
+        .stdout(r"[Ss]terk genoeg\!", str_output="Sterk genoeg!")
         .exit(0))
 
 @check50.check(compiles)
@@ -49,8 +49,8 @@ def test_20_keer_niet_sterk():
     check = check50.run("./wachtwoord")
 
     for ww in ["aardbei121", "tekort1", "teveellettersachterelkaar", "a"] * 5:
-        check = check.stdin(ww).stdout("[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
+        check = check.stdin(ww).stdout(r"[Nn]iet sterk genoeg\!", str_output="Niet sterk genoeg!")
         
     (check.stdin("goedgenoeg1")
-        .stdout("[Ss]terk genoeg\!", str_output="Sterk genoeg!")
+        .stdout(r"[Ss]terk genoeg\!", str_output="Sterk genoeg!")
         .exit(0))
