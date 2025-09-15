@@ -56,7 +56,7 @@ int main(void)
                 .stdout("Max of 1, 2, 3, 4 = 4")
             )
         except check50.Failure as f:
-            f.payload["help"] = f"the following main function was used:\n{main}"
+            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
             raise f
 
 @check50.check(has_functions)
@@ -91,7 +91,7 @@ int main(void)
                 .stdout("###\n", regex=False)
             )
         except check50.Failure as f:
-            f.payload["help"] = f"the following main function was used:\n{main}"
+            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
             raise f
 
 @check50.check(has_functions)
@@ -122,7 +122,7 @@ int main(void)
                 .stdout("##################\n", regex=False)
             )
         except check50.Failure as f:
-            f.payload["help"] = f"the following main function was used:\n{main}"
+            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
             raise f
 
 @check50.check(has_functions)
@@ -156,7 +156,7 @@ int main(void)
                 .stdout("\n", regex=False)
             )
         except check50.Failure as f:
-            f.payload["help"] = f"the following main function was used:\n{main}"
+            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
             raise f
 
 @check50.check(has_functions)
@@ -197,5 +197,5 @@ int main(void)
                 .stdout(" ######\n", regex=False)
             )
         except check50.Failure as f:
-            f.payload["help"] = f"the following main function was used:\n{main}"
+            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
             raise f
