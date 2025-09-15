@@ -95,5 +95,5 @@ int main(void)
                 .stdout("1, 3, 5, 8, 7, 6, \n", regex=False)
             )
         except check50.Failure as f:
-            f.payload["help"] = f"the following main function was used:\n{main}"
+            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
             raise f
