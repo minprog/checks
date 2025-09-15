@@ -56,7 +56,7 @@ int main(void)
                 .stdout("42")
             )
         except check50.Failure as f:
-            f.payload["help"] = f"the following main function was used:\n{main}"
+            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
             raise f
 
 @check50.check(print_array)
@@ -88,25 +88,25 @@ int main(void)
                 .stdout("2, 2, 2, 3\n", regex=False)
             )
         except check50.Failure as f:
-            f.payload["help"] = f"the following main function was used:\n{main}"
+            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
             raise f
 
 @check50.check(print_array)
-def test_compute_running_average():
-    "compute_running_average() correctly applies a running average filter"
+def test_compute_moving_average():
+    "compute_moving_average() correctly applies a running average filter"
     main = r"""
 int main(void)
 {
     int values1[] = {1, 4, 3, 6, 3};
-    compute_running_average(values1, 5);
+    compute_moving_average(values1, 5);
     print_array(values1, 5);
 
     int values2[] = {1, 3, 5};
-    compute_running_average(values2, 3);
+    compute_moving_average(values2, 3);
     print_array(values2, 3);
 
     int values3[] = {1, 1};
-    compute_running_average(values3, 2);
+    compute_moving_average(values3, 2);
     print_array(values3, 2);
 }
 """
@@ -120,5 +120,5 @@ int main(void)
                 .stdout("1, 1\n", regex=False)
             )
         except check50.Failure as f:
-            f.payload["help"] = f"the following main function was used:\n{main}"
+            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
             raise f
