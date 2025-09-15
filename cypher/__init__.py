@@ -20,12 +20,12 @@ def compiles():
 @check50.check(compiles)
 def encrypts_a():
     """encrypts "a" as "Z" """
-    check50.run("./cypher").stdin("a").stdout("[Cc][yi]phertext:\s*Z\n", "cyphertext: Z\n").exit(0)
+    check50.run("./cypher").stdin("a").stdout(r"[Cc][yi]phertext:\s*Z\n", "cyphertext: Z\n").exit(0)
 
 @check50.check(compiles)
 def encrypts_hello_world():
     """encrypts "hEllo wOrld" as "SvOOL DlIOW" """
-    check50.run("./cypher").stdin("hEllo wOrld").stdout("[Cc][yi]phertext:\s*SvOOL DlIOW\n", "cyphertext: SvOOL DlIOW\n").exit(0)
+    check50.run("./cypher").stdin("hEllo wOrld").stdout(r"[Cc][yi]phertext:\s*SvOOL DlIOW\n", "cyphertext: SvOOL DlIOW\n").exit(0)
 
 # @check50.check(encrypts_a)
 # def encrypts_a_lower():
