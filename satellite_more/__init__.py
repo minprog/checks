@@ -83,9 +83,9 @@ int main(void)
 }
 """
     with helpers.replace_main("satellite_more.c", main):
-        check50.c.compile("satellite_more.c", lcs50=True)
-
         try:
+            check50.c.compile("satellite_more.c", lcs50=True)
+
             (check50.run("./satellite_more")
                 .stdout("1, 2, 3, \n", regex=False)
                 .stdout("2, 1, 0, 1, 2, \n", regex=False)
