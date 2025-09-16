@@ -9,17 +9,17 @@ helpers = check50.internal.import_file(
 
 @check50.check()
 def exists():
-    "satellite_more.c exists"
-    check50.exists("satellite_more.c")
+    "satellite.c exists"
+    check50.exists("satellite.c")
 
 @check50.check(exists)
 def compiles():
-    "satellite_more.c compiles"
-    check50.c.compile("satellite_more.c", lcs50=True)
+    "satellite.c compiles"
+    check50.c.compile("satellite.c", lcs50=True)
 
 @check50.check(compiles)
 def has_functions():
-    "satellite_more.c has all required functions"
+    "satellite.c has all required functions"
     with open("satellite_more.c") as f:
         content = f.read()
 
