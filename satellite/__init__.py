@@ -23,7 +23,7 @@ def has_functions():
     with open("satellite.c") as f:
         content = f.read()
 
-    for name in ["print_array", "fix_missing_values", "compute_running_average"]:
+    for name in ["print_array", "fix_missing_values", "compute_moving_average"]:
         if f" {name}(" not in content and f" {name} (" not in content:
             raise check50.Failure(f"Missing function: {name}")
 
