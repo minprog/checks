@@ -93,7 +93,7 @@ int main(void)
 
 @check50.check(print_array)
 def test_compute_moving_average():
-    "compute_moving_average() correctly applies a running average filter"
+    "compute_moving_average() correctly applies a moving average filter"
     main = r"""
 int main(void)
 {
