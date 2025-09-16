@@ -20,7 +20,7 @@ def compiles():
 @check50.check(compiles)
 def has_functions():
     "satellite.c has all required functions"
-    with open("satellite_more.c") as f:
+    with open("satellite.c") as f:
         content = f.read()
 
     for name in ["fix_multiple_missing_values"]:
@@ -82,11 +82,11 @@ int main(void)
     printf("\n");
 }
 """
-    with helpers.replace_main("satellite_more.c", main):
+    with helpers.replace_main("satellite.c", main):
         try:
-            check50.c.compile("satellite_more.c", lcs50=True)
+            check50.c.compile("satellite.c", lcs50=True)
 
-            (check50.run("./satellite_more")
+            (check50.run("./satellite")
                 .stdout("1, 2, 3, \n", regex=False)
                 .stdout("2, 1, 0, 1, 2, \n", regex=False)
                 .stdout("2, 2, 2, 3, \n", regex=False)
