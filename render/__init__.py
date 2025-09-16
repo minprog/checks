@@ -47,9 +47,9 @@ int main(void)
 }
 """
     with helpers.replace_main("render.c", main):
-        check50.c.compile("render.c", lcs50=True)
-
         try:
+            check50.c.compile("render.c", lcs50=True)
+
             (check50.run("./render")
                 .stdout("Max of 1, 3, 5, 3, 1 = 5")
                 .stdout("Max of 3, 2, 1 = 3")
@@ -76,9 +76,9 @@ int main(void)
 }
 """
     with helpers.replace_main("render.c", main):
-        check50.c.compile("render.c", lcs50=True)
-
         try:
+            check50.c.compile("render.c", lcs50=True)
+
             (check50.run("./render")
                 .stdout("  #\n", regex=False)
                 .stdout(" ###\n", regex=False)
@@ -110,9 +110,9 @@ int main(void)
 }
 """
     with helpers.replace_main("render.c", main):
-        check50.c.compile("render.c", lcs50=True)
-        
         try:
+            check50.c.compile("render.c", lcs50=True)
+
             (check50.run("./render")
                 .stdout("    ##\n", regex=False)
                 .stdout("  ######\n", regex=False)
@@ -141,9 +141,9 @@ int main(void)
 }
 """
     with helpers.replace_main("render.c", main):
-        check50.c.compile("render.c", lcs50=True)
-
         try:
+            check50.c.compile("render.c", lcs50=True)
+
             (check50.run("./render")
                 .stdout("    #\n", regex=False)
                 .stdout("\n", regex=False)
@@ -182,9 +182,9 @@ int main(void)
 }
 """
     with helpers.replace_main("render.c", main):
-        check50.c.compile("render.c", lcs50=True)
-
         try:
+            check50.c.compile("render.c", lcs50=True)
+
             (check50.run("./render")
                 .stdout("  #####\n", regex=False)
                 .stdout("  #####\n", regex=False)
