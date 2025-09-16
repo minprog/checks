@@ -47,9 +47,9 @@ int main(void)
 }
 """
     with helpers.replace_main("satellite.c", main):
-        check50.c.compile("satellite.c", lcs50=True)
-
         try:
+            check50.c.compile("satellite.c", lcs50=True)
+
             (check50.run("./satellite")
                 .stdout("1, 3, 5, 3, 1")
                 .stdout("1, 2, 28")
@@ -79,9 +79,9 @@ int main(void)
 }
 """
     with helpers.replace_main("satellite.c", main):
-        check50.c.compile("satellite.c", lcs50=True)
-
         try:
+            check50.c.compile("satellite.c", lcs50=True)
+
             (check50.run("./satellite")
                 .stdout("1, 2, 3\n", regex=False)
                 .stdout("2, 1, 0, 1, 2\n", regex=False)
@@ -111,9 +111,9 @@ int main(void)
 }
 """
     with helpers.replace_main("satellite.c", main):
-        check50.c.compile("satellite.c", lcs50=True)
-        
         try:
+            check50.c.compile("satellite.c", lcs50=True)
+        
             (check50.run("./satellite")
                 .stdout("1, 2, 4, 4, 3\n", regex=False)
                 .stdout("1, 3, 5\n", regex=False)
