@@ -57,9 +57,12 @@ int main(void)
             with open("strfry.c", "w") as f:
                 f.write("#define _XOPEN_SOURCE\n" + content)
         
-        check50.c.compile("strfry.c")
-        check50.run("./strfry").stdout("ab").stdout("ba").exit(0)
-
+        try:
+            check50.c.compile("strfry.c")
+            check50.run("./strfry").stdout("ab").stdout("ba").exit(0)
+        except check50.Failure as e:
+            e.payload["help"] = "The following main function was used to test your strfry function:\n" + main
+            raise e
 
 @check50.check(exists)
 def scrambles3():
@@ -91,10 +94,14 @@ def scrambles3():
             with open("strfry.c", "w") as f:
                 f.write("#define _XOPEN_SOURCE\n" + content)
 
-        check50.c.compile("strfry.c")
-        out = check50.run("./strfry").stdout()
+        try:
+            check50.c.compile("strfry.c")
+            out = check50.run("./strfry").stdout()
 
-        for perm in perms:
-            check50.log(f"checking for {perm} in output")
-            if perm not in out:
-                check50.Failure(f"Missing {perm}")
+            for perm in perms:
+                check50.log(f"checking for {perm} in output")
+                if perm not in out:
+                    check50.Failure(f"Missing {perm}")
+        except check50.Failure as e:
+            e.payload["help"] = "The following main function was used to test your strfry function:\n" + main
+            raise e
