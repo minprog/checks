@@ -40,7 +40,7 @@ int main(void)
     s[1] = 'b';
     s[2] = '\0';
     
-    srand48(0);
+    srand(0);
 
     for (int i = 0; i < 100; i++)
     {
@@ -75,7 +75,7 @@ def scrambles3():
         s[1] = 'b';
         s[2] = '\0';
 
-        srand48(0);
+        srand(0);
 
         for (int i = 0; i < 1000; i++)
         {
