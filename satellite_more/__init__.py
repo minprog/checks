@@ -83,17 +83,13 @@ int main(void)
 }
 """
     with helpers.replace_main("satellite.c", main):
-        try:
-            check50.c.compile("satellite.c", lcs50=True)
+        check50.c.compile("satellite.c", lcs50=True)
 
-            (check50.run("./satellite")
-                .stdout("1, 2, 3, \n", regex=False)
-                .stdout("2, 1, 0, 1, 2, \n", regex=False)
-                .stdout("2, 2, 2, 3, \n", regex=False)
-                .stdout("3, 3, 3, 7, 7, \n", regex=False)
-                .stdout("-1, -1, -1, -1, \n", regex=False)
-                .stdout("1, 3, 5, 8, 7, 6, \n", regex=False)
-            )
-        except check50.Failure as f:
-            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
-            raise f
+        (check50.run("./satellite")
+            .stdout("1, 2, 3, \n", regex=False)
+            .stdout("2, 1, 0, 1, 2, \n", regex=False)
+            .stdout("2, 2, 2, 3, \n", regex=False)
+            .stdout("3, 3, 3, 7, 7, \n", regex=False)
+            .stdout("-1, -1, -1, -1, \n", regex=False)
+            .stdout("1, 3, 5, 8, 7, 6, \n", regex=False)
+        )

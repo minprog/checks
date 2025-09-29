@@ -47,17 +47,14 @@ int main(void)
 }
 """
     with helpers.replace_main("render.c", main):
-        try:
-            check50.c.compile("render.c", lcs50=True)
+        check50.c.compile("render.c", lcs50=True)
 
-            (check50.run("./render")
-                .stdout("Max of 1, 3, 5, 3, 1 = 5")
-                .stdout("Max of 3, 2, 1 = 3")
-                .stdout("Max of 1, 2, 3, 4 = 4")
-            )
-        except check50.Failure as f:
-            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
-            raise f
+        (check50.run("./render")
+            .stdout("Max of 1, 3, 5, 3, 1 = 5")
+            .stdout("Max of 3, 2, 1 = 3")
+            .stdout("Max of 1, 2, 3, 4 = 4")
+        )
+
 
 @check50.check(has_functions)
 def test_render():
@@ -76,23 +73,20 @@ int main(void)
 }
 """
     with helpers.replace_main("render.c", main):
-        try:
-            check50.c.compile("render.c", lcs50=True)
+        check50.c.compile("render.c", lcs50=True)
 
-            (check50.run("./render")
-                .stdout("  #\n", regex=False)
-                .stdout(" ###\n", regex=False)
-                .stdout("#####\n", regex=False)
-                .stdout(" ##\n", regex=False)
-                .stdout("####\n", regex=False)
-                .stdout(" ##\n", regex=False)
-                .stdout("###\n", regex=False)
-                .stdout("###\n", regex=False)
-                .stdout("###\n", regex=False)
-            )
-        except check50.Failure as f:
-            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
-            raise f
+        (check50.run("./render")
+            .stdout("  #\n", regex=False)
+            .stdout(" ###\n", regex=False)
+            .stdout("#####\n", regex=False)
+            .stdout(" ##\n", regex=False)
+            .stdout("####\n", regex=False)
+            .stdout(" ##\n", regex=False)
+            .stdout("###\n", regex=False)
+            .stdout("###\n", regex=False)
+            .stdout("###\n", regex=False)
+        )
+
 
 @check50.check(has_functions)
 def test_stretch():
@@ -110,20 +104,16 @@ int main(void)
 }
 """
     with helpers.replace_main("render.c", main):
-        try:
-            check50.c.compile("render.c", lcs50=True)
+        check50.c.compile("render.c", lcs50=True)
 
-            (check50.run("./render")
-                .stdout("    ##\n", regex=False)
-                .stdout("  ######\n", regex=False)
-                .stdout("##########\n", regex=False)
-                .stdout("      ######\n", regex=False)
-                .stdout("   ############\n", regex=False)
-                .stdout("##################\n", regex=False)
-            )
-        except check50.Failure as f:
-            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
-            raise f
+        (check50.run("./render")
+            .stdout("    ##\n", regex=False)
+            .stdout("  ######\n", regex=False)
+            .stdout("##########\n", regex=False)
+            .stdout("      ######\n", regex=False)
+            .stdout("   ############\n", regex=False)
+            .stdout("##################\n", regex=False)
+        )
 
 @check50.check(has_functions)
 def test_interlace():
@@ -141,23 +131,19 @@ int main(void)
 }
 """
     with helpers.replace_main("render.c", main):
-        try:
-            check50.c.compile("render.c", lcs50=True)
+        check50.c.compile("render.c", lcs50=True)
 
-            (check50.run("./render")
-                .stdout("    #\n", regex=False)
-                .stdout("\n", regex=False)
-                .stdout("  #####\n", regex=False)
-                .stdout("\n", regex=False)
-                .stdout("#########\n", regex=False)
-                .stdout("##\n", regex=False)
-                .stdout("\n", regex=False)
-                .stdout("##\n", regex=False)
-                .stdout("\n", regex=False)
-            )
-        except check50.Failure as f:
-            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
-            raise f
+        (check50.run("./render")
+            .stdout("    #\n", regex=False)
+            .stdout("\n", regex=False)
+            .stdout("  #####\n", regex=False)
+            .stdout("\n", regex=False)
+            .stdout("#########\n", regex=False)
+            .stdout("##\n", regex=False)
+            .stdout("\n", regex=False)
+            .stdout("##\n", regex=False)
+            .stdout("\n", regex=False)
+        )
 
 @check50.check(has_functions)
 def test_combine():
@@ -182,20 +168,16 @@ int main(void)
 }
 """
     with helpers.replace_main("render.c", main):
-        try:
-            check50.c.compile("render.c", lcs50=True)
+        check50.c.compile("render.c", lcs50=True)
 
-            (check50.run("./render")
-                .stdout("  #####\n", regex=False)
-                .stdout("  #####\n", regex=False)
-                .stdout("#########\n", regex=False)
-                .stdout("###\n", regex=False)
-                .stdout("##\n", regex=False)
-                .stdout("###\n", regex=False)
-                .stdout(" ######\n", regex=False)
-                .stdout("########\n", regex=False)
-                .stdout(" ######\n", regex=False)
-            )
-        except check50.Failure as f:
-            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
-            raise f
+        (check50.run("./render")
+            .stdout("  #####\n", regex=False)
+            .stdout("  #####\n", regex=False)
+            .stdout("#########\n", regex=False)
+            .stdout("###\n", regex=False)
+            .stdout("##\n", regex=False)
+            .stdout("###\n", regex=False)
+            .stdout(" ######\n", regex=False)
+            .stdout("########\n", regex=False)
+            .stdout(" ######\n", regex=False)
+        )

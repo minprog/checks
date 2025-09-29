@@ -47,17 +47,13 @@ int main(void)
 }
 """
     with helpers.replace_main("satellite.c", main):
-        try:
-            check50.c.compile("satellite.c", lcs50=True)
+        check50.c.compile("satellite.c", lcs50=True)
 
-            (check50.run("./satellite")
-                .stdout("1, 3, 5, 3, 1")
-                .stdout("1, 2, 28")
-                .stdout("42")
-            )
-        except check50.Failure as f:
-            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
-            raise f
+        (check50.run("./satellite")
+            .stdout("1, 3, 5, 3, 1")
+            .stdout("1, 2, 28")
+            .stdout("42")
+        )
 
 @check50.check(print_array)
 def test_fix_missing_values():
@@ -79,17 +75,13 @@ int main(void)
 }
 """
     with helpers.replace_main("satellite.c", main):
-        try:
-            check50.c.compile("satellite.c", lcs50=True)
+        check50.c.compile("satellite.c", lcs50=True)
 
-            (check50.run("./satellite")
-                .stdout("1, 2, 3\n", regex=False)
-                .stdout("2, 1, 0, 1, 2\n", regex=False)
-                .stdout("2, 2, 2, 3\n", regex=False)
-            )
-        except check50.Failure as f:
-            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
-            raise f
+        (check50.run("./satellite")
+            .stdout("1, 2, 3\n", regex=False)
+            .stdout("2, 1, 0, 1, 2\n", regex=False)
+            .stdout("2, 2, 2, 3\n", regex=False)
+        )
 
 @check50.check(print_array)
 def test_compute_moving_average():
@@ -111,14 +103,10 @@ int main(void)
 }
 """
     with helpers.replace_main("satellite.c", main):
-        try:
-            check50.c.compile("satellite.c", lcs50=True)
-        
-            (check50.run("./satellite")
-                .stdout("1, 2, 4, 4, 3\n", regex=False)
-                .stdout("1, 3, 5\n", regex=False)
-                .stdout("1, 1\n", regex=False)
-            )
-        except check50.Failure as f:
-            f.payload["rationale"] = f.payload["rationale"] + f"\nthe following main function was used:\n{main}"
-            raise f
+        check50.c.compile("satellite.c", lcs50=True)
+    
+        (check50.run("./satellite")
+            .stdout("1, 2, 4, 4, 3\n", regex=False)
+            .stdout("1, 3, 5\n", regex=False)
+            .stdout("1, 1\n", regex=False)
+        )
