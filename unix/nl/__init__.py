@@ -43,5 +43,7 @@ def remove_whitespace_from_empty_lines(text: str):
 
 def assert_same(expected: str, real: str):
     if expected != real:
-        msg = f"Expected:\n{expected}\n    But got:\n{real}"
+        expected = expected.replace("\n", "⏎\n")
+        real = real.replace("\n", "⏎\n")
+        msg = f"\nExpected this:\n{expected}But got:\n{real}---"
         raise check50.Failure(msg)

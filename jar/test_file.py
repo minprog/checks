@@ -4,8 +4,8 @@ import inspect
 
 
 def test_init():
-    assert Jar().capacity == 12
-    assert Jar(13).capacity == 13
+    assert Jar().capacity() == 12
+    assert Jar(13).capacity() == 13
 
 
 def test_raises_value_error():
@@ -37,9 +37,9 @@ def test_withdraw():
     jar = Jar()
     jar.deposit(12)
     jar.withdraw(1)
-    assert jar.size == 11
+    assert jar.size() == 11
     jar.withdraw(11)
-    assert jar.size == 0
+    assert jar.size() == 0
 
 
 def test_empty():
