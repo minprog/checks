@@ -70,6 +70,7 @@ def itoa_minus_1():
 
 def check_atoi(arg: str) -> None:
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     int n = atoi_("<placeholder>");
@@ -88,6 +89,7 @@ int main(void)
 
 def check_itoa(arg: str) -> None:
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     char* str = itoa_(<placeholder>);
@@ -104,6 +106,7 @@ int main(void)
             raise check50.Failure(f"expected {arg} but found {out}")
 
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     itoa_(<placeholder>);

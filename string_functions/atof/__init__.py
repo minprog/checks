@@ -89,6 +89,7 @@ def ftoa_0_3():
 
 def check_atof(arg: str, precision: int) -> None:
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     float n = atof_("<placeholder1>");
@@ -109,6 +110,7 @@ int main(void)
 
 def check_ftoa(arg: str, precision: int) -> None:
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     char* str = ftoa_(<placeholder1>, <placeholder2>);

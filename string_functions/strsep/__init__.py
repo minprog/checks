@@ -32,6 +32,7 @@ def no_malloc():
 def hello_world():
     '''strsep_ with "Hello+World" and "+" as seperator returns "Hello"'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     char string_arr[] = "Hello+World";
@@ -71,6 +72,7 @@ int main(void)
 def foo_bar_baz_qux():
     '''calling strsep_ 3x with "Foo/Bar-Baz+Qux" and "-/" as seperator returns "Foo", then "Bar", then "Baz+Qux"'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     char string_arr[] = "Foo/Bar-Baz+Qux";
@@ -158,6 +160,7 @@ int main(void)
 def null():
     '''strsep_ with NULL as *stringp and "hello world" as seperator returns NULL'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     char* str = NULL;

@@ -31,6 +31,7 @@ def no_malloc():
 def cat_hello_world():
     '''strcat_("Hello", " World") returns "Hello World"'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     char buffer[50] = "Hello";
@@ -52,6 +53,7 @@ int main(void)
 def cat_hello_world_in_place():
     '''strcat_("Hello", " World") modifies "Hello" to "Hello World"'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     char buffer[50] = "Hello";

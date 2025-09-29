@@ -43,6 +43,7 @@ def exists():
 def abcd():
     '''strdup_("abcd") returns "abcd"'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     printf("%s", strdup_("abcd"));
@@ -68,6 +69,7 @@ int main(void)
 def empty():
     '''strdup_("") returns ""'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     printf("%s", strdup_(""));
