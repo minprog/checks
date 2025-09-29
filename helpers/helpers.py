@@ -1,4 +1,5 @@
 import contextlib
+import check50
 import re
 import string
 
@@ -26,7 +27,7 @@ def set_stdout_limit(char_limit: int):
     check50._api._raw = _raw
 
 @contextlib.contextmanager
-def replace_main(filename: str, main: str) -> tuple[None, None, None]:
+def replace_main(filename: str, main: str, show_main_in_help=True) -> tuple[None, None, None]:
     """replace or insert main into file"""
     main = "\n" + main + "\n"
 
@@ -46,6 +47,16 @@ def replace_main(filename: str, main: str) -> tuple[None, None, None]:
         with open(filename, "w") as f:
             f.write(new_content)
         yield
+    except check50.Failure as e:
+        with open(filename, "w") as f:
+            f.write(content)
+        if show_main_in_help:
+            msg = f"The following main function was used to test your code:\n{main}"
+            if "help" in e.payload and e.payload["help"] is not None:
+                e.payload["help"] += "\n" + msg
+            else:
+                e.payload["help"] = msg
+        raise e
     except Exception as e:
         with open(filename, "w") as f:
             f.write(content)

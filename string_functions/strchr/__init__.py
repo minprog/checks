@@ -31,6 +31,7 @@ def no_malloc():
 def find_middle_char():
     '''strchr_("abcd", 'c') returns "cd"'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     printf("%s", strchr_("abcd", 'c'));
@@ -49,6 +50,7 @@ int main(void)
 def find_first_char():
     '''strchr_("abcd", 'a') returns "abcd"'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     printf("%s", strchr_("abcd", 'a'));
@@ -67,6 +69,7 @@ int main(void)
 def find_last_char():
     '''strchr_("abcd", 'd') returns "d"'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     printf("%s", strchr_("abcd", 'd'));
@@ -85,6 +88,7 @@ int main(void)
 def find_first_char_in_duplicate():
     '''strchr_("abba", 'b') returns "bba"'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     printf("%s", strchr_("abba", 'b'));
@@ -104,6 +108,7 @@ int main(void)
 def find_missing_char():
     '''strchr_("abcd", 'e') returns NULL'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     if (strchr_("abcd", 'e') == NULL)
@@ -129,6 +134,7 @@ int main(void)
 def find_term_char():
     '''strchr_("abcd", '\\0') returns ""'''
     main = r"""
+#include <stdio.h>
 int main(void)
 {
     if (strchr_("abcd", '\0') == NULL)
