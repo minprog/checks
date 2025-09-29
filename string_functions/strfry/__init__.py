@@ -49,6 +49,13 @@ int main(void)
 }
 """
 
+    with open("strfry.c", 'r+') as f:
+        content = f.read()
+        f.seek(0)
+
+        if "stdio.h" not in content:
+            f.write("#include <stdio.h>\n" + content)
+
     with helpers.replace_main("strfry.c", main):
         with open("strfry.c") as f:
             content = f.read()
@@ -83,6 +90,13 @@ def scrambles3():
         }
     }
     """
+
+    with open("strfry.c", 'r+') as f:
+        content = f.read()
+        f.seek(0)
+
+        if "stdio.h" not in content:
+            f.write("#include <stdio.h>\n" + content)
 
     perms = ["".join(perm) for perm in itertools.permutations("123")]
 
