@@ -43,7 +43,6 @@ def exists():
 def abcd():
     '''strdup_("abcd") returns "abcd"'''
     main = r"""
-#include <stdio.h>
 int main(void)
 {
     printf("%s", strdup_("abcd"));
@@ -52,9 +51,14 @@ int main(void)
 
     with helpers.replace_main("strdup.c", main):
         inject_malloc_macro("strdup.c")
+        with open("strdup.c", "r+") as f:
+            content = f.read()
+            f.seek(0)
+            f.write("#include <stdio.h>\n" + content)
+
         check50.c.compile("strdup.c")
         out = check50.run("./strdup").stdout()
-
+        print(out)
         numbers = re.findall(r'\d+', out)
         if "5" not in numbers:
             raise check50.Failure(f"expected strdup to malloc exactly 5 bytes, but the code malloc'd {numbers[0]} byte(s)")
@@ -69,7 +73,6 @@ int main(void)
 def empty():
     '''strdup_("") returns ""'''
     main = r"""
-#include <stdio.h>
 int main(void)
 {
     printf("%s", strdup_(""));
@@ -78,6 +81,11 @@ int main(void)
 
     with helpers.replace_main("strdup.c", main):
         inject_malloc_macro("strdup.c")
+        with open("strdup.c", "r+") as f:
+            content = f.read()
+            f.seek(0)
+            f.write("#include <stdio.h>\n" + content)
+
         check50.c.compile("strdup.c")
         out = check50.run("./strdup").stdout()
 
