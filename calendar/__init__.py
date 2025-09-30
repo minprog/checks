@@ -72,7 +72,7 @@ def check_calendar_output(check, month_display, n_padding, n_days):
         check.stdout(format(daynum, '3d'), format(daynum, 'd'))
 
     # final day + newline
-    check.stdout(f'{n_days}' + r'\s*\n', f'{n_days}')
+    check.stdout(f'{n_days}' + r'\s*\n', f'{n_days}\n')
 
     # make sure nothing follows
     remainder = str(check.stdout())
