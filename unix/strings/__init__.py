@@ -35,6 +35,17 @@ def test_strings_strings():
     out_expected = "ABCD\nABCD\n"
     assert_same(out_expected, out_real)
 
+
+@check50.check(compiles)
+def test_strings_strings2():
+    """echo $'BBCD\\x02ABCD\\x03BD\\x04' > foo.txt && ./strings foo.txt prints: BBCD\\nABCD\\n"""
+    with open("foo.txt", "wb") as f:
+        f.write(bytes([66, 66, 67, 68, 2, 65, 66, 67, 68, 3, 66, 68, 4]))
+    out_real = check50.run("./strings foo.txt").stdout()
+    out_expected = "BBCD\nABCD\n"
+    assert_same(out_expected, out_real)
+
+
 def assert_same(expected: str, real: str):
     if expected != real:
         msg = f"Expected:\n{expected}\n    But got:\n{real}"
