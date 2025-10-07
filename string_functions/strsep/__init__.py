@@ -143,7 +143,7 @@ int main(void)
         stringp = re.search(r"stringp3: (.*)\n", out).group(1)
         token = re.search(r"token3: (.*)\n", out).group(1)
         
-        if "nil" in original or int(original, base=16) != int(new, base=16):
+        if "nil" in original or "nil" in new or int(original, base=16) != int(new, base=16):
             raise check50.Failure(f"expected strsep to return the original string {original}, but found {new}")
 
         try:
