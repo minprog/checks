@@ -2,12 +2,16 @@ import check50
 import check50.c
 import os
 
+helpers = check50.internal.import_file(
+    "helpers",
+    check50.internal.check_dir / "../helpers/helpers.py"
+)
+helpers.set_stdout_limit(1000)
 
 @check50.check()
 def exists():
     """dictionary.c, dictionary.h, and Makefile exist"""
     check50.exists("dictionary.c", "dictionary.h")
-
 
 @check50.check(exists)
 def compiles():
