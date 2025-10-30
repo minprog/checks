@@ -43,4 +43,4 @@ def testFunction():
 def testProgram():
     """het programma camelcase.py werkt correct met invoer en uitvoer"""
     output = outputOf(stdinArgs=["close_file"], overwriteAttributes=[("__name__", "__main__")])
-    assert output == "closeFile\n"
+    assert output == "closeFile\n", "verkeerde output voor invoer 'close_file'. Let op dat deze test het programma als geheel uitvoert en vervolgens close_file als input invoert."
