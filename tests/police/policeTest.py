@@ -4,16 +4,16 @@ from checkpy import *
 @test()
 def test_node_and_edge_basic():
     """Basis tests voor Node en Edge classes"""
-    politie = getModule()
+    police = getModule()
 
-    a = politie.Node("Alice")
-    b = politie.Node("Bob")
+    a = police.Node("Alice")
+    b = police.Node("Bob")
 
     assert repr(a) == "Alice", f"De representatie van Node moet 'Alice' zijn, niet {repr(a)}"
     assert isinstance(a.edges, list), "Node.edges moet een lijst zijn"
     assert len(a.edges) == 0, "Nieuwe Node moet beginnen zonder edges"
 
-    e = politie.Edge(a, b)
+    e = police.Edge(a, b)
     assert repr(e) in ("Alice - Bob", "Bob - Alice"), f"Edge representatie klopt niet: {repr(e)}"
     assert e.node1 in (a, b), "node1 is niet correct"
     assert e.node2 in (a, b), "node2 is niet correct"
@@ -27,12 +27,12 @@ def test_node_and_edge_basic():
 @test()
 def test_edge_other_valueerror():
     """Edge.other() geeft een ValueError voor onbekende node"""
-    politie = getModule()
+    police = getModule()
 
-    a = politie.Node("Alice")
-    b = politie.Node("Bob")
-    c = politie.Node("Charlie")
-    e = politie.Edge(a, b)
+    a = police.Node("Alice")
+    b = police.Node("Bob")
+    c = police.Node("Charlie")
+    e = police.Edge(a, b)
     try:
         e.other(c)
     except ValueError:
@@ -45,9 +45,9 @@ def test_edge_other_valueerror():
 @test()
 def test_graph_add_person_and_contact():
     """Basis tests voor Graph class, add_person en add_contact"""
-    politie = getModule()
+    police = getModule()
 
-    g = politie.Graph()
+    g = police.Graph()
     g.add_person("Alice")
     g.add_person("Bob")
     g.add_contact("Alice", "Bob")
@@ -63,13 +63,13 @@ def test_graph_add_person_and_contact():
 @test()
 def test_load_from_file():
     """Graph.load_from_file() werkt correct"""
-    only("politie.py")
+    only("police.py")
     
     with open("small_contacts.csv", "w") as f:
         f.write("Person1,Person2,Method\nAlice,Bob,phone\nBob,Charlie,meeting\nCharlie,Alice,meeting\n")
 
-    politie = getModule()
-    g = politie.Graph._function.load_from_file("small_contacts.csv") # TODO checkpy should not wrap this in checkpy.entities.function.Function
+    police = getModule()
+    g = police.Graph._function.load_from_file("small_contacts.csv") # TODO checkpy should not wrap this in checkpy.entities.function.Function
 
     people = sorted([n.name for n in g.all_people])
     assert people == ["Alice", "Bob", "Charlie"], f"Verkeerde personen geladen: {people}"
@@ -97,9 +97,9 @@ def test_load_from_file():
 @test()
 def test_get_most_contacts():
     """Graph.get_most_contacts() werkt correct"""
-    politie = getModule()
+    police = getModule()
 
-    g = politie.Graph()
+    g = police.Graph()
     g.add_person("Alice")
     g.add_person("Bob")
     g.add_person("Charlie")
@@ -115,9 +115,9 @@ def test_get_most_contacts():
 @test()
 def test_get_direct_contacts():
     """Graph.get_direct_contacts() werkt correct"""
-    politie = getModule()
+    police = getModule()
 
-    g = politie.Graph()
+    g = police.Graph()
     g.add_person("Alice")
     g.add_person("Bob")
     g.add_person("Charlie")
@@ -141,9 +141,9 @@ def test_get_direct_contacts():
 @test()
 def test_indirect_contacts():
     """Graph.get_indirect_contacts() werkt correct"""
-    politie = getModule()
+    police = getModule()
 
-    g = politie.Graph()
+    g = police.Graph()
 
     g.add_person("Alice")
     g.add_person("Bob")
@@ -163,9 +163,9 @@ def test_indirect_contacts():
 @test()
 def test_get_groups():
     """Graph.get_groups() werkt correct"""
-    politie = getModule()
+    police = getModule()
 
-    g = politie.Graph()
+    g = police.Graph()
     g.add_person("Alice")
     g.add_person("Bob")
     g.add_person("Charlie")
@@ -187,9 +187,9 @@ def test_get_groups():
 @test()
 def test_get_triangles():
     """Graph.get_triangles() werkt correct"""
-    politie = getModule()
+    police = getModule()
 
-    g = politie.Graph()
+    g = police.Graph()
 
     g.add_person("Alice")
     g.add_person("Bob")
@@ -208,12 +208,12 @@ def test_get_triangles():
 @passed(test_indirect_contacts, test_get_groups, test_get_triangles)
 def test_actual_files():
     """Test met echte bestand (contacts.csv)"""
-    only("politie.py")
+    only("police.py")
     includeFromTests("contacts.csv")
     
-    politie = getModule()
+    police = getModule()
 
-    g = politie.Graph._function.load_from_file("contacts.csv")
+    g = police.Graph._function.load_from_file("contacts.csv")
     if g.get_most_contacts().name != "Luca":
         raise AssertionError("Persoon met meeste contacten is onjuist")
     
@@ -221,7 +221,7 @@ def test_actual_files():
     if set(direct) != {"Erik", "Youssef", "Alejandro", "Jelle", "Jesse", "Nikolai", "Thomas", "Peter", "Omar", "Marco", "Rick", "Simon", "Kenji", "Lennart"}:
         raise AssertionError("Directe contacten van Luca (persoon met meeste contacten) zijn onjuist")
     
-    Node = politie.Node
+    Node = police.Node
     assert "Akira" in [n.name for n in g.get_indirect_contacts("Luca")], "Indirecte contacten van Luca zijn onjuist"
     assert "Ivan" in [n.name for n in g.get_indirect_contacts("Roel")], "Indirecte contacten van Roel zijn onjuist"
     assert "Peter" not in [n.name for n in g.get_indirect_contacts("Marco")], "Indirecte contacten van Marco zijn onjuist"
