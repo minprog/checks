@@ -11,7 +11,7 @@ from _default_checks import *
 checkPytest.nTests = 4
 
 exclude("*")
-require(file.name, "test_cards.py")
+require(file.name, "test_card.py")
 includeFromTests("original_card.py")
 
 @passed(*allDefaults, hide=False)
@@ -19,27 +19,27 @@ def testAllNewCard():
     """pytest tests testen alle methodes van new_card"""
     exclude("*")
     includeFromTests("log_card.py", "original_card.py")
-    require("test_cards.py")
+    require("test_card.py")
 
     shutil.copyfile("log_card.py", "new_card.py")
 
     runPythonTool("pytest")
 
     if not os.path.exists("log.txt"):
-        raise AssertionError("No methods from new_card.py were called in test_cards.py")
+        raise AssertionError("No methods from new_card.py were called in test_card.py")
 
     with open("log.txt") as f:
         function_calls = set(l.strip() for l in f.readlines() if l.strip())
         difference = {"suit", "rank", "rank_name", "suit_name"} ^ function_calls
         if difference:
-            raise AssertionError(f"The following methods were not called in test_cards.py: {', '.join(difference)}")
+            raise AssertionError(f"The following methods were not called in test_card.py: {', '.join(difference)}")
 
 @passed(testAllNewCard, hide=False)
 def testAllOriginalCard():
     """pytest tests testen alle methodes van original_card"""
     exclude("*")
     includeFromTests("log_card.py")
-    require(file.name, "test_cards.py")
+    require(file.name, "test_card.py")
 
     shutil.copyfile("log_card.py", "original_card.py")
     
@@ -52,14 +52,14 @@ def testAllOriginalCard():
         function_calls = set(l.strip() for l in f.readlines() if l.strip())
         difference = {"suit", "rank", "rank_name", "suit_name"} ^ function_calls
         if difference:
-            raise AssertionError(f"The following methods were not called in test_cards.py: {', '.join(difference)}")
+            raise AssertionError(f"The following methods were not called in test_card.py: {', '.join(difference)}")
 
 @passed(testAllOriginalCard, hide=False)
 def testOurCard():
     """pytest tests werken ook voor een derde implementatie"""
     exclude("*")
     includeFromTests("our_card.py")
-    require(file.name, "test_cards.py")
+    require(file.name, "test_card.py")
 
     shutil.copyfile("our_card.py", "original_card.py")
 
@@ -83,7 +83,7 @@ def testTestsSuit():
     """pytest tests falen bij een foute implementatie van suit()"""
     exclude("*")
     includeFromTests("wrong_card_suit.py")
-    require(file.name, "test_cards.py")
+    require(file.name, "test_card.py")
 
     shutil.copyfile("wrong_card_suit.py", "original_card.py")
 
@@ -94,7 +94,7 @@ def testTestsRank():
     """pytest tests falen bij een foute implementatie van rank()"""
     exclude("*")
     includeFromTests("wrong_card_rank.py")
-    require(file.name, "test_cards.py")
+    require(file.name, "test_card.py")
 
     shutil.copyfile("wrong_card_rank.py", "original_card.py")
 
@@ -105,7 +105,7 @@ def testTestsSuitName():
     """pytest tests falen bij een foute implementatie van suit_name()"""
     exclude("*")
     includeFromTests("wrong_card_suit_name.py")
-    require(file.name, "test_cards.py")
+    require(file.name, "test_card.py")
 
     shutil.copyfile("wrong_card_suit_name.py", "original_card.py")
 
@@ -116,7 +116,7 @@ def testTestsRankName():
     """pytest tests falen bij een foute implementatie van rank_name()"""
     exclude("*")
     includeFromTests("wrong_card_rank_name.py")
-    require(file.name, "test_cards.py")
+    require(file.name, "test_card.py")
 
     shutil.copyfile("wrong_card_rank_name.py", "original_card.py")
 
@@ -126,7 +126,7 @@ def testTestsRankName():
 def testCards():
     """alle methodes van Card werken correct"""
     exclude("*")
-    require(file.name, "test_cards.py")
+    require(file.name, "test_card.py")
     includeFromTests("original_card.py")
 
     module = getModule()
