@@ -155,7 +155,7 @@ def test_indirect_contacts():
     g.add_contact("Charlie", "Diana")
 
     indirect = [n.name for n in g.get_indirect_contacts("Alice")]
-    assert "Charlie" in indirect and "Diana" in indirect, f'Indirecte contacten van Alice zijn onvolledig: {indirect}, dit zijn de contacten in de graaf:\n"g.add_contact("Alice", "Bob")' \
+    assert "Charlie" in indirect and "Diana" in indirect, f'Indirecte contacten van Alice zijn onvolledig: {indirect}, dit zijn de contacten in de graaf:\ng.add_contact("Alice", "Bob")' \
         '\ng.add_contact("Bob", "Charlie")' \
         '\ng.add_contact("Charlie", "Diana")'
     assert "Bob" not in indirect, "Direct contact mag niet in indirecte contacten staan"
