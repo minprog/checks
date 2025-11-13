@@ -123,10 +123,12 @@ def test_get_direct_contacts():
     g.add_person("Charlie")
 
     g.add_contact("Alice", "Bob")
+    g.add_contact("Bob", "Alice")
     g.add_contact("Bob", "Charlie")
 
     contacts = [n.name for n in g.get_direct_contacts("Bob")]
     
+    assert len(contacts) == len(set(contacts)), "Directe contacten bevatten duplicaten"
     assert set(contacts) == {"Alice", "Charlie"}, f"Directe contacten van Bob zijn verkeerd: {contacts}"
 
     try:
