@@ -50,7 +50,12 @@ def test_graph_add_person_and_contact():
     g = police.Graph()
     g.add_person("Alice")
     g.add_person("Bob")
-    g.add_contact("Alice", "Bob")
+
+    try:
+        g.add_contact("Alice", "Bob")
+    except Exception as e:
+        raise AssertionError(f"add_contact() gaf een fout: {e} {type(e)}")
+
 
     assert len(g.all_people) == 2, f"Er moeten 2 personen zijn, maar er zijn {len(g.all_people)}"
     assert len(g.all_contacts) == 1, f"Er moet 1 contact zijn, maar er zijn {len(g.all_contacts)}"

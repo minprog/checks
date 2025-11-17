@@ -46,7 +46,7 @@ def testAllOriginalCard():
     runPythonTool("pytest")
 
     if not os.path.exists("log.txt"):
-        raise AssertionError("No methods from new_card.py were called in original_card.py")
+        raise AssertionError("No methods from original_card.py were called in test_card.py")
     
     with open("log.txt") as f:
         function_calls = set(l.strip() for l in f.readlines() if l.strip())
