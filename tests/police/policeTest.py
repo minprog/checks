@@ -1,9 +1,21 @@
 from checkpy import *
 
+def insert_annotations():
+    """Voegt 'from __future__ import annotations' toe aan police.py voor Python versies > 3.7 en < 3.14"""
+    only("police.py")
+    with open("police.py", "r") as f:
+        source = f.read()
+
+    source = "from __future__ import annotations\n" + source
+
+    with open("police.py", "w") as f:
+        f.write(source)
+
 # === STAP 1: Node en Edge ==========================================
 @test()
 def test_node_and_edge_basic():
     """Basis tests voor Node en Edge classes"""
+    insert_annotations() # TODO remove py >3.14
     police = getModule()
 
     a = police.Node("Alice")
@@ -27,6 +39,7 @@ def test_node_and_edge_basic():
 @test()
 def test_edge_other_valueerror():
     """Edge.other() geeft een ValueError voor onbekende node"""
+    insert_annotations() # TODO remove py >3.14
     police = getModule()
 
     a = police.Node("Alice")
@@ -45,6 +58,7 @@ def test_edge_other_valueerror():
 @test()
 def test_graph_add_person_and_contact():
     """Basis tests voor Graph class, add_person en add_contact"""
+    insert_annotations() # TODO remove py >3.14
     police = getModule()
 
     g = police.Graph()
@@ -68,6 +82,7 @@ def test_graph_add_person_and_contact():
 @test()
 def test_load_from_file():
     """Graph.load_from_file() werkt correct"""
+    insert_annotations() # TODO remove py >3.14
     only("police.py")
     
     with open("small_contacts.csv", "w") as f:
@@ -102,6 +117,7 @@ def test_load_from_file():
 @test()
 def test_get_most_contacts():
     """Graph.get_most_contacts() werkt correct"""
+    insert_annotations() # TODO remove py >3.14
     police = getModule()
 
     g = police.Graph()
@@ -120,6 +136,7 @@ def test_get_most_contacts():
 @test()
 def test_get_direct_contacts():
     """Graph.get_direct_contacts() werkt correct"""
+    insert_annotations() # TODO remove py >3.14
     police = getModule()
 
     g = police.Graph()
@@ -148,6 +165,7 @@ def test_get_direct_contacts():
 @test()
 def test_indirect_contacts():
     """Graph.get_indirect_contacts() werkt correct"""
+    insert_annotations() # TODO remove py >3.14
     police = getModule()
 
     g = police.Graph()
@@ -173,6 +191,7 @@ def test_indirect_contacts():
 @test()
 def test_get_groups():
     """Graph.get_groups() werkt correct"""
+    insert_annotations() # TODO remove py >3.14
     police = getModule()
 
     g = police.Graph()
@@ -197,6 +216,7 @@ def test_get_groups():
 @test()
 def test_get_triangles():
     """Graph.get_triangles() werkt correct"""
+    insert_annotations() # TODO remove py >3.14
     police = getModule()
 
     g = police.Graph()
@@ -219,6 +239,7 @@ def test_get_triangles():
 def test_actual_files():
     """Test met echte bestand (contacts.csv)"""
     only("police.py")
+    insert_annotations() # TODO remove py >3.14
     includeFromTests("contacts.csv")
     
     police = getModule()
