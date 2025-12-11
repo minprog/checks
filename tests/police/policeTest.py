@@ -179,7 +179,11 @@ def test_indirect_contacts():
     g.add_contact("Bob", "Charlie")
     g.add_contact("Charlie", "Diana")
 
-    indirect = [n.name for n in g.get_indirect_contacts("Alice")]
+    try:
+        indirect = [n.name for n in g.get_indirect_contacts("Alice")]
+    except Exception as e:
+        raise AssertionError(f"get_indirect_contacts() gaf een fout: {e} {type(e)}")
+    
     assert "Charlie" in indirect and "Diana" in indirect, f'Indirecte contacten van Alice zijn onvolledig: {indirect}, dit zijn de contacten in de graaf:' \
         '\ng.add_contact("Alice", "Bob")' \
         '\ng.add_contact("Bob", "Charlie")' \
