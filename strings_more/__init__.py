@@ -68,7 +68,7 @@ def test_is_palindrome_false():
 
 @check50.check(has_functions)
 def test_taboo_string_modification():
-    """taboo does >>not< modify the string in place"""
+    """taboo does >>not<< modify the string in place"""
     main = (
         'int main(void) {\n'
         '    char original[] = "The cat is on the roof.";\n'
