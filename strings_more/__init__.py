@@ -81,13 +81,13 @@ def test_taboo():
 
 @check50.check(has_functions)
 def test_taboo_plural():
-    """taboo("The cats are the cat of the Duchess.") prints The dogs are the dog of the Duchess."""
+    """taboo("cat cat cat or the cats of the Duchess.") prints dog dog dog or the cats of the Duchess."""
     main = (
         'int main(void) {\n'
-        '    taboo("The cats are the cat of the Duchess.");\n'
+        '    taboo("cat cat cat or the cats of the Duchess.");\n'
         '}'
     )
 
     with helpers.replace_main("strings_more.c", main):
         check50.c.compile("strings_more.c", lcs50=True)
-        check50.run("./strings_more").stdout("The dogs are the dog of the Duchess.", regex=False).exit(0)
+        check50.run("./strings_more").stdout("dog dog dog or the cats of the Duchess.", regex=False).exit(0)
