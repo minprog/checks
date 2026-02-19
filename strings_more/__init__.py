@@ -90,4 +90,4 @@ def test_taboo_plural():
 
     with helpers.replace_main("strings_more.c", main):
         check50.c.compile("strings_more.c", lcs50=True)
-        check50.run("./strings_more").stdout("dog dog dog or the cats of the Duchess.", regex=False).exit(0)
+        check50.run("./strings_more").stdout("dog dog dog or the dogs of the Duchess.", regex=False).exit(0)
