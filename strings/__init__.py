@@ -68,6 +68,21 @@ def test_eek():
         check50.run("./strings").stdout("The text \"Eek, a mouse!\" contains 3 e's", regex=False).exit(0)
 
 @check50.check(has_functions)
+def test_bob_no_modification():
+    """bob does >>not<< modify the string"""
+    main = (
+        'int main(void) {\n'
+        '    char original[] = "Know your meme";\n'
+        '    bob(original);\n'
+        '    printf("%s should be Know your meme\\n", original);\n'
+        '}'
+    )
+
+    with helpers.replace_main("strings.c", main):
+        check50.c.compile("strings.c", lcs50=True)
+        check50.run("./strings").stdout("Know your meme should be Know your meme", regex=False).exit(0)
+
+@check50.check(test_bob_no_modification)
 def test_bob():
     """bob("Know your meme") prints kNoW YoUr mEmE"""
     main = (
