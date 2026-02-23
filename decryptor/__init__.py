@@ -21,7 +21,7 @@ def compiles():
 
 @check50.check(compiles)
 def test_base_case():
-    """correctly decrypts "gHFrgh Fdhvdu" """
+    """correctly decrypts "gHFrgh Fdhvdu", be sure to prompt for input"""
     (check50.run("./decryptor")
         .stdin("gHFrgh Fdhvdu")
         .stdout(r"dECode Caesar\s?\n", "dECode Caesar\n")
