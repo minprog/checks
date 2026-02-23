@@ -1,9 +1,6 @@
 import check50
 import check50.c
 
-import os
-import glob
-
 @check50.check()
 def exists():
     """calendar.c exists"""
@@ -12,7 +9,10 @@ def exists():
 @check50.check(exists)
 def compiles():
     """calendar.c compiles"""
-    check50.c.compile('calendar.c', lcs50=True)
+    try:
+        check50.c.compile('calendar.c', lcs50=True)
+    except check50.Failure as f:
+        raise check50.Failure(f"calendar.c does not compile\n{str(f)}") from None
 
 
 @check50.check(compiles)
