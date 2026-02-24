@@ -15,7 +15,13 @@ def exists():
 @check50.check(exists)
 def compiles():
     "satellite.c compiles"
-    check50.c.compile("satellite.c", lcs50=True)
+    main = r"""
+int main(void)
+{
+}
+"""
+    with helpers.replace_main("satellite.c", main):
+        check50.c.compile("satellite.c", lcs50=True)
 
 @check50.check(compiles)
 def has_functions():
