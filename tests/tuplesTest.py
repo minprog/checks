@@ -4,7 +4,7 @@ from _helpers import testPytestFail
 
 from typing import Any
 
-checkPytest.nTests = 9
+checkPytest.nTests = 12
 
 exclude("*")
 require(file.name, f"test_{file.name}")
