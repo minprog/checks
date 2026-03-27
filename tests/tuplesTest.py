@@ -146,3 +146,23 @@ def testListEnumerate():
         .returns([(0, 2), (1, 3), (2, 4)])
     )()
 
+@passed(testTests, hide=False)
+def testListZip():
+    """list_zip werkt correct"""
+    calls = static.getFunctionCalls()
+    for call in calls:
+        if call == "zip":
+            raise AssertionError(
+                "don't use python's built-in zip method for this assignment"
+            )
+    
+    (declarative.function("list_zip")
+        .params("values1", "values2")
+        .returnType(list[tuple[Any, Any]])
+        .call([1, 2, 3], ["a", "b", "c"])
+        .returns([(1, "a"), (2, "b"), (3, "c")])
+        .call([1, 2], ["a", "b", "c"])
+        .returns([(1, "a"), (2, "b")])
+        .call([], [])
+        .returns([])
+    )()
