@@ -25,7 +25,7 @@ class Card:
         post: Returns the suit of self as a single character"""
         with open("log.txt", "a") as f:
             f.write("suit\n")
-        return self._suit_num
+        return self._suit_char
 
     def rank(self) -> int:
         """Card rank
