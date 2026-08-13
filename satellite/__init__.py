@@ -35,7 +35,7 @@ def has_functions():
 
 @check50.check(has_functions)
 def print_array():
-    "print_array() prints the contents of the array separated by spaces"
+    "print_array() prints the contents of the array separated by a comma and a space"
     main = r"""
 int main(void)
 {
