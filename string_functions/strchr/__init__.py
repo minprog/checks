@@ -135,6 +135,7 @@ def find_term_char():
     '''strchr_("abcd", '\\0') returns ""'''
     main = r"""
 #include <stdio.h>
+#include <string.h>
 int main(void)
 {
     if (strchr_("abcd", '\0') == NULL)
