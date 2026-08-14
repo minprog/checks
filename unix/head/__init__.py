@@ -20,7 +20,7 @@ def compiles():
 
 @check50.check(compiles)
 def test_head_head2():
-    """./head -2 wordle.txt prints first three lines of worldle.txt"""
+    """./head -2 wordle.txt prints the first two lines of wordle.txt"""
     check50.run("echo $'aback\nburnt\ncoyly\ndrawn\nextra' > wordle.txt").exit(0)
 
     out_real = check50.run("./head -2 wordle.txt").stdout()

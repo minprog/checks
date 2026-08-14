@@ -25,7 +25,10 @@ def test_wc_foo():
 
     out_real = check50.run("./wc hello.txt").stdout()
     out_expected = "       2       2      12 hello.txt\n"
-    assert_same(out_expected, out_real)
+
+    # wc uses different whitespace on Mac/Linux, so the exact spacing between
+    # the columns is free: only the counts and the filename have to match
+    assert_same_words(out_expected, out_real)
 
 # @check50.check(compiles)
 # def test_wc_wc():
@@ -37,5 +40,11 @@ def test_wc_foo():
 
 def assert_same(expected: str, real: str):
     if expected != real:
+        msg = f"Expected:\n{expected}\n    But got:\n{real}"
+        raise check50.Failure(msg)
+
+def assert_same_words(expected: str, real: str):
+    """Compare the words, ignoring how much whitespace is used between them"""
+    if expected.split() != real.split():
         msg = f"Expected:\n{expected}\n    But got:\n{real}"
         raise check50.Failure(msg)

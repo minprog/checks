@@ -20,11 +20,29 @@ def compiles():
 
 @check50.check(compiles)
 def test_paste_foo_bar():
+    """echo $'a\\nb\\nc' > foo.txt && echo $'d\\ne\\nf' > bar.txt && ./paste foo.txt bar.txt prints: a,d\\nb,e\\nc,f\\n"""
+    check50.run("echo $'a\nb\nc' > foo.txt").exit(0)
+    check50.run("echo $'d\ne\nf' > bar.txt").exit(0)
+    out_real = check50.run("./paste foo.txt bar.txt").stdout()
+    out_expected = check50.run("paste -d , foo.txt bar.txt").stdout()
+    assert_same(out_expected.strip(), out_real.strip())
+
+@check50.check(compiles)
+def test_paste_first_file_longer():
     """echo $'a\\nb\\nc' > foo.txt && echo $'d\\ne' > bar.txt && ./paste foo.txt bar.txt prints: a,d\\nb,e\\nc,\\n"""
     check50.run("echo $'a\nb\nc' > foo.txt").exit(0)
     check50.run("echo $'d\ne' > bar.txt").exit(0)
     out_real = check50.run("./paste foo.txt bar.txt").stdout()
-    out_expected = check50.run("paste -d , foo.txt bar.txt").stdout()
+    out_expected = "a,d\nb,e\nc,\n"
+    assert_same(out_expected.strip(), out_real.strip())
+
+@check50.check(compiles)
+def test_paste_second_file_longer():
+    """echo $'a\\nb' > foo.txt && echo $'d\\ne\\nf' > bar.txt && ./paste foo.txt bar.txt prints: a,d\\nb,e\\n,f\\n"""
+    check50.run("echo $'a\nb' > foo.txt").exit(0)
+    check50.run("echo $'d\ne\nf' > bar.txt").exit(0)
+    out_real = check50.run("./paste foo.txt bar.txt").stdout()
+    out_expected = "a,d\nb,e\n,f\n"
     assert_same(out_expected.strip(), out_real.strip())
 
 @check50.check(compiles)
