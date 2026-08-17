@@ -18,14 +18,14 @@ def compiles():
 @check50.check(compiles)
 def cal_1_1800():
     """displays the correct calendar for Jan 1800"""
-    check = check50.run('./calendar').stdin('1800').stdin('1')
+    check = check50.run('./calendar 1800 1')
     check_calendar_output(check, 'Jan 1800', 3, 31)
 
 
 @check50.check(cal_1_1800)
 def cal_11_2021():
     """displays the correct calendar for Nov 2021"""
-    check = check50.run('./calendar').stdin('2021').stdin('11')
+    check = check50.run('./calendar 2021 11')
     check_calendar_output(check, 'Nov 2021', 1, 30)
 
 
@@ -34,19 +34,19 @@ def cal_leap_years():
     """displays the correct calendar for Feb/Mar in leap years"""
 
     # not a leap year
-    check = check50.run('./calendar').stdin('1900').stdin('2')
+    check = check50.run('./calendar 1900 2')
     check_calendar_output(check, 'Feb 1900', 4, 28)
 
     # march in a leap year
-    check = check50.run('./calendar').stdin('2016').stdin('3')
+    check = check50.run('./calendar 2016 3')
     check_calendar_output(check, 'Mar 2016', 2, 31)
 
     # special leap year
-    check = check50.run('./calendar').stdin('2000').stdin('2')
+    check = check50.run('./calendar 2000 2')
     check_calendar_output(check, 'Feb 2000', 2, 29)
 
     # march in that special leap year
-    check = check50.run('./calendar').stdin('2000').stdin('3')
+    check = check50.run('./calendar 2000 3')
     check_calendar_output(check, 'Mar 2000', 3, 31)
 
 
