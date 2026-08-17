@@ -143,7 +143,7 @@ int main(void)
     printf("UNSORTED_HITS %d\n", unsorted_hits);
 }
 """
-    with helpers.replace_main("find.c", main):
+    with helpers.replace_main("find.c", main, show_main_in_help=False):
         check50.c.compile("find.c", lcs50=True)
 
         process = check50.run("./find")
@@ -176,19 +176,9 @@ int main(void)
         if unsorted_hits > SEARCH_MAX_UNSORTED_HITS:
             raise check50.Failure(
                 f"your search does not look like a Binary Search: it found "
-                f"{unsorted_hits} of {n} values in a shuffled array, where at "
-                f"most {SEARCH_MAX_UNSORTED_HITS} were expected",
-                help=f"A Binary Search only looks at about 11 of the {n} "
-                     f"positions, because it halves the part of the array it "
-                     f"still has to search. In a shuffled array it can "
-                     f"therefore only run into a handful of values by "
-                     f"accident; in this check a correct Binary Search finds "
-                     f"around 10. Your search found {unsorted_hits}, which is "
-                     f"what happens when every element is looked at one by "
-                     f"one. Note that your search should not sort the array "
-                     f"itself either: main already calls sort before search.\n"
-                     f"Measured: {sorted_hits} of {n} found in the sorted "
-                     f"array, {unsorted_hits} of {n} in the shuffled array.")
+                f"{unsorted_hits} of {n} values in an >>unsorted<< array. Binary search should "
+                f"rarely find values in an unsorted array, because it only looks at a handful of "
+                f"the positions")
 
 
 @check50.check(compiles)
@@ -321,7 +311,7 @@ int main(void)
     printf("BIG_US %ld\n", big_us);
 }
 """
-    with helpers.replace_main("find.c", main):
+    with helpers.replace_main("find.c", main, show_main_in_help=False):
         check50.c.compile("find.c", lcs50=True)
 
         process = check50.run("./find")
@@ -384,9 +374,4 @@ int main(void)
                      f"algorithm that compares numbers with each other "
                      f"(insertion, selection, bubble, quick) has almost "
                      f"nothing to do with only two numbers, which gives a "
-                     f"ratio far below {SORT_MIN_RATIO}. Using a Counting Sort "
-                     f"only for big arrays does not count either; the "
-                     f"assignment asks for a Counting Sort.\n"
-                     f"Measured: {tiny_reps} times sorting 2 numbers took "
-                     f"{tiny_us} microseconds in total, {big_reps} time(s) "
-                     f"sorting 8000 numbers took {big_us}.")
+                     f"ratio far below {SORT_MIN_RATIO}.")
