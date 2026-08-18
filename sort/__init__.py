@@ -15,28 +15,42 @@ def compiles():
 
 
 @check50.check(compiles)
-def sort_reversed():
-    """sorts {5,4,3,2,1}"""
-    test_sorted([5, 4, 3, 2, 1])
+def sort_2():
+    """sorts 2 numbers"""
+    # two random numbers are already in order half of the time, so repeat
+    for _ in range(12):
+        test_sorted(2)
 
 
 @check50.check(compiles)
-def sort_shuffled():
-    """sorts {5,3,1,2,4,6}"""
-    test_sorted([5, 3, 1, 2, 4, 6])
+def sort_5():
+    """sorts 5 numbers"""
+    test_sorted(5)
 
 
 @check50.check(compiles)
-def sort_last():
-    """sorts {5,3,6,1,2,4}"""
-    test_sorted([5, 3, 6, 1, 2, 4])
+def sort_6():
+    """sorts 6 numbers"""
+    test_sorted(6)
 
 
-def test_sorted(items):
-    check = check50.run("./sort")
-    for i in items:
-        check.stdin(str(i))
-    check.stdin(check50.EOF)
-    for i in sorted(items):
-        check.stdout(str(i))
-    check.exit(0)
+def test_sorted(n_items: int):
+    out = check50.run(f"./sort {n_items}").stdout()
+
+    numbers = []
+    for line in out.split("\n"):
+        line = line.strip()
+        if not line:
+            continue
+
+        try:
+            numbers.append(int(line))
+        except ValueError:
+            raise check50.Failure(f"expected a number on each line of output, but found {line}")
+
+    if len(numbers) != n_items:
+        raise check50.Failure(f"expected {n_items} numbers, but found {len(numbers)}")
+
+    for prev, number in zip(numbers, numbers[1:]):
+        if prev > number:
+            raise check50.Failure(f"expected each following number to be bigger, but found {prev} and {number}")
