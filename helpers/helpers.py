@@ -3,7 +3,7 @@ import check50
 import re
 import string
 
-__all__ = ["replace_main"]
+__all__ = ["replace_main", "ascii_art_regex", "side_by_side", "expect_ascii_art"]
 
 
 def set_stdout_limit(char_limit: int):
@@ -100,3 +100,51 @@ def encode_unprintable(s: str) -> str:
         else:
             encoded_string += "\\x{:02x}".format(ord(char))
     return encoded_string
+
+
+def ascii_art_regex(expected: str) -> str:
+    """Turn ASCII art into a regex that ignores trailing whitespace per line.
+
+    A trailing newline is only required if expected ends with one.
+    """
+    lines = expected.splitlines()
+    regex = r"\s*\n".join(re.escape(line) for line in lines) + r"\s*"
+    if expected.endswith("\n"):
+        regex += "\n"
+    return regex
+
+
+def side_by_side(expected: str, actual: str) -> str:
+    """Render expected and actual output next to each other, line by line."""
+    expected_lines = expected.splitlines()
+    actual_lines = [line.rstrip() for line in actual.replace("\r\n", "\n").splitlines()]
+
+    header_expected, header_actual = "verwacht:", "jouw uitvoer:"
+    width = max([len(line) for line in expected_lines] + [len(header_expected)])
+
+    lines = [
+        f"{header_expected.ljust(width)}   {header_actual}",
+        f"{'-' * width}   {'-' * len(header_actual)}"
+    ]
+
+    for i in range(max(len(expected_lines), len(actual_lines))):
+        left = expected_lines[i] if i < len(expected_lines) else ""
+        right = actual_lines[i] if i < len(actual_lines) else ""
+        marker = "  " if left == right else "<>"
+        lines.append(f"{left.ljust(width)} {marker}{right}")
+
+    return "\n".join(lines)
+
+
+def expect_ascii_art(process, expected: str, rationale: str = "de uitvoer is niet zoals verwacht"):
+    """Expect expected as output of process, reporting any mismatch side by side."""
+    try:
+        process.stdout(ascii_art_regex(expected), str_output=expected)
+    except check50.Mismatch as error:
+        actual = error.payload["actual"]
+    except check50.Missing as error:
+        actual = error.payload["collection"]
+    else:
+        return process
+
+    raise check50.Failure(rationale, help=side_by_side(expected, actual))
