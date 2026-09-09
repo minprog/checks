@@ -1,5 +1,14 @@
+import re
+
 import check50
 import check50.c
+import check50.internal
+
+helpers = check50.internal.import_file(
+    "helpers",
+    check50.internal.check_dir / "../helpers/helpers.py"
+)
+helpers.set_stdout_limit(10000)
 
 
 @check50.check()
@@ -23,13 +32,15 @@ def test010():
 @check50.check(compiles)
 def test001():
     """input of 0.01 yields output of 1 drink"""
-    check50.run("./caffeine").stdin("0.01").stdout("1 drink ", "That makes 1 drink in total").exit(0)
+    process = check50.run("./caffeine").stdin("0.01")
+    check_total(process, 1)
 
 
 @check50.check(compiles)
 def test0001():
     """input of 0.001 yields output of 0 drinks"""
-    check50.run("./caffeine").stdin("0.001").stdout("0 drinks ", "That makes 0 drinks in total").exit(0)
+    process = check50.run("./caffeine").stdin("0.001")
+    check_total(process, 0)
 
 
 @check50.check(compiles)
@@ -70,3 +81,27 @@ def test_reject_empty():
 def number(num):
     # regex that matches `num` not surrounded by any other numbers (so number(2) won't match e.g. 123)
     return fr"(?<!\d){num}(?!\d)"
+
+
+def check_total(process, num):
+    # check the final total, with explicit feedback when only the pluralization is wrong
+    expected_word = "drink" if num == 1 else "drinks"
+    wrong_word = "drinks" if num == 1 else "drink"
+    expected = f"That makes {num} {expected_word} in total"
+
+    out = process.stdout()
+    check50.log(f'checking for output "{expected}"...')
+
+    if re.search(fr"(?<!\d){num}(?!\d)\s+{wrong_word}\b", out):
+        raise check50.Failure(
+            f'expected "{num} {expected_word}", not "{num} {wrong_word}"',
+            help='this is about the pluralization of the word "drink": use "drink" '
+                 'for exactly 1 drink and "drinks" for any other number, so the last '
+                 f'line should read "{expected}"')
+
+    if not re.search(fr"(?<!\d){num}(?!\d)\s+{expected_word}\b", out):
+        raise check50.Mismatch(expected, out.strip())
+
+    check50.log("checking that program exited with status 0...")
+    if process.exitcode != 0:
+        raise check50.Failure(f"expected exit code 0, not {process.exitcode}")
