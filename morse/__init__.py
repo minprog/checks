@@ -13,15 +13,15 @@ def compiles():
 
 @check50.check(compiles)
 def test_sos():
-    """...---... prints SOS"""
-    check50.run("./morse").stdin("...---...").stdout("SOS").exit(0)
+    """./morse ...---... prints SOS"""
+    check50.run("./morse ...---...").stdout("SOS").exit(0)
 
 @check50.check(compiles)
 def test_door():
-    """-..------.-. prints DOOR"""
-    check50.run("./morse").stdin("-..------.-.").stdout("DOOR").exit(0)
+    """./morse -..------.-. prints DOOR"""
+    check50.run("./morse -..------.-.").stdout("DOOR").exit(0)
 
 @check50.check(compiles)
 def test_ross():
-    """.-.---...... prints ROSS"""
-    check50.run("./morse").stdin(".-.---......").stdout("ROSS").exit(0)
+    """./morse .-.---...... prints ROSS"""
+    check50.run("./morse .-.---......").stdout("ROSS").exit(0)
