@@ -114,8 +114,12 @@ def ascii_art_regex(expected: str) -> str:
     return regex
 
 
-def side_by_side(expected: str, actual: str) -> str:
-    """Render expected and actual output next to each other, line by line."""
+def side_by_side(expected: str, actual: str, max_extra_lines: int = 5) -> str:
+    """Render expected and actual output next to each other, line by line.
+
+    At most max_extra_lines lines beyond the expected output are shown, so
+    that runaway output (e.g. from an infinite loop) stays readable.
+    """
     expected_lines = expected.splitlines()
     actual_lines = [line.rstrip() for line in actual.replace("\r\n", "\n").splitlines()]
 
@@ -127,16 +131,22 @@ def side_by_side(expected: str, actual: str) -> str:
         f"{'-' * width}   {'-' * len(header_actual)}"
     ]
 
-    for i in range(max(len(expected_lines), len(actual_lines))):
+    n_rows = min(max(len(expected_lines), len(actual_lines)), len(expected_lines) + max_extra_lines)
+    for i in range(n_rows):
         left = expected_lines[i] if i < len(expected_lines) else ""
         right = actual_lines[i] if i < len(actual_lines) else ""
         marker = "  " if left == right else "<>"
         lines.append(f"{left.ljust(width)} {marker}{right}")
 
+    n_hidden = len(actual_lines) - n_rows
+    if n_hidden > 0:
+        lines.append(f"{''.ljust(width)}   ... en nog {n_hidden} regels")
+
     return "\n".join(lines)
 
 
-def expect_ascii_art(process, expected: str, rationale: str = "de uitvoer is niet zoals verwacht"):
+def expect_ascii_art(process, expected: str, rationale: str = "de uitvoer is niet zoals verwacht",
+                     max_extra_lines: int = 5):
     """Expect expected as output of process, reporting any mismatch side by side."""
     try:
         process.stdout(ascii_art_regex(expected), str_output=expected)
@@ -147,4 +157,12 @@ def expect_ascii_art(process, expected: str, rationale: str = "de uitvoer is nie
     else:
         return process
 
-    raise check50.Failure(rationale, help=side_by_side(expected, actual))
+    help = side_by_side(expected, actual, max_extra_lines)
+
+    # timed out while still running and printing far more than expected: likely an infinite loop
+    too_long = actual.count("\n") > len(expected.splitlines()) + max_extra_lines
+    if too_long and process.process.isalive():
+        help = ("je programma lijkt niet te stoppen en blijft uitvoer geven, "
+                "zit er misschien een oneindige loop in?\n\n" + help)
+
+    raise check50.Failure(rationale, help=help)
