@@ -3,7 +3,7 @@ import check50
 import re
 import string
 
-__all__ = ["replace_main", "ascii_art_regex", "side_by_side", "expect_ascii_art"]
+__all__ = ["replace_main", "ascii_art_regex", "side_by_side", "only_whitespace_differs", "first_difference", "expect_ascii_art"]
 
 
 def set_stdout_limit(char_limit: int):
@@ -121,7 +121,7 @@ def side_by_side(expected: str, actual: str, max_extra_lines: int = 5) -> str:
     that runaway output (e.g. from an infinite loop) stays readable.
     """
     expected_lines = expected.splitlines()
-    actual_lines = [line.rstrip() for line in actual.replace("\r\n", "\n").splitlines()]
+    actual_lines = _lines(actual)
 
     header_expected, header_actual = "verwacht:", "jouw uitvoer:"
     width = max([len(line) for line in expected_lines] + [len(header_expected)])
@@ -145,6 +145,14 @@ def side_by_side(expected: str, actual: str, max_extra_lines: int = 5) -> str:
     return "\n".join(lines)
 
 
+def only_whitespace_differs(expected: str, actual: str) -> bool:
+    """Whether expected and actual are the same when ignoring all whitespace within lines and blank lines."""
+    def visible(text):
+        return ["".join(line.split()) for line in _lines(text) if line.strip()]
+
+    return expected != actual and visible(expected) == visible(actual)
+
+
 def expect_ascii_art(process, expected: str, rationale: str = "de uitvoer is niet zoals verwacht",
                      max_extra_lines: int = 5):
     """Expect expected as output of process, reporting any mismatch side by side."""
@@ -157,12 +165,53 @@ def expect_ascii_art(process, expected: str, rationale: str = "de uitvoer is nie
     else:
         return process
 
-    help = side_by_side(expected, actual, max_extra_lines)
+    hint = ""
+    too_long = actual.count("\n") > len(expected.splitlines()) + max_extra_lines
+
+    if only_whitespace_differs(expected, actual):
+        hint = "alle tekens kloppen, het verschil zit in de witruimte: kijk goed naar spaties en lege regels\n"
 
     # timed out while still running and printing far more than expected: likely an infinite loop
-    too_long = actual.count("\n") > len(expected.splitlines()) + max_extra_lines
-    if too_long and process.process.isalive():
-        help = ("je programma lijkt niet te stoppen en blijft uitvoer geven, "
-                "zit er misschien een oneindige loop in?\n\n" + help)
+    elif too_long and process.process.isalive():
+        hint = "je programma lijkt niet te stoppen en blijft uitvoer geven, zit er misschien een oneindige loop in?\n"
+
+    # check50 indents only the first line of help, so start the table on a line of its own
+    help = hint + "\n" + side_by_side(expected, actual, max_extra_lines)
+
+    difference = first_difference(expected, actual)
+    if difference:
+        row, column = difference
+        expected_lines, actual_lines = expected.splitlines(), _lines(actual)
+        expected_line = expected_lines[row] if row < len(expected_lines) else ""
+        actual_line = actual_lines[row] if row < len(actual_lines) else ""
+        help += (f"\n\neerste verschil in regel {row + 1}, bij teken {column + 1}:\n"
+                 f"verwacht:      \"{expected_line}\"\n"
+                 f"jouw uitvoer:  \"{actual_line}\"")
 
     raise check50.Failure(rationale, help=help)
+
+
+def first_difference(expected: str, actual: str) -> tuple[int, int] | None:
+    """Return (line, column) of the first difference between expected and actual, ignoring trailing whitespace."""
+    expected_lines, actual_lines = expected.splitlines(), _lines(actual)
+
+    for row in range(max(len(expected_lines), len(actual_lines))):
+        left = expected_lines[row] if row < len(expected_lines) else ""
+        right = actual_lines[row] if row < len(actual_lines) else ""
+        if left != right:
+            return row, _first_difference(left, right)
+
+    return None
+
+
+def _lines(text: str) -> list[str]:
+    """Split output into lines without trailing whitespace."""
+    return [line.rstrip() for line in text.replace("\r\n", "\n").splitlines()]
+
+
+def _first_difference(left: str, right: str) -> int:
+    """Index of the first character where left and right differ."""
+    for i, (a, b) in enumerate(zip(left, right)):
+        if a != b:
+            return i
+    return min(len(left), len(right))
