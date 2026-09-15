@@ -20,11 +20,11 @@ def compiles():
 
 @check50.check(compiles)
 def has_functions():
-    """strings.c has the functions: vertical, skip, eek, and bob"""
+    """strings.c has the functions: vertical, skip, eek, first_last, and bob"""
     with open("strings.c") as f:
         content = f.read()
 
-    for name in ["vertical", "skip", "eek", "bob"]:
+    for name in ["vertical", "skip", "eek", "first_last", "bob"]:
         if f" {name}(" not in content:
             raise check50.Failure(f"Missing function: {name}")
 
@@ -66,6 +66,32 @@ def test_eek():
     with helpers.replace_main("strings.c", main):
         check50.c.compile("strings.c", lcs50=True)
         check50.run("./strings").stdout("The text \"Eek, a mouse!\" contains 3 e's", regex=False).exit(0)
+
+@check50.check(has_functions)
+def test_first_last():
+    """first_last("tokyo hotel") prints First: t\\nLast: l\\n"""
+    main = (
+        'int main(void) {\n'
+        '    first_last("tokyo hotel");\n'
+        '}'
+    )
+
+    with helpers.replace_main("strings.c", main):
+        check50.c.compile("strings.c", lcs50=True)
+        check50.run("./strings").stdout("First: t\nLast: l\n", regex=False).exit(0)
+
+@check50.check(has_functions)
+def test_first_last_single():
+    """first_last("x") prints First: x\\nLast: x\\n"""
+    main = (
+        'int main(void) {\n'
+        '    first_last("x");\n'
+        '}'
+    )
+
+    with helpers.replace_main("strings.c", main):
+        check50.c.compile("strings.c", lcs50=True)
+        check50.run("./strings").stdout("First: x\nLast: x\n", regex=False).exit(0)
 
 @check50.check(has_functions)
 def test_bob_no_modification():
