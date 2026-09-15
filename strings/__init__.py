@@ -20,11 +20,11 @@ def compiles():
 
 @check50.check(compiles)
 def has_functions():
-    """strings.c has the functions: vertical, skip, eek, first_last, and bob"""
+    """strings.c has the functions: vertical, skip, eek, first_last, bob, and has_duplicate"""
     with open("strings.c") as f:
         content = f.read()
 
-    for name in ["vertical", "skip", "eek", "first_last", "bob"]:
+    for name in ["vertical", "skip", "eek", "first_last", "bob", "has_duplicate"]:
         if f" {name}(" not in content:
             raise check50.Failure(f"Missing function: {name}")
 
@@ -124,3 +124,55 @@ def test_bob():
         # also accept kNoW YoUr mEmE
         except check50.Failure:
             check50.run("./strings").stdout("kNoW YoUr mEmE", regex=False).exit(0)
+
+@check50.check(has_functions)
+def test_has_duplicate_true():
+    """has_duplicate("tokyo") returns true"""
+    main = (
+        'int main(void) {\n'
+        '    printf("%s\\n", has_duplicate("tokyo") ? "true" : "false");\n'
+        '}'
+    )
+
+    with helpers.replace_main("strings.c", main):
+        check50.c.compile("strings.c", lcs50=True)
+        check50.run("./strings").stdout("true\n", regex=False).exit(0)
+
+@check50.check(has_functions)
+def test_has_duplicate_false():
+    """has_duplicate("hotel") returns false"""
+    main = (
+        'int main(void) {\n'
+        '    printf("%s\\n", has_duplicate("hotel") ? "true" : "false");\n'
+        '}'
+    )
+
+    with helpers.replace_main("strings.c", main):
+        check50.c.compile("strings.c", lcs50=True)
+        check50.run("./strings").stdout("false\n", regex=False).exit(0)
+
+@check50.check(has_functions)
+def test_has_duplicate_first_last():
+    """has_duplicate("abcda") returns true"""
+    main = (
+        'int main(void) {\n'
+        '    printf("%s\\n", has_duplicate("abcda") ? "true" : "false");\n'
+        '}'
+    )
+
+    with helpers.replace_main("strings.c", main):
+        check50.c.compile("strings.c", lcs50=True)
+        check50.run("./strings").stdout("true\n", regex=False).exit(0)
+
+@check50.check(has_functions)
+def test_has_duplicate_single():
+    """has_duplicate("x") returns false"""
+    main = (
+        'int main(void) {\n'
+        '    printf("%s\\n", has_duplicate("x") ? "true" : "false");\n'
+        '}'
+    )
+
+    with helpers.replace_main("strings.c", main):
+        check50.c.compile("strings.c", lcs50=True)
+        check50.run("./strings").stdout("false\n", regex=False).exit(0)
