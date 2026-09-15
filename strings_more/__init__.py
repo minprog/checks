@@ -6,6 +6,7 @@ helpers = check50.internal.import_file(
     "helpers",
     check50.internal.check_dir / "../helpers/helpers.py"
 )
+helpers.set_stdout_limit(100)
 
 @check50.check()
 def exists():
@@ -106,7 +107,7 @@ def test_taboo():
 
 @check50.check(test_taboo_string_modification)
 def test_taboo_plural():
-    """taboo("cat cat cat or the cats of the Duchess.") prints dog dog dog or the cats of the Duchess."""
+    """taboo("cat cat cat or the cats of the Duchess.") prints dog dog dog or the dogs of the Duchess."""
     main = (
         'int main(void) {\n'
         '    taboo("cat cat cat or the cats of the Duchess.");\n'
