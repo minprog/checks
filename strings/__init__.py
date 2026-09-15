@@ -130,7 +130,14 @@ def test_has_duplicate_true():
     """has_duplicate("tokyo") returns true"""
     main = (
         'int main(void) {\n'
-        '    printf("%s\\n", has_duplicate("tokyo") ? "true" : "false");\n'
+        '    if (has_duplicate("tokyo"))\n'
+        '    {\n'
+        '        printf("true\\n");\n'
+        '    }\n'
+        '    else\n'
+        '    {\n'
+        '        printf("false\\n");\n'
+        '    }\n'
         '}'
     )
 
@@ -143,7 +150,14 @@ def test_has_duplicate_false():
     """has_duplicate("hotel") returns false"""
     main = (
         'int main(void) {\n'
-        '    printf("%s\\n", has_duplicate("hotel") ? "true" : "false");\n'
+        '    if (has_duplicate("hotel"))\n'
+        '    {\n'
+        '        printf("true\\n");\n'
+        '    }\n'
+        '    else\n'
+        '    {\n'
+        '        printf("false\\n");\n'
+        '    }\n'
         '}'
     )
 
@@ -156,7 +170,14 @@ def test_has_duplicate_first_last():
     """has_duplicate("abcda") returns true"""
     main = (
         'int main(void) {\n'
-        '    printf("%s\\n", has_duplicate("abcda") ? "true" : "false");\n'
+        '    if (has_duplicate("abcda"))\n'
+        '    {\n'
+        '        printf("true\\n");\n'
+        '    }\n'
+        '    else\n'
+        '    {\n'
+        '        printf("false\\n");\n'
+        '    }\n'
         '}'
     )
 
@@ -169,7 +190,14 @@ def test_has_duplicate_single():
     """has_duplicate("x") returns false"""
     main = (
         'int main(void) {\n'
-        '    printf("%s\\n", has_duplicate("x") ? "true" : "false");\n'
+        '    if (has_duplicate("x"))\n'
+        '    {\n'
+        '        printf("true\\n");\n'
+        '    }\n'
+        '    else\n'
+        '    {\n'
+        '        printf("false\\n");\n'
+        '    }\n'
         '}'
     )
 
