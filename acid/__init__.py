@@ -24,7 +24,7 @@ def has_functions():
         content = f.read()
 
     for name in ["is_acidic"]:
-        if f" {name}(" not in content:
+        if not helpers.has_function(content, name):
             raise check50.Failure(f"Missing function: {name}")
 
 @check50.check(has_functions)

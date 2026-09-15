@@ -3,7 +3,7 @@ import check50
 import re
 import string
 
-__all__ = ["replace_main", "ascii_art_regex", "side_by_side", "only_whitespace_differs", "first_difference", "expect_ascii_art"]
+__all__ = ["replace_main", "ascii_art_regex", "side_by_side", "only_whitespace_differs", "first_difference", "expect_ascii_art", "has_function"]
 
 
 def set_stdout_limit(char_limit: int):
@@ -61,6 +61,10 @@ def replace_main(filename: str, main: str, show_main_in_help=True) -> tuple[None
         with open(filename, "w") as f:
             f.write(content)
         raise e
+
+def has_function(content: str, name: str) -> bool:
+    """Whether a function called name appears in content, allowing whitespace before the ("""
+    return re.search(rf"\b{re.escape(name)}\s*\(", content) is not None
 
 def find_main(content: str) -> tuple[int, int] | None:
     match = re.compile(r"int\s+main\s*\(", re.MULTILINE).search(content)

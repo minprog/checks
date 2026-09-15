@@ -117,7 +117,7 @@ def has_functions():
         content = f.read()
 
     for name in ["add_flake", "fall", "draw_scene"]:
-        if f" {name}(" not in content and f" {name} (" not in content:
+        if not helpers.has_function(content, name):
             raise check50.Failure(
                 f"Missing function: {name}",
                 help="the assignment asks for the functions add_flake, fall and "
