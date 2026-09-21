@@ -46,3 +46,13 @@ def complex_case():
     """correctly identifies 'Skating!' as winner over 'figure?'"""
     check50.run("./scrabble").stdin("figure?").stdin("Skating!").stdout("[Pp]layer 2 [Ww]ins!?", "Player 2 wins!").exit(0)
 
+
+@check50.check(compiles)
+def tie_underscore():
+    """handles underscores correctly"""
+    check50.run("./scrabble").stdin("under_score").stdin("underscore").stdout("[Tt]ie!?", "Tie!").exit(0)
+
+@check50.check(compiles)
+def underscore_no_points():
+    """correctly identifies 'a' as winner over '___'"""
+    check50.run("./scrabble").stdin("___").stdin("a").stdout("[Pp]layer 2 [Ww]ins!?", "Player 2 wins!").exit(0)
