@@ -131,7 +131,7 @@ def fall_moves_snow_down():
     main = r"""
 int main(void)
 {
-    bool scene[40][80] = {false};
+    bool scene[40][80] = {{false}};
     scene[0][5] = true;
     fall(scene);
     dump_scene(scene);
@@ -171,7 +171,7 @@ def fall_keeps_snow_at_the_bottom():
     main = r"""
 int main(void)
 {
-    bool scene[40][80] = {false};
+    bool scene[40][80] = {{false}};
     scene[39][5] = true;
     fall(scene);
     fall(scene);
@@ -205,7 +205,7 @@ def fall_stacks_snow():
     main = r"""
 int main(void)
 {
-    bool scene[40][80] = {false};
+    bool scene[40][80] = {{false}};
     scene[39][5] = true;
     scene[38][5] = true;
     fall(scene);
@@ -231,7 +231,7 @@ def fall_does_not_smear():
     main = r"""
 int main(void)
 {
-    bool scene[40][80] = {false};
+    bool scene[40][80] = {{false}};
     scene[0][5] = true;
     scene[1][5] = true;
     scene[2][5] = true;
@@ -268,7 +268,7 @@ def add_flake_adds_snow_at_the_top():
     main = r"""
 int main(void)
 {
-    bool scene[40][80] = {false};
+    bool scene[40][80] = {{false}};
     add_flake(scene);
     dump_scene(scene);
 }
@@ -303,7 +303,7 @@ int main(void)
 {
     for (int i = 0; i < 200; i++)
     {
-        bool scene[40][80] = {false};
+        bool scene[40][80] = {{false}};
         add_flake(scene);
         dump_scene(scene);
     }
@@ -336,7 +336,7 @@ def draw_scene_prints_the_scene():
     main = r"""
 int main(void)
 {
-    bool scene[40][80] = {false};
+    bool scene[40][80] = {{false}};
     scene[0][0] = true;
     scene[3][10] = true;
     scene[39][79] = true;
@@ -436,8 +436,26 @@ def animates():
             f"saw only {frames} timesteps of the animation"
             + (", after which the program stopped" if finished else ""),
             help="every timestep the program should clear the screen by printing "
-                 "\\033[2J and then draw the scene. Note that this check switches "
+                 "\\033[2J, call fflush(stdout) and then draw the scene. Note that "
+                 "this check switches "
                  "off usleep(), sleep() and nanosleep() to speed up the animation; "
                  "a timing loop that keeps busy instead of sleeping cannot be sped "
                  "up and will time out here."
+        )
+
+
+@check50.check(exists)
+def flushes():
+    "snowfall.c calls fflush(stdout) after clearing the screen"
+    with open("snowfall.c") as f:
+        content = f.read()
+
+    # Ignore comments, so a commented-out fflush does not count
+    content = re.sub(r"//.*|/\*.*?\*/", "", content, flags=re.DOTALL)
+
+    if not re.search(r"\bfflush\s*\(\s*stdout\s*\)", content):
+        raise check50.Failure(
+            "snowfall.c never calls fflush(stdout)",
+            help="printf keeps output in a buffer until it prints a newline, so "
+                 "call fflush(stdout) after printing \\033[2J to clear the screen"
         )
