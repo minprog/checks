@@ -44,5 +44,5 @@ def test_head_head():
 
 def assert_same(expected: str, real: str):
     if expected != real:
-        msg = f"Expected:\n{expected}\n    But got:\n{real}"
+        msg = f"Expected:\n{expected}    But got:\n{real}"
         raise check50.Failure(msg)
