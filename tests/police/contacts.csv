@@ -10,7 +10,7 @@ Nikolai,Rick,meeting
 Freek,Kai,email
 Harm,Timo,email
 Max,Fernando,phone
-Hassan,Kai,email
+Wiebe,Kai,email
 Harm,Rajesh,meeting
 Roel,Diego,email
 Jesse,Thomas,meeting
@@ -19,7 +19,7 @@ Olivier,Hiroshi,meeting
 Luca,Youssef,email
 Rik,Sien,email
 Joost,Erik,meeting
-Hassan,Max,email
+Wiebe,Max,email
 Ivan,Juan,phone
 Juan,Hugo,email
 Peter,Akira,phone
@@ -42,7 +42,7 @@ Roel,Michiel,meeting
 Rajesh,Omar,email
 Paolo,Victor,phone
 Harm,Miguel,meeting
-Hassan,Freek,meeting
+Wiebe,Freek,meeting
 Luca,Jesse,phone
 Peter,Miguel,phone
 Ivan,Olivier,meeting
@@ -57,7 +57,7 @@ Peter,Erik,meeting
 Alejandro,Dimitri,email
 Simon,Erik,meeting
 Marco,Lennart,email
-Hassan,Peter,meeting
+Wiebe,Peter,meeting
 Olivier,Youssef,meeting
 Hugo,Amir,meeting
 Rolf,Thomas,email
@@ -89,11 +89,11 @@ Lennart,Peter,meeting
 Juan,Kai,meeting
 Peter,Marco,meeting
 Peter,Daan,meeting
-Hassan,Freek,email
+Wiebe,Freek,email
 Casper,Sergei,phone
 Rajesh,Erik,email
-Hassan,Rick,phone
-Nikolai,Hassan,meeting
+Wiebe,Rick,phone
+Nikolai,Wiebe,meeting
 Daan,Dimitri,phone
 Harm,Youssef,phone
 Hugo,Erik,email
@@ -110,7 +110,7 @@ Taro,Jelle,meeting
 Taro,Marco,meeting
 Timo,Fernando,meeting
 Martijn,Miguel,meeting
-Jelle,Hassan,email
+Jelle,Wiebe,email
 Taro,Max,phone
 Marco,Erik,phone
 Rajesh,Paolo,meeting
@@ -168,7 +168,7 @@ Jesse,Rolf,phone
 Nikolai,Michiel,meeting
 Jesse,Erik,phone
 Lennart,Luca,phone
-Alejandro,Hassan,email
+Alejandro,Wiebe,email
 Erik,Hugo,email
 Rajesh,Paolo,email
 Michiel,Nikolai,phone

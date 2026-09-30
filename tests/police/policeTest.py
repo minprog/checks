@@ -290,3 +290,51 @@ def test_actual_files():
     for expected in expected_triangles:
         if expected not in tri_sets:
             raise AssertionError(f"Driehoek met {expected} ontbreekt")
+
+
+# === STAP 8: find_culprit =========================================
+@test()
+def test_find_culprit():
+    """Graph.find_culprit() werkt correct"""
+    insert_annotations() # TODO remove py >3.14
+    police = getModule()
+
+    g = police.Graph()
+    for name in ["Boss", "X", "Y", "Z", "W", "V", "U", "D1", "D2"]:
+        g.add_person(name)
+
+    # Boss heeft de meeste contacten; X en Y vormen een driehoek met Boss
+    for name in ["X", "Y", "Z", "W", "V", "U"]:
+        g.add_contact("Boss", name)
+    g.add_contact("X", "Y")
+
+    # D1 kent twee personen uit de binnenste kring, D2 maar een
+    g.add_contact("D1", "X")
+    g.add_contact("D1", "Y")
+    g.add_contact("D2", "Y")
+    g.add_contact("D2", "Z")
+    g.add_contact("D2", "W")
+
+    try:
+        culprit = g.find_culprit()
+    except Exception as e:
+        raise AssertionError(f"find_culprit() gaf een fout: {e} {type(e)}")
+
+    assert getattr(culprit, "name", None) == "D1", \
+        f"De dader is niet correct: {culprit}. Let op: de dader heeft geen direct contact met het brein, " \
+        "en telt alleen contacten uit de binnenste kring (personen in een driehoek met het brein)."
+
+
+@passed(test_find_culprit, test_actual_files)
+def test_actual_culprit():
+    """Graph.find_culprit() vindt de dader in contacts.csv"""
+    only("police.py")
+    insert_annotations() # TODO remove py >3.14
+    includeFromTests("contacts.csv")
+
+    police = getModule()
+    g = police.Graph._function.load_from_file("contacts.csv")
+
+    culprit = g.find_culprit()
+    assert getattr(culprit, "name", None) is not None, "find_culprit() moet een Node teruggeven"
+    assert culprit.name == "Wiebe", "Dit is niet de dader. Kijk goed naar de eisen waaraan de dader voldoet."
