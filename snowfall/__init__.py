@@ -450,9 +450,6 @@ def flushes():
     with open("snowfall.c") as f:
         content = f.read()
 
-    # Ignore comments, so a commented-out fflush does not count
-    content = re.sub(r"//.*|/\*.*?\*/", "", content, flags=re.DOTALL)
-
     if not re.search(r"\bfflush\s*\(\s*stdout\s*\)", content):
         raise check50.Failure(
             "snowfall.c never calls fflush(stdout)",
