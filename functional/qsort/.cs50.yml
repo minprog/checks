@@ -1,0 +1,9 @@
+check50:
+  files: &check50_files
+    - !exclude "*"
+    - !include "Makefile"
+    - !include "*.c"
+    - !include "*.h"
+    - !exclude sorter.c
+    - !require qsort.c
+    - !require compare.c
