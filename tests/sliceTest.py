@@ -24,7 +24,7 @@ def testTests():
 
 @passed(testTests, hide=False)
 def testFunction():
-    """split werkt correct"""
+    """slice werkt correct"""
     slices: tuple[str, slice] = []
     
     class Str(str):
@@ -66,5 +66,25 @@ def testFunction():
         .do(assertNoSlicing)
         .call(Str("helloworld"), 0, -3)
         .returns("helloworld"[:-3])
+        .do(assertNoSlicing)
+        # end is exactly the length of the string
+        .call(Str("abcde"), 2, 5)
+        .returns("abcde"[2:5])
+        .do(assertNoSlicing)
+        # indices outside of the string
+        .call(Str("abcde"), -10, -20)
+        .returns("abcde"[-10:-20])
+        .do(assertNoSlicing)
+        .call(Str("abcde"), 2, 100)
+        .returns("abcde"[2:100])
+        .do(assertNoSlicing)
+        .call(Str("abcde"), -100, 3)
+        .returns("abcde"[-100:3])
+        .do(assertNoSlicing)
+        .call(Str("abcde"), 100)
+        .returns("abcde"[100:])
+        .do(assertNoSlicing)
+        .call(Str(""), 0, 3)
+        .returns(""[0:3])
         .do(assertNoSlicing)
     )()
