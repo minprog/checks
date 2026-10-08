@@ -49,6 +49,13 @@ IN_PLACE = {
 }
 
 
+def compile_game():
+    """Compile game_of_life.c, exposing POSIX functions such as drand48 and usleep under -std=c11"""
+    # Passed via cc, because check50 turns every _ in keyword flags into a -
+    check50.c.compile("game_of_life.c", cc=f"{check50.c.CC} -D_DEFAULT_SOURCE",
+                      lcs50=True)
+
+
 def compile_with(main):
     """Replace the student's main with ours, then compile"""
     return helpers.replace_main("game_of_life.c", DUMP_WORLD + main)
@@ -124,7 +131,7 @@ int main(void)
 }
 """
     with helpers.replace_main("game_of_life.c", main):
-        check50.c.compile("game_of_life.c", lcs50=True)
+        compile_game()
 
 
 @check50.check(compiles)
@@ -159,7 +166,7 @@ int main(void)
 }
 """
     with compile_with(main):
-        check50.c.compile("game_of_life.c", lcs50=True)
+        compile_game()
 
         expect_cells(
             run_dump(),
@@ -190,7 +197,7 @@ int main(void)
 }
 """
     with compile_with(main):
-        check50.c.compile("game_of_life.c", lcs50=True)
+        compile_game()
 
         output = check50.run("./game_of_life").stdout(timeout=10)
         worlds = output.replace("\r\n", "\n").split("END")
@@ -225,7 +232,7 @@ int main(void)
 }
 """
     with compile_with(main):
-        check50.c.compile("game_of_life.c", lcs50=True)
+        compile_game()
 
         expect_cells(
             run_dump(),
@@ -253,7 +260,7 @@ int main(void)
 }
 """
     with compile_with(main):
-        check50.c.compile("game_of_life.c", lcs50=True)
+        compile_game()
 
         expect_cells(
             run_dump(),
@@ -281,7 +288,7 @@ int main(void)
 }
 """
     with compile_with(main):
-        check50.c.compile("game_of_life.c", lcs50=True)
+        compile_game()
 
         output = check50.run("./game_of_life").stdout(timeout=10)
         worlds = output.replace("\r\n", "\n").split("END")
@@ -315,7 +322,7 @@ int main(void)
 }
 """
     with compile_with(main):
-        check50.c.compile("game_of_life.c", lcs50=True)
+        compile_game()
 
         found = sorted(run_dump())
         expected = [(19, 41), (20, 41), (21, 41)]
@@ -364,7 +371,7 @@ int main(void)
 }
 """
     with compile_with(main):
-        check50.c.compile("game_of_life.c", lcs50=True)
+        compile_game()
 
         expect_cells(
             run_dump(),
@@ -390,7 +397,7 @@ int main(void)
 }
 """
     with compile_with(main):
-        check50.c.compile("game_of_life.c", lcs50=True)
+        compile_game()
 
         output = strip_ansi(check50.run("./game_of_life").stdout(timeout=10))
         lines = output.replace("\r\n", "\n").split("\n")
@@ -456,7 +463,7 @@ def animates():
         f.write(content[:position] + speedup + content[position:])
 
     try:
-        check50.c.compile("game_of_life.c", lcs50=True)
+        compile_game()
     finally:
         with open("game_of_life.c", "w") as f:
             f.write(content)
