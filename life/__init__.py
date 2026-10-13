@@ -155,7 +155,7 @@ def block_stays_the_same():
     main = r"""
 int main(void)
 {
-    bool world[40][80] = {false};
+    bool world[40][80] = {{false}};
     world[20][40] = true;
     world[20][41] = true;
     world[21][40] = true;
@@ -184,12 +184,12 @@ def lonely_cells_die():
     main = r"""
 int main(void)
 {
-    bool world[40][80] = {false};
+    bool world[40][80] = {{false}};
     world[20][40] = true;
     next_generation(world);
     dump_world(world);
 
-    bool pair[40][80] = {false};
+    bool pair[40][80] = {{false}};
     pair[20][40] = true;
     pair[20][41] = true;
     next_generation(pair);
@@ -221,7 +221,7 @@ def crowded_cells_die():
     main = r"""
 int main(void)
 {
-    bool world[40][80] = {false};
+    bool world[40][80] = {{false}};
     world[19][40] = true;
     world[20][39] = true;
     world[20][40] = true;
@@ -251,7 +251,7 @@ def dead_cells_come_to_life():
     main = r"""
 int main(void)
 {
-    bool world[40][80] = {false};
+    bool world[40][80] = {{false}};
     world[20][40] = true;
     world[20][41] = true;
     world[21][40] = true;
@@ -277,7 +277,7 @@ def blinker_oscillates():
     main = r"""
 int main(void)
 {
-    bool world[40][80] = {false};
+    bool world[40][80] = {{false}};
     world[20][40] = true;
     world[20][41] = true;
     world[20][42] = true;
@@ -313,7 +313,7 @@ def next_generation_is_simultaneous():
     main = r"""
 int main(void)
 {
-    bool world[40][80] = {false};
+    bool world[40][80] = {{false}};
     world[20][40] = true;
     world[20][41] = true;
     world[20][42] = true;
@@ -357,7 +357,7 @@ def glider_moves():
     main = r"""
 int main(void)
 {
-    bool world[40][80] = {false};
+    bool world[40][80] = {{false}};
     world[10][20] = true;
     world[11][21] = true;
     world[12][19] = true;
@@ -391,7 +391,7 @@ def draw_world_prints_the_world():
     main = r"""
 int main(void)
 {
-    bool world[40][80] = {false};
+    bool world[40][80] = {{false}};
 """ + "".join(f"    world[{row}][{column}] = true;\n" for row, column in cells) + r"""
     draw_world(world);
 }
