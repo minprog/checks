@@ -4,7 +4,7 @@ from checkpy import *
 exclude("*")
 require(file.name)
 
-@passed(checkStyle, checkMypy, hide=False)
+@test()
 def testEnqueue():
     """enqueue voegt elementen toe aan de achterkant van de Queue"""
     run(
