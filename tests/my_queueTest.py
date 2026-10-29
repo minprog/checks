@@ -1,10 +1,42 @@
 from checkpy import *
 # from _default_checks import checkStyle, checkMypy
+import ast
 
 exclude("*")
 require(file.name)
 
 @test()
+def testMainGuard():
+    """code buiten de Queue class staat onder if __name__ == "__main__\""""
+    def isMainGuard(node: ast.stmt) -> bool:
+        return (
+            isinstance(node, ast.If)
+            and isinstance(node.test, ast.Compare)
+            and isinstance(node.test.left, ast.Name)
+            and node.test.left.id == "__name__"
+            and len(node.test.ops) == 1
+            and isinstance(node.test.ops[0], ast.Eq)
+            and len(node.test.comparators) == 1
+            and isinstance(node.test.comparators[0], ast.Constant)
+            and node.test.comparators[0].value == "__main__"
+        )
+
+    def isDocstring(node: ast.stmt) -> bool:
+        return (
+            isinstance(node, ast.Expr)
+            and isinstance(node.value, ast.Constant)
+            and isinstance(node.value.value, str)
+        )
+
+    allowed = (ast.Import, ast.ImportFrom, ast.ClassDef, ast.FunctionDef)
+    for node in ast.parse(static.getSource()).body:
+        if not (isinstance(node, allowed) or isDocstring(node) or isMainGuard(node)):
+            raise AssertionError(
+                f"op regel {node.lineno} staat code buiten de Queue class. "
+                "Zet testcode onder `if __name__ == \"__main__\":`"
+            )
+
+@passed(testMainGuard, hide=False)
 def testEnqueue():
     """enqueue voegt elementen toe aan de achterkant van de Queue"""
     run(
