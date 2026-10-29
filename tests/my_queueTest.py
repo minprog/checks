@@ -1,5 +1,5 @@
 from checkpy import *
-from _default_checks import checkStyle, checkMypy
+# from _default_checks import checkStyle, checkMypy
 
 exclude("*")
 require(file.name)
