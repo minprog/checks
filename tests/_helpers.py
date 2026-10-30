@@ -28,8 +28,14 @@ def testPytestFail(*functions: list[Callable]):
 
     # Assert pytest raises an AssertionError
     if "FAILED" not in runPythonTool("pytest").stdout:
+        # Only show the implementations that are meant to be incorrect, so the
+        # student sees which one their tests should have caught.
+        incorrect = [s for s in sources if "# an incorrect implementation" in s]
+        shown = "\n".join(incorrect) if incorrect else src
         raise AssertionError(
-            "Expected the following implementation to fail the pytest tests:\n\n" + src
+            "Your tests passed, but they should have failed. This implementation is "
+            "incorrect, so at least one of your tests should fail on it. Add a test "
+            "that detects the problem described in the comment:\n\n" + shown
         )
 
 def runPythonTool(tool: str, optionalArgs: list[str]=[]) -> subprocess.CompletedProcess:
