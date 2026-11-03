@@ -24,34 +24,39 @@ def testTests():
         # a correct implementation of list_enumerate
         return list(enumerate(values))
 
+    def list_zip(values1, values2):
+        # a correct implementation of list_zip
+        return list(zip(values1, values2))
+
     correct_max_and_index = max_and_index
     correct_items = items
     correct_list_enumerate = list_enumerate
+    correct_list_zip = list_zip
 
     def max_and_index(numbers):
         # an incorrect implementation of max_and_index that does nothing
         pass
-    testPytestFail(max_and_index, correct_items, correct_list_enumerate)
+    testPytestFail(max_and_index, correct_items, correct_list_enumerate, correct_list_zip)
 
     def max_and_index(numbers):
         # an incorrect implementation of max_and_index that returns minimum
         return min(numbers), numbers.index(min(numbers))
-    testPytestFail(max_and_index, correct_items, correct_list_enumerate)
+    testPytestFail(max_and_index, correct_items, correct_list_enumerate, correct_list_zip)
     
     def max_and_index(numbers):
         # an incorrect implementation of max_and_index that returns wrong index
         return max(numbers), 0
-    testPytestFail(max_and_index, correct_items, correct_list_enumerate)
+    testPytestFail(max_and_index, correct_items, correct_list_enumerate, correct_list_zip)
     
     def max_and_index(numbers):
         # an incorrect implementation of max_and_index that returns wrong max
         return 0, numbers.index(max(numbers))
-    testPytestFail(max_and_index, correct_items, correct_list_enumerate)
+    testPytestFail(max_and_index, correct_items, correct_list_enumerate, correct_list_zip)
     
     def items(dictionary):
         # an incorrect implementation of items that does nothing
         pass
-    testPytestFail(correct_max_and_index, items, correct_list_enumerate)
+    testPytestFail(correct_max_and_index, items, correct_list_enumerate, correct_list_zip)
 
     def items(dictionary):
         # an incorrect implementation of items with reversed keys and values
@@ -59,12 +64,12 @@ def testTests():
         for key in dictionary:
             its.append((dictionary[key], key))
         return its
-    testPytestFail(correct_max_and_index, items, correct_list_enumerate)
+    testPytestFail(correct_max_and_index, items, correct_list_enumerate, correct_list_zip)
 
     def list_enumerate(values):
         # an incorrect implementation of list_enumerate that does nothing
         pass
-    testPytestFail(correct_max_and_index, correct_items, list_enumerate)
+    testPytestFail(correct_max_and_index, correct_items, list_enumerate, correct_list_zip)
 
     def list_enumerate(values):
         # an incorrect implementation of list_enumerate that starts at index 1
@@ -72,7 +77,7 @@ def testTests():
         for index in range(1, len(values) + 1):
             enums.append((index, values[index - 1]))
         return enums
-    testPytestFail(correct_max_and_index, correct_items, list_enumerate)
+    testPytestFail(correct_max_and_index, correct_items, list_enumerate, correct_list_zip)
 
 
 @passed(testTests, hide=False)
