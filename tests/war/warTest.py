@@ -43,7 +43,7 @@ def testWar():
 
     output = outputOf(overwriteAttributes=[("__name__", "__main__")])
     
-    rounds = output.split("\n\n")
+    rounds = output.strip().split("\n\n")
     result = rounds.pop(-1)
 
     actual_round_number = 1
@@ -109,8 +109,8 @@ def testWar():
         actual_round_number += 1
 
     if actual_cards_p1 == actual_cards_p2:
-        assert result == "The game is a tie!\n", "As a potential hint: make sure your printed output matches the assignment, don't forget the blank line in between rounds :)"
+        assert result == "The game is a tie!", "As a potential hint: make sure your printed output matches the assignment, don't forget the blank line in between rounds :)"
     elif actual_cards_p1 > actual_cards_p2:
-        assert result == f"Player 1 wins the game with {actual_cards_p1} cards!\n"
+        assert result == f"Player 1 wins the game with {actual_cards_p1} cards!"
     else:
-        assert result == f"Player 2 wins the game with {actual_cards_p2} cards!\n"
+        assert result == f"Player 2 wins the game with {actual_cards_p2} cards!"
