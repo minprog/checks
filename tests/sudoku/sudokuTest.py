@@ -35,7 +35,7 @@ checkPytest.timeout = 120
 
 exclude("*")
 require(file.name)
-includeFromTests("solve.py", "bench.py", "puzzles/*.csv", "baseline/sudoku.py", "pytest_tests/*.py")
+includeFromTests("solve.py", "bench.py", "puzzles/*.csv", "baseline/sudoku.py", "test_*.py")
 
 
 class BenchError(AssertionError):
